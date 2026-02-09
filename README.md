@@ -31,20 +31,20 @@ ingrediënten met kwaliteitscontrole.
 
 ## Productieproces
 
-1. Ingrediënt 1 Verwerking
-  Scannen en gieten van het eerste ingredient.
-2. Ingrediënt 2 Verwerking
-  Scannen & gieten van het tweede ingrediënt.
-3. Mengen
-  Automatisch mixen van de ingrediënten.
-4. Vullen
-  Vullen van een bepaald volume van de mix.
+1. Ingrediënt 1 Verwerking </br>
+    Scannen en gieten van het eerste ingredient.
+2. Ingrediënt 2 Verwerking </br>
+    Scannen & gieten van het tweede ingrediënt.
+3. Mengen </br>
+    Automatisch mixen van de ingrediënten.
+4. Vullen (PLC) </br>
+    Vullen van een bepaald volume van de mix.
 5. Kwaliteitscontrole
-  Controleren van de mix op ijzerverontreiniging.
-6. Wegen
-  Afwegen van het eindproduct.
-7. Registratie
-  Registreren van productiegegevens in het systeem.
+    Controleren van de mix op ijzerverontreiniging.
+6. Wegen (PLC) </br>
+    Afwegen van het eindproduct.
+7. Registratie </br>
+    Registreren van productiegegevens in het systeem.
 
 
 
