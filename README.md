@@ -8,16 +8,25 @@ ingrediënten met kwaliteitscontrole.
 ## Hardware
 
 - Inductieve sensor
-- Servo-motor (NEMA-17)
-- DC-motor 
-- Robot-arm (IGUS SCARA-robot) met PSoC6 en/of PLC
-- Transportband via PLC
+- Servo-motor
+- DC-Motor
 - Weegschaal
-- Batch-reader (TC Vision)
+- Batch-reader
+- Robot-arm (IGUS SCARA-robot) via PSoC6
+- Transportband via PLC
+- Files transportband
 - 3D-printer
 
 ## Software
 
+- Blender/Fusion
+- Modustoolbox
+- Twincat3
+
+## Program Taal
+
+- C/C++
+- Structure text
 
 ## Productieproces
 
