@@ -1,0 +1,124 @@
+name: Validate Content
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-broken-links:
+    name: Check Broken Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Linkinator
+        uses: JustinBeckwith/linkinator-action@v1
+        with:
+          paths: "**/*"
+          recurse: true
+          verbosity: "ERROR"
+
+  check-external-links:
+    name: Check for Disallowed Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for blob links and external media
+        run: |
+          echo "⏳ Controleren op absolute of externe links..."
+          
+          REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
+
+          if grep -r -E "${REPO_URL}/blob/" .; then
+            echo "❌ Blob-links naar eigen repo gevonden. Gebruik relatieve paden."
+            exit 1
+          fi
+
+          if grep -r -E "https?://(?!localhost|127\.0\.0\.1|github\.com/${GITHUB_REPOSITORY})" . \
+            | grep -Ei "\.(png|jpe?g|gif|pdf|docx?)"; then
+            echo "❌ Externe absolute links naar mediabestanden gevonden. Zet ze lokaal en gebruik relatieve paden."
+            exit 1
+          fi
+          
+          echo "✅ Geen disallowed links gevonden."
+
+  enforce-plaintext-formats:
+    name: Block Non-Plaintext File Formats
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for non-text file types
+        id: check_files
+        run: |
+          echo "⏳ Controleren op verboden binaire bestandsformaten..."
+          
+          forbidden_files=$(find . -type f \( \
+            -name "*.docx" -o -name "*.pptx" -o -name "*.xlsx" -o \
+            -name "*.doc" -o -name "*.ppt" -o -name "*.xls" -o \
+            -name "*.odt" -o -name "*.odp" -o -name "*.ods" -o \
+            -name "*.pages" -o -name "*.numbers" -o -name "*.key" -o \
+            -name "*.rtf" -o \
+            -name "*.zip" -o -name "*.rar" -o -name "*.7z" -o \
+            -name "*.tar" -o -name "*.gz" -o -name "*.bz2" -o \
+            -name "*.tnzip" -o -name "*.tszip" -o -name "*.tpzip" -o \
+            -name "*.psd" -o -name "*.ai" -o -name "*.sketch" -o \
+            -name "*.fig" -o -name "*.xcf" -o \
+            -name "*.exe" -o -name "*.dll" -o -name "*.so" -o \
+            -name "*.dylib" -o -name "*.app" -o -name "*.dmg" -o \
+            -name "*.msi" -o -name "*.deb" -o -name "*.rpm" -o \
+            -name "*.db" -o -name "*.sqlite" -o -name "*.mdb" -o \
+            -name "*.accdb" \
+          \) -not -path "./.git/*" -not -path "./.github/*") || true
+          
+          if [ -n "$forbidden_files" ]; then
+            echo "❌ Verboden bestanden aangetroffen:"
+            echo "$forbidden_files"
+            echo "forbidden=true" >> $GITHUB_OUTPUT
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            echo "$forbidden_files" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          echo "✅ Geen verboden bestanden gevonden."
+          echo "forbidden=false" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR with clear explanation
+        if: failure() && github.event_name == 'pull_request' && steps.check_files.outputs.forbidden == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = `${{ steps.check_files.outputs.files }}`;
+            const comment = `## ❌ Niet-toegestane bestandsformaten gedetecteerd
+            GitHub is geen OneDrive of Dropbox! Het is een **samenwerkingsplatform** waar men je werk moet kunnen **reviewen** en **feedback** geven. Deze formaten zijn niet reviewbaar:
+            \`\`\`
+            ${files}
+            \`\`\`
+            
+            **Waarom is dit een probleem?**
+            - 📄 Word/PowerPoint/Excel bestanden kan niemand bekijken zonder ze te downloaden
+            - 🔍 Men kan geen line-by-line feedback geven op de inhoud
+            - 💬 Er kunnen geen gesprekken gestart worden over specifieke delen
+            - 📝 Wijzigingen tussen versies zijn onzichtbaar (geen diff)
+            - 🤝 Samenwerken wordt onmogelijk
+            
+            **Wat nu?**
+            1. Verwijder deze bestanden uit je branch
+            2. Converteer ze naar formaten die GitHub direct kan weergeven
+            3. Push je wijzigingen opnieuw
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
