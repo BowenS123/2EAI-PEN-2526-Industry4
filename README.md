@@ -16,6 +16,7 @@ ingrediënten met kwaliteitscontrole.
 - Transportband via PLC
 - Files transportband
 - 3D-printer
+- pigtail connectors
 
 ## Software
 
