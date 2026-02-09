@@ -1,37 +1,40 @@
-# Naam van het project
-
-![Overzicht](./resources/media/Overview.jpg)
+# 2EAI-PEN-2526-Industry4 (pannekoek)
 
 ## Over het project
 
-Korte beschrijving van het project: wat is het, waarom is het gemaakt, en wat is de algemene doelstelling?
+Ontwikkelen van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
+ingrediënten met kwaliteitscontrole.
 
-### Sequence of operation
+## Hardware
 
-Beschrijf kort wat je verwacht nadat alle hardware en software zijn opgezet volgens de stappen onder **Getting Started**. Deze sectie dient als handleiding voor niet-technische gebruikers.
+- Inductieve sensor
+- Servo-motor (NEMA-17)
+- DC-motor 
+- Robot-arm (IGUS SCARA-robot) met PSoC6 en/of PLC
+- Transportband via PLC
+- Weegschaal
+- Batch-reader (TC Vision)
+- 3D-printer
 
-1. Verbind het bord met de computer via USB.
-2. De groene LED schakelt automatisch in om aan te geven dat het systeem actief is.
-3. In de seriële terminal verschijnt een welkomstbericht.
-4. De lineaire slider voert een automatische kalibratie uit en beweegt zichzelf naar het midden.
-5. Wacht tot een piepsignaal klinkt en plaats daarna de telefoon op de houder van de slider.
-
-Volg eventueel verdere aanwijzingen die in de terminal worden weergegeven of op de interface te zien zijn.
-
-
-
-## Materialen en methodes
-
-> 💡**Werk op een versiebeheer-vriendelijke manier**
->
-> Gebruik **platte tekstformaten** zoals Markdown of CSV-bestanden. Deze zijn leesbaar in GitHub en goed te volgen in versiebeheer.
->
-> Vermijd het gebruik van externe links naar afbeeldingen of bestanden (zoals datasheets of documenten). Voeg deze lokaal toe in bijvoorbeeld een `media` of `datasheets` map. Externe links kunnen breken wanneer de originele bron verdwijnt of als deze repository wordt hernoemd, geforkt of offline gehaald.
+## Software
 
 
-- **Hardware**: lijst van gebruikte componenten (bv. sensoren, microcontrollers, actuatoren).
-- **Software**: overzicht van programmeertalen, libraries en tools.
-- **Methodologie**: korte beschrijving van de werkwijze.
+## Productieproces
+
+1. Ingrediënt 1 Verwerking
+  Scannen en gieten van het eerste ingredient.
+2. Ingrediënt 2 Verwerking
+  Scannen en gieten van het tweede ingrediënt.
+3. Mengen
+  Automatisch mixen van de ingrediënten.
+4. Vullen
+  Vullen van een bepaald volume van de mix.
+5. Kwaliteitscontrole
+  Controleren van de mix op ijzerverontreiniging.
+6. Wegen
+  Afwegen van het eindproduct.
+7. Registratie
+  Registreren van productiegegevens in het systeem.
 
 
 
