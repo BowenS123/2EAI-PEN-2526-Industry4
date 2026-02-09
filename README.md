@@ -20,21 +20,21 @@ ingrediënten met kwaliteitscontrole.
 
 ## Software
 
-- Blender/Fusion
-- Modustoolbox
-- Twincat3
+- Blender/Fusion => .stl => print
+- Modustoolbox(MTB) => PSoC
+- Twincat3 => Beckoff PLC
 
-## Program Taal
+## Programmeertaal
 
-- C/C++
-- Structure text
+- C/C++ => MTB
+- Structure text => Twincat3
 
 ## Productieproces
 
 1. Ingrediënt 1 Verwerking
   Scannen en gieten van het eerste ingredient.
 2. Ingrediënt 2 Verwerking
-  Scannen en gieten van het tweede ingrediënt.
+  Scannen & gieten van het tweede ingrediënt.
 3. Mengen
   Automatisch mixen van de ingrediënten.
 4. Vullen
