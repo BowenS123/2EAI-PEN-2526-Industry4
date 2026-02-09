@@ -37,11 +37,11 @@ ingrediënten met kwaliteitscontrole.
     Scannen & gieten van het tweede ingrediënt.
 3. Mengen </br>
     Automatisch mixen van de ingrediënten.
-4. Vullen (PLC) </br>
+4. Vullen </br>
     Vullen van een bepaald volume van de mix.
 5. Kwaliteitscontrole
     Controleren van de mix op ijzerverontreiniging.
-6. Wegen (PLC) </br>
+6. Wegen </br>
     Afwegen van het eindproduct.
 7. Registratie </br>
     Registreren van productiegegevens in het systeem.
