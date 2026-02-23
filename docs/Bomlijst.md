@@ -44,7 +44,7 @@ voor de automatisatie van de productielijn (transport → mengen → robotarm �
 | C-02 | PLC Klemmen | Terminal blocks | TBD | TBD | TBD | TBD | TBD | Nee | Bekabeling |
 | C-03 | ESP | ESP32 Dev Board | 1 | TBD | TBD | TBD | TBD | Nee | Communicatie |
 | C-04 | PSoC | Programmable SoC (robotarm) | 1 | TBD | TBD | TBD | TBD | Ja | Embedded controle |
-| C-05 | EL7332 | EtherCAT Terminal, 2-channel motion interface, DC motor, 24 V DC, 1 A | 1 | Beckhoff | TBD | EL7332 | TBD | Nee | DC motor aansturing |
+| C-05 | EL7332 | EtherCAT Terminal, 2-channel motion interface, DC motor, 24 V DC, 1 A | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed-elm7xxx-compact-drive-technology/el7332.html | EL7332 | TBD | Nee | DC motor aansturing |
 | C-06 | EL1008 | EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed1xxx-digital-input/el1008.html | EL1008 | TBD | Ja | Digitale ingangen |
 | C-07 | EL6001 | EtherCAT Terminal, 1-channel communication interface, serial, RS232 | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed6xxx-communication/el6001.html | EL6001 | TBD | Ja | RS232 communicatie |
 
