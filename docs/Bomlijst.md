@@ -1,10 +1,4 @@
 # 🧾 Bill of Materials (BOM)
-## Project: Geautomatiseerde Productielijn
-Versie: 1.0  
-Laatste update: YYYY-MM-DD  
-
----
-
 # 📌 Overzicht
 
 Deze BOM bevat alle mechanische, elektrische en besturingscomponenten
