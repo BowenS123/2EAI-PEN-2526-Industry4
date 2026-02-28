@@ -10,9 +10,9 @@ voor de automatisatie van de productielijn (transport → mengen → robotarm �
 
 | ID | Component | Specificatie | Aantal | Leverancier | Link | Artikelnummer | Prijs (€) | Hebben | Opmerking |
 |----|------------|--------------|--------|--------------|------|---------------|-----------|--------|------------|
-| M-01 | Weegschaal | Industriële platform weegschaal | 1 | TBD | TBD | TBD | TBD | Nee | Gewichtmeting |
+| M-01 | Weegschaal | Industriële platform weegschaal | 1 | https://www.amazon.com.be/ | https://www.amazon.com.be/-/en/U-S-Solid-Precision-Scales-RS232/dp/B09KBZT57J?language=nl_BE | TBD | TBD | Nee | Gewichtmeting |
 | M-02 | DC-Motor Transportband | RS PRO Geared DC Motor, 24 V DC, 20 Ncm, 75 rpm, 5 mm shaft | 1 | RS PRO | https://benl.rs-online.com/web/p/dc-motors/2588316 | 258-8316 | TBD | Nee | Conveyor aandrijving |
-| M-03 | DC-Motor Mixer | 24V DC | 1 | TBD | TBD | TBD | TBD | Nee | Basis mengmotor |
+| M-03 | DC-Motor Mixer | 24V DC | 1 | https://www.reichelt.com/ | https://www.reichelt.com/nl/nl/shop/product/aandrijfmotor_27_mm_90_1_12_v_dc-159631 | TBD | TBD | Nee | Basis mengmotor |
 | M-04 | Servo-Motor Mixer | Industriële servo | 1 | TBD | TBD | TBD | TBD | Nee | Precisie snelheidsregeling |
 | M-05 | Servo-Motor Robotarm | High torque servo | 1 | TBD | TBD | TBD | TBD | Ja | Hoofdaandrijving |
 | M-06 | Steppermotor Robotarm | drylin E stappenmotor, NEMA 17, gevlochten draad | 3 | igus | https://www.igus.be/product/MOT-AN-S-060-005-042-L-A-AAAA | MOT-AN-S-060-005-042-L-A-AAAA | TBD | Ja | Robotarm assen |
