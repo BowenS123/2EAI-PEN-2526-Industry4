@@ -29,59 +29,67 @@ De test wordt gedaan met de motor te besturen met de Psoc6 btn. Als de btn wordt
 #define EN_PIN      P9_2
 #define BUTTON_PIN  P0_4
 
-volatile bool motor_run = false;
-
-// Interrupt handler voor button
-void button_isr(void *callback_arg, cyhal_gpio_event_t event)
-{
-    motor_run = !motor_run;   // Toggle motor aan/uit
-}
-
-void single_step(void)
-{
-    cyhal_gpio_write(STEP_PIN, 0);
-    cyhal_system_delay_us(1000);
-    cyhal_gpio_write(STEP_PIN, 1);
-    cyhal_system_delay_us(1000);
-}
-
 int main(void)
 {
     cybsp_init();
     __enable_irq();
 
-    // Motor pins
-    cyhal_gpio_init(STEP_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 1);
-    cyhal_gpio_init(DIR_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 1);
-    cyhal_gpio_init(EN_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 1);
+    cyhal_gpio_init(STEP_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(DIR_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(EN_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
 
-    // Enable driver (LOW actief)
-    cyhal_gpio_write(EN_PIN, 0);
+    cyhal_gpio_write(EN_PIN, 1);
 
-    // Richting vastzetten (omhoog)
+
+    cyhal_gpio_init(BUTTON_PIN, CYHAL_GPIO_DIR_INPUT, CYHAL_GPIO_DRIVE_PULLUP, 1);
+
+    bool direction = false;
+    bool last_state = 1;
+
+
+    cyhal_gpio_write(STEP_PIN, 1);
     cyhal_gpio_write(DIR_PIN, 0);
-
-    // Button instellen
-    cyhal_gpio_init(BUTTON_PIN,
-                    CYHAL_GPIO_DIR_INPUT,
-                    CYHAL_GPIO_DRIVE_PULLUP,
-                    1);
-
-    cyhal_gpio_enable_event(BUTTON_PIN,
-                            CYHAL_GPIO_IRQ_FALL,
-                            3,
-                            true);
-
-    cyhal_gpio_register_callback(BUTTON_PIN, button_isr);
 
     while(1)
     {
-        if(motor_run)
+        bool now = cyhal_gpio_read(BUTTON_PIN);
+
+
+        if(last_state == 1 && now == 0)
         {
-            single_step();
+
+            cyhal_system_delay_ms(50);
+            now = cyhal_gpio_read(BUTTON_PIN);
+            if(now == 0)
+            {
+                direction = !direction;
+
+                if(!direction)
+                {
+                    //links
+                    cyhal_gpio_write(STEP_PIN, 1);
+                    cyhal_gpio_write(DIR_PIN, 0);
+                }
+                else
+                {
+                	//rechts
+                    cyhal_gpio_write(STEP_PIN, 0);
+                    cyhal_gpio_write(DIR_PIN, 1);
+                }
+
+
+                while(cyhal_gpio_read(BUTTON_PIN) == 0)
+                {
+                    cyhal_system_delay_ms(10);
+                }
+            }
         }
+
+        last_state = now;
+        cyhal_system_delay_ms(5);
     }
 }
+
 
 ```
 ## Doel van dit project
