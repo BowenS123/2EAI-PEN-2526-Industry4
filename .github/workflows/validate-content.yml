@@ -1,9 +1,6 @@
 name: Validate Content
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -15,12 +12,88 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run Linkinator
-        uses: JustinBeckwith/linkinator-action@v1
+      - name: Verify documentation exists
+        id: verify_docs
+        run: |
+          echo "⏳ Controleren of er markdown documentatie aanwezig is..."
+          
+          MD_COUNT=$(find . -name "*.md" -type f -not -path "./.git/*" -not -path "./.github/*" | wc -l)
+          
+          if [ "$MD_COUNT" -eq 0 ]; then
+            echo "❌ GEEN markdown documentatie gevonden!"
+            echo "has_docs=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          echo "✅ $MD_COUNT markdown bestand(en) gevonden"
+          echo "has_docs=true" >> $GITHUB_OUTPUT
+          echo "doc_count=$MD_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR - Missing documentation
+        if: failure() && github.event_name == 'pull_request' && steps.verify_docs.outputs.has_docs == 'false'
+        uses: actions/github-script@v7
         with:
-          paths: "**/*"
+          script: |
+            const comment = `## ❌ Geen documentatie gevonden
+            
+            Er zijn geen markdown (.md) bestanden gevonden in je repository. **Documentatie is verplicht.**
+            
+            Voeg minimaal een \`README.md\` toe met:
+            - Projectbeschrijving en doel
+            - Hardware/software vereisten
+            - Installatie en gebruik instructies
+            - Auteur en licentie
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Run Linkinator on markdown files
+        if: steps.verify_docs.outputs.has_docs == 'true'
+        id: linkinator
+        uses: JustinBeckwith/linkinator-action@v2
+        continue-on-error: true
+        with:
+          paths: "**/*.md"
           recurse: true
           verbosity: "ERROR"
+          concurrency: 10
+          timeout: 10000        # 10s per request
+          retryErrors: false    # geen retries op 5xx / netwerkfouten
+          retry: false          # geen retries op 429
+
+      - name: Comment on PR - Broken links found
+        if: steps.linkinator.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## ❌ Broken links gevonden
+            
+            Je documentatie bevat kapotte links. Check de workflow logs voor details.
+            
+            **Veelvoorkomende oorzaken:**
+            - Bestanden bestaan niet op het aangegeven pad
+            - Hoofdlettergevoeligheid: \`Image.png\` ≠ \`image.png\`
+            - Absolute paden gebruikt in plaats van relatieve paden
+            - Verkeerde slashes: gebruik \`/\` niet \`\\\`
+            
+            **Fix:** Gebruik relatieve paden zoals \`docs/file.pdf\` of \`docs/images/photo.jpg\`
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail if linkinator failed
+        if: steps.linkinator.outcome == 'failure'
+        run: exit 1
 
   check-external-links:
     name: Check for Disallowed Links
@@ -30,23 +103,85 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check for blob links and external media
+        id: check_links
         run: |
           echo "⏳ Controleren op absolute of externe links..."
           
-          REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
-
-          if grep -r -E "${REPO_URL}/blob/" .; then
-            echo "❌ Blob-links naar eigen repo gevonden. Gebruik relatieve paden."
-            exit 1
+          # Escape de repository URL voor gebruik in grep (escape dots en slashes)
+          REPO_OWNER="${GITHUB_REPOSITORY%/*}"
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          
+          # Check voor blob links - simpele aanpak: zoek gewoon naar github.com + repo + /blob/
+          blob_links=$(grep -r --include="*.md" --include="*.html" --include="*.htm" --include="*.txt" \
+            "github\.com/${REPO_OWNER}/${REPO_NAME}/blob/" . 2>/dev/null || true)
+          
+          if [ -n "$blob_links" ]; then
+            echo "❌ Blob-links naar eigen repo gevonden:"
+            echo "$blob_links"
+            echo "has_blob_links=true" >> $GITHUB_OUTPUT
+            echo "blob_links<<EOF" >> $GITHUB_OUTPUT
+            echo "$blob_links" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
           fi
 
-          if grep -r -E "https?://(?!localhost|127\.0\.0\.1|github\.com/${GITHUB_REPOSITORY})" . \
-            | grep -Ei "\.(png|jpe?g|gif|pdf|docx?)"; then
-            echo "❌ Externe absolute links naar mediabestanden gevonden. Zet ze lokaal en gebruik relatieve paden."
+          # Check voor externe media links
+          external_media=$(grep -rn --include="*.md" --include="*.html" --include="*.htm" --include="*.txt" \
+            -E "https?://" . 2>/dev/null | \
+            grep -v "github\.com/${REPO_OWNER}/${REPO_NAME}" | \
+            grep -v "localhost" | \
+            grep -v "127\.0\.0\.1" | \
+            grep -Ei "\.(png|jpe?g|gif|pdf|docx?)" || true)
+          
+          if [ -n "$external_media" ]; then
+            echo "❌ Externe media links gevonden:"
+            echo "$external_media"
+            echo "has_external_media=true" >> $GITHUB_OUTPUT
+            echo "external_media<<EOF" >> $GITHUB_OUTPUT
+            echo "$external_media" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+          
+          # Fail als een van beide gevonden is
+          if [ -n "$blob_links" ] || [ -n "$external_media" ]; then
             exit 1
           fi
           
           echo "✅ Geen disallowed links gevonden."
+
+      - name: Comment on PR - Disallowed links found
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const hasBlobLinks = '${{ steps.check_links.outputs.has_blob_links }}' === 'true';
+            const hasExternalMedia = '${{ steps.check_links.outputs.has_external_media }}' === 'true';
+            const blobLinks = `${{ steps.check_links.outputs.blob_links }}`;
+            const externalMedia = `${{ steps.check_links.outputs.external_media }}`;
+            
+            let comment = `## ❌ Verboden links gevonden\n\n`;
+            
+            if (hasBlobLinks) {
+              comment += `### 🔗 Absolute blob links naar eigen repository\n\n`;
+              comment += `Gebruik relatieve paden in plaats van absolute GitHub URLs.\n\n`;
+              comment += `**Gevonden:**\n\`\`\`\n${blobLinks}\n\`\`\`\n\n`;
+              comment += `**Fix:** Vervang \`https://github.com/.../blob/.../file.pdf\` door \`path/to/file.pdf\`\n\n`;
+            }
+            
+            if (hasExternalMedia) {
+              comment += `### 🌐 Externe links naar mediabestanden\n\n`;
+              comment += `Download externe media (afbeeldingen, PDFs) en plaats ze lokaal in je repository.\n\n`;
+              comment += `**Gevonden:**\n\`\`\`\n${externalMedia}\n\`\`\`\n\n`;
+              comment += `**Fix:** Download het bestand, plaats in \`docs/\` en link relatief: \`docs/datasheet.pdf\`\n\n`;
+            }
+            
+            comment += `**Waarom?** Externe links kunnen verdwijnen, blob links breken bij forks/renames.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
 
   enforce-plaintext-formats:
     name: Block Non-Plaintext File Formats
@@ -91,29 +226,31 @@ jobs:
           echo "✅ Geen verboden bestanden gevonden."
           echo "forbidden=false" >> $GITHUB_OUTPUT
 
-      - name: Comment on PR with clear explanation
+      - name: Comment on PR - Forbidden files found
         if: failure() && github.event_name == 'pull_request' && steps.check_files.outputs.forbidden == 'true'
         uses: actions/github-script@v7
         with:
           script: |
             const files = `${{ steps.check_files.outputs.files }}`;
-            const comment = `## ❌ Niet-toegestane bestandsformaten gedetecteerd
-            GitHub is geen OneDrive of Dropbox! Het is een **samenwerkingsplatform** waar men je werk moet kunnen **reviewen** en **feedback** geven. Deze formaten zijn niet reviewbaar:
+            const comment = `## ❌ Verboden bestandsformaten gedetecteerd
+            
+            GitHub is een samenwerkingsplatform voor **reviewbare code en tekst**, geen bestandsopslag. Binaire bestanden (Word, Excel, PowerPoint, zip) kunnen niet gereviewed worden en zijn niet toegestaan.
+            
+            **Verboden bestanden:**
             \`\`\`
             ${files}
             \`\`\`
             
-            **Waarom is dit een probleem?**
-            - 📄 Word/PowerPoint/Excel bestanden kan niemand bekijken zonder ze te downloaden
-            - 🔍 Men kan geen line-by-line feedback geven op de inhoud
-            - 💬 Er kunnen geen gesprekken gestart worden over specifieke delen
-            - 📝 Wijzigingen tussen versies zijn onzichtbaar (geen diff)
-            - 🤝 Samenwerken wordt onmogelijk
+            **Wat te gebruiken:**
+            - Word/Pages → Markdown (\`.md\`)
+            - Excel/Numbers → CSV (\`.csv\`)
+            - PowerPoint → Markdown met Marp
+            - zip/rar → Gewoon de bestanden direct in de repo
+            - Design bestanden → SVG of PNG/JPG export
             
-            **Wat nu?**
-            1. Verwijder deze bestanden uit je branch
-            2. Converteer ze naar formaten die GitHub direct kan weergeven
-            3. Push je wijzigingen opnieuw
+            **Toegestaan zijn WEL:** PDFs (voor datasheets/schemas), afbeeldingen (PNG/JPG/SVG), en alle tekstformaten.
+            
+            **Fix:** Verwijder met \`git rm <bestand>\`, converteer naar toegestane formaten, commit en push.
             `;
             
             github.rest.issues.createComment({

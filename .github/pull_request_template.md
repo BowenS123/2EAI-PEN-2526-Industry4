@@ -22,10 +22,10 @@ Beschrijf kort wat deze Pull Request doet:
 Beschrijf hoe je het getest hebt:
 - 
 
-## 📸 Screenshots (optioneel)
+## Screenshots (optioneel)
 
 [Voeg screenshots toe indien relevant]
 
-## 💬 Opmerkingen voor reviewers
+## Opmerkingen voor reviewers
 
 [Extra context, aandachtspunten of follow-up taken]
