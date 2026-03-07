@@ -19,6 +19,8 @@ int stateDone = 6;          // Start at part 6
 bool mixerDone = false;     // Track if mixer is done
 String currentStatus = "waiting";
 
+String clientId; // uniek id voor apparaat
+
 // Timing
 unsigned long lastUpdate = 0;
 const unsigned long updateInterval = 3000; // Update every 3 seconds
@@ -50,22 +52,55 @@ void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Connecting to MQTT...");
-    
     // Create random client ID
-    String clientId = "ESP32Client-";
+    clientId = "ESPMixer-";
     clientId += String(random(0xffff), HEX);
     
-    // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
-      
-      // Send initial status with retain flag so new subscribers get it
+      if (client.subscribe(topic_done)) {
+        Serial.println("Subscribed to: " + String(topic_done));
+      } else {
+        Serial.println("Subscription failed!");
+      }
       client.publish(topic_status, "connected", true);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.println(" try again in 5 seconds");
       delay(5000);
+    }
+  }
+}
+// Callback function to handle incoming messages
+void callback(char* topic, byte* payload, unsigned int length) {
+  String message;
+  for (int i = 0; i < length; i++) {
+    message += (char)payload[i];
+  }
+  if (message.indexOf(clientId) != -1) {
+    Serial.println("negeer self-published message");
+    return;
+  }
+
+  // Check if message is for done state
+  if (String(topic) == topic_done) {
+    int separatorIndex = message.indexOf('|');
+    String stateValue = message;
+    if (separatorIndex != -1) {
+      stateValue = message.substring(0, separatorIndex);
+    }
+    int newDoneState = stateValue.toInt();
+    
+    // Validate the new state (assuming valid range 0-10) + when this controller busy (6)
+    if(stateDone != 6){
+      if (newDoneState >= 0 && newDoneState <= 10) {
+        Serial.print("Update state to ");
+        Serial.println(newDoneState);
+        
+        stateDone = newDoneState;
+        publishAllData();
+      }
     }
   }
 }
@@ -76,7 +111,10 @@ void publishAllData() {
   itoa(stateDone, stateStr, 10);
   
   // Publish all current values
-  client.publish(topic_done, stateStr, true);                    // "6" or "7"
+  // Publish with client ID in the message (as a prefix or separate)
+  String messageWithId = String(stateStr) + "|" + clientId;
+  client.publish(topic_done, messageWithId.c_str(), true);
+
   client.publish(topic_done_descr, currentStatus.c_str(), true); // Description
   client.publish(topic_status, currentStatus.c_str(), true);     // Status
   
@@ -89,34 +127,21 @@ void executeMixer() {
     // delay for how long mixing
     delay(2000);
     // write DC-motor pin LOW
-    mixerDone = true;
+    stateDone = 7;
+    currentStatus = "mixer_done";
+    Serial.println("Part 7: Mixer completed!");
+    publishAllData();
 }
 
 void simulateProcess() {
   // Simple simulation - changes every few seconds
   if (millis() - lastUpdate > updateInterval) {
     lastUpdate = millis();
-    
-    // State machine logic
-    if (stateDone == 6 && !mixerDone) {
-      // Part 6 completed, move to mixing
-      stateDone = 6;
-      currentStatus = "mixing";
-      publishAllData();
-      executeMixer();
-    } 
-    else if (mixerDone) {
-      // Mixer completed
-      mixerDone = true;
-      stateDone = 7;
-      currentStatus = "mixer_done";
-      Serial.println("Mixer completed!");
-      publishAllData();
-
-      // Reset cycle
-      mixerDone = false;
-      stateDone = 6;
-      currentStatus = "waiting";
+    if (stateDone == 6) {
+        // Part 6 completed, move to mixing
+        currentStatus = "mixing";
+        publishAllData();
+        executeMixer();
     }
   }
 }
@@ -126,6 +151,7 @@ void setup() {
   setup_wifi();
   
   client.setServer(mqtt_server, mqtt_port);
+  client.setCallback(callback); // Set the callback function
   
   // Wait for WiFi and MQTT to connect before publishing
   delay(1000);
