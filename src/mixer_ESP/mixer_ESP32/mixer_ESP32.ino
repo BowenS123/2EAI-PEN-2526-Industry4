@@ -13,6 +13,8 @@ const int mqtt_port = 1883;
 const char* topic_done = "mydata/done/state";         // Will send 0 <-> x
 const char* topic_done_descr = "mydata/done/description"; // Will send description string
 const char* topic_status = "mydata/mixer/status";     // Will send "waiting", "mixing", "done"
+// Add subscription topic for setting done state
+//const char* topic_set_done = "mydata/set/done/state"; // Listen for done state changes
 
 // Simple state variables
 int stateDone = 6;          // Start at part 6
