@@ -67,7 +67,9 @@ typedef enum
 /* Struct to be passed via the publisher task queue */
 typedef struct{
     publisher_cmd_t cmd;
-    char *data;
+    uint32_t step_index;
+    uint32_t state_value;
+    const char *description;
 } publisher_data_t;
 
 /*******************************************************************************

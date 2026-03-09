@@ -2,10 +2,11 @@
 * File Name:   publisher_task.c
 *
 * Description: This file contains the task that sets up the user button GPIO 
-*              for the publisher and publishes MQTT messages on the topic
-*              'MQTT_PUB_TOPIC' to control a device that is actuated by the
-*              subscriber task. The file also contains the ISR that notifies
-*              the publisher task about the new device state to be published.
+*              for the publisher and publishes robot-arm step updates on the
+*              topic 'MQTT_PUB_TOPIC'. During development a button press
+*              simulates the arm advancing to the next step. The file also
+*              contains the ISR that notifies the publisher task about the
+*              new step value to be published.
 *
 * Related Document: See README.md
 *
@@ -52,8 +53,9 @@
 #include "mqtt_task.h"
 #include "subscriber_task.h"
 
-/* Configuration file for MQTT client */
 #include "mqtt_client_config.h"
+#include "string.h"
+#include <stdio.h>
 
 /* Middleware libraries */
 #include "cy_mqtt_api.h"
@@ -96,14 +98,27 @@ TaskHandle_t publisher_task_handle;
 QueueHandle_t publisher_task_q;
 
 /* Structure to store publish message information. */
-cy_mqtt_publish_info_t publish_info =
+cy_mqtt_publish_info_t publish_state_info =
 {
     .qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-    .topic = MQTT_PUB_TOPIC,
-    .topic_len = (sizeof(MQTT_PUB_TOPIC) - 1),
+    .topic = MQTT_PUB_STATE7_TOPIC,
+    .topic_len = (sizeof(MQTT_PUB_STATE7_TOPIC) - 1),
     .retain = false,
     .dup = false
 };
+
+cy_mqtt_publish_info_t publish_desc_info =
+{
+    .qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
+    .topic = MQTT_PUB_DESC_TOPIC,
+    .topic_len = (sizeof(MQTT_PUB_DESC_TOPIC) - 1),
+    .retain = false,
+    .dup = false
+};
+
+/* Static buffer reused for outgoing step payloads. */
+static char step_payload[64];
+static char desc_payload[64];
 
 /* Structure that stores the callback data for the GPIO interrupt event. */
 cyhal_gpio_callback_data_t cb_data =
@@ -147,6 +162,16 @@ void publisher_task(void *pvParameters)
     /* Create a message queue to communicate with other tasks and callbacks. */
     publisher_task_q = xQueueCreate(PUBLISHER_TASK_QUEUE_LENGTH, sizeof(publisher_data_t));
 
+    /* Publish initial waiting state for robot arm: step 7 = 0 with waiting description. */
+    publisher_data_t initial_state =
+    {
+        .cmd = PUBLISH_MQTT_MSG,
+        .step_index = 7u,
+        .state_value = 0u,
+        .description = "robotarm_waiting"
+    };
+    xQueueSend(publisher_task_q, &initial_state, 0);
+
     while (true)
     {
         /* Wait for commands from other tasks and callbacks. */
@@ -170,14 +195,18 @@ void publisher_task(void *pvParameters)
 
                 case PUBLISH_MQTT_MSG:
                 {
-                    /* Publish the data received over the message queue. */
-                    publish_info.payload = publisher_q_data.data;
-                    publish_info.payload_len = strlen(publish_info.payload);
+                    const char *desc = (publisher_q_data.description != NULL) ? publisher_q_data.description : "Step";
+                    uint32_t state_value = (publisher_q_data.state_value <= 1u) ? publisher_q_data.state_value : 1u;
 
-                    printf("\nPublisher: Publishing '%s' on the topic '%s'\n",
-                           (char *) publish_info.payload, publish_info.topic);
+                    snprintf(step_payload, sizeof(step_payload), "%lu", (unsigned long)state_value);
 
-                    result = cy_mqtt_publish(mqtt_connection, &publish_info);
+                    publish_state_info.payload = step_payload;
+                    publish_state_info.payload_len = strlen(step_payload);
+
+                    printf("\nPublisher: Publishing state on '%s' -> %s\n",
+                        publish_state_info.topic, step_payload);
+
+                    result = cy_mqtt_publish(mqtt_connection, &publish_state_info);
 
                     if (result != CY_RSLT_SUCCESS)
                     {
@@ -190,7 +219,21 @@ void publisher_task(void *pvParameters)
                         xQueueSend(mqtt_task_q, &mqtt_task_cmd, portMAX_DELAY);
                     }
 
-                    print_heap_usage("publisher_task: After publishing an MQTT message");
+                    /* Publish description if provided. */
+                    snprintf(desc_payload, sizeof(desc_payload), "%s", desc);
+                    publish_desc_info.payload = desc_payload;
+                    publish_desc_info.payload_len = strlen(desc_payload);
+
+                    result = cy_mqtt_publish(mqtt_connection, &publish_desc_info);
+
+                    if (result != CY_RSLT_SUCCESS)
+                    {
+                        printf("  Publisher: MQTT description publish failed with error 0x%0X.\n\n", (int)result);
+                        mqtt_task_cmd = HANDLE_MQTT_PUBLISH_FAILURE;
+                        xQueueSend(mqtt_task_q, &mqtt_task_cmd, portMAX_DELAY);
+                    }
+
+                    print_heap_usage("publisher_task: After publishing state/description");
                     break;
                 }
             }
@@ -221,8 +264,8 @@ static void publisher_init(void)
     cyhal_gpio_enable_event(CYBSP_USER_BTN, CYHAL_GPIO_IRQ_FALL,
                             USER_BTN_INTR_PRIORITY, true);
     
-    printf("\nPress the user button (SW2) to publish \"%s\"/\"%s\" on the topic '%s'...\n", 
-           MQTT_DEVICE_ON_MESSAGE, MQTT_DEVICE_OFF_MESSAGE, publish_info.topic);
+        printf("\nPress the user button (SW2) to publish the next robot arm step on topic '%s'...\n", 
+            publish_state_info.topic);
 }
 
 /******************************************************************************
@@ -252,10 +295,10 @@ static void publisher_deinit(void)
  * Function Name: isr_button_press
  ******************************************************************************
  * Summary:
- *  GPIO interrupt service routine. This function detects button
- *  presses and sends the publish command along with the data to be published 
- *  to the publisher task over a message queue. Based on the current device 
- *  state, the publish data is set so that the device state gets toggled.
+ *  GPIO interrupt service routine. This function detects button presses and
+ *  sends the publish command along with the next step index to the publisher
+ *  task over a message queue. During bench testing, each press simulates the
+ *  robot arm advancing to a new step.
  *
  * Parameters:
  *  void *callback_arg : pointer to variable passed to the ISR (unused)
@@ -277,15 +320,10 @@ static void isr_button_press(void *callback_arg, cyhal_gpio_event_t event)
     /* Assign the publish command to be sent to the publisher task. */
     publisher_q_data.cmd = PUBLISH_MQTT_MSG;
 
-    /* Assign the publish message payload so that the device state toggles. */
-    if (current_device_state == DEVICE_ON_STATE)
-    {
-        publisher_q_data.data = (char *)MQTT_DEVICE_OFF_MESSAGE;
-    }
-    else
-    {
-        publisher_q_data.data = (char *)MQTT_DEVICE_ON_MESSAGE;
-    }
+    /* When user presses the button we mark robot arm step 7 as done. */
+    publisher_q_data.step_index = 7u;
+    publisher_q_data.state_value = 1u;
+    publisher_q_data.description = "robotarm_done";
 
     /* Send the command and data to publisher task over the queue */
     xQueueSendFromISR(publisher_task_q, &publisher_q_data, &xHigherPriorityTaskWoken);

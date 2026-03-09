@@ -66,8 +66,14 @@
 
 /********************* MQTT MESSAGE CONFIGURATION MACROS **********************/
 /* The MQTT topics to be used by the publisher and subscriber. */
-#define MQTT_PUB_TOPIC                    "ledstatus"
-#define MQTT_SUB_TOPIC                    "ledstatus"
+#define MQTT_PUB_STATE_TOPIC              "mydata/done/state"
+#define MQTT_PUB_STATE6_TOPIC             "mydata/done/state/6"
+#define MQTT_PUB_STATE7_TOPIC             "mydata/done/state/7"
+#define MQTT_PUB_DESC_TOPIC               "mydata/done/description"
+
+/* Backwards compatibility: main publish topic maps to state. */
+#define MQTT_PUB_TOPIC                    MQTT_PUB_STATE_TOPIC
+#define MQTT_SUB_TOPIC                    MQTT_PUB_STATE_TOPIC
 
 /* Set the QoS that is associated with the MQTT publish, and subscribe messages.
  * Valid choices are 0, 1, and 2. Other values should not be used in this macro.
@@ -88,13 +94,6 @@
     #define MQTT_WILL_TOPIC_NAME          MQTT_PUB_TOPIC "/will"
     #define MQTT_WILL_MESSAGE             ("MQTT client unexpectedly disconnected!")
 #endif
-
-/* MQTT messages which are published on the MQTT_PUB_TOPIC that controls the
- * device (user LED in this example) state in this code example.
- */
-#define MQTT_DEVICE_ON_MESSAGE            "TURN ON"
-#define MQTT_DEVICE_OFF_MESSAGE           "TURN OFF"
-
 
 /******************* OTHER MQTT CLIENT CONFIGURATION MACROS *******************/
 /* A unique client identifier to be used for every MQTT connection. */
