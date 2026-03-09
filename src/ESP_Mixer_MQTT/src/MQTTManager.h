@@ -18,7 +18,7 @@ private:
     const char* topic_status = "mydata/mixer/status";
 
     const char* topic_done_prev ; // subscribe to topic_done/stateDone
-    const char* topic_done_this ; // update this to path add topic_done/x to post stateDone+1
+    const char* topic_done_this ; // update this to path to post topic_done/stateDone+1=1
 
     // WiFi credentials (moeten worden ingesteld via setter of constructor)
     const char* ssid;
