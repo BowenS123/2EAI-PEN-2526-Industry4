@@ -1,0 +1,7 @@
+/.metadata/
+/.debug/
+*/build/*
+/mtb_shared/*
+*/configs/wifi_config.h
+*log
+*/templates
