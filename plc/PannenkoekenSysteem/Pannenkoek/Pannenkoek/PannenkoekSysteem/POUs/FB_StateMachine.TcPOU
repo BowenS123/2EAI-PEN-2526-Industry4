@@ -15,49 +15,36 @@ VAR_OUTPUT
 END_VAR
 
 VAR
-    eState : E_MainState := E_MainState.INIT;  // Interne state
-	FB_Transportband     :	FB_Transportband;
-END_VAR
-]]></Declaration>
+	eState : E_MainState := E_MainState.INIT;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE eState OF
-	E_MainState.INIT:
-		eState := E_MainState.IDLE;
-		
-	E_MainState.IDLE:
-		IF bStart THEN
-            eState := E_MainState.RUNNING;
-        END_IF
-	
-	E_MainState.RUNNING:
-	    FB_Transportband(
-			bStart := TRUE,  // RUNNING → start band
-			bStop  := bStop  // stop / noodstop
-    	);
-		
-		bTransportbandStart := FB_Transportband.bRunning;
-		
-		(*
-		IF FB_Transportband.bDone THEN
-		END_IF
-		*)
-		
-		IF bStop THEN
-            eState := E_MainState.STOPPING;
-        ELSIF bError THEN
-            eState := E_MainState.ERROR;
-        END_IF
-		
-	E_MainState.STOPPING:
-		eState := E_MainState.IDLE;
-	
-	E_MainState.ERROR:
-	    IF NOT bError THEN
-            eState := E_MainState.IDLE;
-        END_IF
+  E_MainState.INIT:
+    eState := E_MainState.IDLE;
+
+  E_MainState.IDLE:
+    IF bError THEN
+      eState := E_MainState.ERROR;
+    ELSIF bStart OR bTransportbandStart THEN
+      eState := E_MainState.RUNNING;
+    END_IF
+
+  E_MainState.RUNNING:
+    IF bError THEN
+      eState := E_MainState.ERROR;
+    ELSIF bStop THEN
+      eState := E_MainState.STOPPING;
+    END_IF
+
+  E_MainState.STOPPING:
+    eState := E_MainState.IDLE;
+
+  E_MainState.ERROR:
+    IF bStop THEN
+      eState := E_MainState.IDLE;
+    END_IF
 END_CASE
 
-// Huidige state beschikbaar maken
 eStateOut := eState;]]></ST>
     </Implementation>
     <LineIds Name="FB_StateMachine">
@@ -67,29 +54,8 @@ eStateOut := eState;]]></ST>
       <LineId Id="84" Count="0" />
       <LineId Id="79" Count="0" />
       <LineId Id="86" Count="1" />
-      <LineId Id="83" Count="0" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="88" Count="0" />
-      <LineId Id="106" Count="2" />
-      <LineId Id="105" Count="0" />
-      <LineId Id="109" Count="1" />
-      <LineId Id="118" Count="0" />
-      <LineId Id="111" Count="0" />
-      <LineId Id="114" Count="0" />
-      <LineId Id="113" Count="0" />
-      <LineId Id="116" Count="1" />
-      <LineId Id="90" Count="3" />
-      <LineId Id="89" Count="0" />
-      <LineId Id="97" Count="0" />
-      <LineId Id="95" Count="1" />
-      <LineId Id="98" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="102" Count="1" />
-      <LineId Id="101" Count="0" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="104" Count="0" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="73" Count="0" />
+      <LineId Id="10" Count="19" />
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_Visu" Id="{80bf8ec4-5627-47a6-93b3-fd9f08c710d0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+    // Robot Arm
+    sRobotState        : STRING(10);   // idle, moving, error
+    nRobotColor        : DWORD;        // kleur voor rectangle/LED
+    bRobotCmdSentPulse : BOOL;         // pulse indicator
+    bRobotStateParseError : BOOL;      // parse fout indicator
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

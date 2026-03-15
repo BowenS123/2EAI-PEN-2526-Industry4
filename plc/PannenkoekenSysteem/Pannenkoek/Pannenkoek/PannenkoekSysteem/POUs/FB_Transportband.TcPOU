@@ -14,20 +14,41 @@ VAR_OUTPUT
 END_VAR
 
 VAR
-    tRun : TON;       // Timer om transportband te simuleren
+  tRun : TON;       // Timer om transportband te simuleren
+  rStartTrig : R_TRIG;
+  bCycleActive : BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bStart AND NOT bStop THEN
+    <ST><![CDATA[rStartTrig(CLK := bStart);
+
+IF bStop THEN
+  bCycleActive := FALSE;
+  bRunning := FALSE;
+  bDone := FALSE;
+  tRun(IN := FALSE);
+ELSE
+  // Nieuwe cyclus bij rising edge van start
+  IF rStartTrig.Q THEN
+    bDone := FALSE;
+    bCycleActive := TRUE;
+  END_IF
+
+  IF bCycleActive THEN
     bRunning := TRUE;
     tRun(IN := TRUE, PT := T#3S);
-ELSE
+
+    IF tRun.Q THEN
+      bCycleActive := FALSE;
+      bRunning := FALSE;
+      bDone := TRUE;
+      tRun(IN := FALSE);
+    END_IF
+  ELSE
     bRunning := FALSE;
     tRun(IN := FALSE);
+  END_IF
 END_IF
-
-// Band klaar als timer afloopt
-bDone := tRun.Q;
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_Transportband">
