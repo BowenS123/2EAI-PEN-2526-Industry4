@@ -126,6 +126,9 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Vision">
+      <DefaultResolution>Tc3_Vision, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="PannenkoekSysteem.tmc">
