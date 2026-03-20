@@ -4,7 +4,14 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include "DeviceFunction.h"
+
+// MQTT Topic definitions - matching PSOC6 pattern
+#define MQTT_CMD_TOPIC                "pancake/mixer/cmd"
+#define MQTT_STATE_TOPIC              "pancake/mixer/state"
+#define MQTT_ERROR_TOPIC              "pancake/mixer/error"
+#define MQTT_STATUS_TOPIC             "pancake/mixer/status"
 
 class MQTTManager {
 private:
@@ -12,15 +19,7 @@ private:
     const char* mqtt_server;
     const int mqtt_port;
     
-    // Topics
-    const char* topic_done = "mydata/done/state/"; // update this to path add /x to post stateDone+1 and subscribe to stateDone
-    const char* topic_done_descr = "mydata/done/description";
-    const char* topic_status = "mydata/mixer/status";
-
-    const char* topic_done_prev ; // subscribe to topic_done/stateDone
-    const char* topic_done_this ; // update this to path to post topic_done/stateDone+1=1
-
-    // WiFi credentials (moeten worden ingesteld via setter of constructor)
+    // WiFi credentials
     const char* ssid;
     const char* password;
     
@@ -43,9 +42,9 @@ private:
     
     // Private methods
     void setup_wifi();
-    static void staticCallback(char* topic, byte* payload, unsigned int length);
     void callback(char* topic, byte* payload, unsigned int length);
-    void publishAllData();
+    void publishJSON(const char* topic, const char* state, const char* message = nullptr, bool isError = false);
+    void parseCommand(const char* payload, size_t length);
     void executeMixer();
     
 public:

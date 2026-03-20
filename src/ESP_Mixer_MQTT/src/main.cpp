@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include <MQTTManager.h>
 #include <DeviceFunction.h>
 #include "config.h"
@@ -16,7 +17,7 @@
 */
 
 // MQTT instellingen
-const char* mqtt_server = "broker.hivemq.com";
+const char* mqtt_server = "192.168.1.240";
 const int mqtt_port = 1883;
 
 DeviceFunction mixer("Mixer", 26,5);        // Motor op pin 26, state done requirement
