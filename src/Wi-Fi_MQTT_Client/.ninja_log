@@ -552,3 +552,8 @@
 29474	31018	7953036315788417	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/libraries_shared/wifi-host-driver/WHD/COMPONENT_WIFI5/src/whd_wifi.o	ff2b8c2369fc6797
 30101	31724	7953036322058925	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/libraries_shared/wpa3-external-supplicant/source/wpa3_ext_utils.o	41a585dcec3a3da
 31923	32438	7953036340279987	build/APP_CY8CPROTO-062-4343W/Debug/mtb-example-wifi-mqtt-client.elf	98a8dd0965f53f24
+87	306	7953502305324831	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/local/source/mqtt_client_config.o	a7ad3f3dda7892bc
+111	599	7953502305555611	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/local/source/publisher_task.o	d4bf8a952283eae9
+121	759	7953502305660697	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/local/source/subscriber_task.o	b785618fbe1fd28d
+101	841	7953502305455617	C:/Users/bowen/mtw/Wi-Fi_MQTT_Client/build/Debug/local/source/mqtt_task.o	c8cee3c5d449e51f
+841	1402	7953502312864875	build/APP_CY8CPROTO-062-4343W/Debug/mtb-example-wifi-mqtt-client.elf	98a8dd0965f53f24

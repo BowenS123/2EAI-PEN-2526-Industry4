@@ -51,6 +51,7 @@
 #include "subscriber_task.h"
 #include "mqtt_task.h"
 #include "publisher_task.h"
+#include "device_function.h"
 
 /* Configuration file for MQTT client */
 #include "mqtt_client_config.h"
@@ -60,7 +61,6 @@
 #include "cy_retarget_io.h"
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdint.h>
 
 /******************************************************************************
 * Macros
@@ -79,11 +79,11 @@
  */
 #define SUBSCRIBER_TASK_QUEUE_LENGTH            (2u)
 
-/* Poll interval to also handle local button demo flow. */
+/* Poll interval for queue processing. */
 #define SUBSCRIBER_LOOP_POLL_MS                 (50u)
 
-/* Demo runtime: machine stays in running state for 3 seconds. */
-#define DEMO_RUNNING_TIME_MS                    (3000u)
+/* GPIO abstraction output pin used by DeviceFunction. */
+#define DEVICE_EXEC_PIN                         (CYBSP_USER_LED)
 
 /******************************************************************************
 * Global Variables
@@ -96,6 +96,14 @@ QueueHandle_t subscriber_task_q;
 
 /* Track current robot state. */
 static robot_state_t current_state = ROBOT_STATE_IDLE;
+
+/* Device abstraction instance for robot action output. */
+static DeviceFunction robot_arm;
+static bool robot_arm_initialized = false;
+
+/* Pending action until transportband reports done. */
+static bool pending_robot_action = false;
+static robot_cmd_t pending_robot_cmd = ROBOT_CMD_UNKNOWN;
 
 /* Configure the subscription information structures. */
 static cy_mqtt_subscribe_info_t subscribe_info[SUBSCRIPTION_COUNT] =
@@ -120,6 +128,8 @@ static void unsubscribe_from_topic(void);
 static robot_cmd_t parse_robot_cmd(const char *payload, int payload_len);
 static bool is_transport_done_msg(const char *payload, int payload_len);
 static void handle_robot_cmd(robot_cmd_t cmd, bool retain);
+static void handle_transport_done(void);
+static void handle_subscriber_cmd(const subscriber_data_t *subscriber_q_data);
 static void publish_state(const char *state);
 static void publish_error(const char *detail);
 
@@ -142,22 +152,19 @@ static void publish_error(const char *detail);
 void subscriber_task(void *pvParameters)
 {
     subscriber_data_t subscriber_q_data;
-    bool robot_running_active = false;
     bool startup_published = false;
-    TickType_t robot_running_until = 0;
 
     /* To avoid compiler warnings */
     (void) pvParameters;
 
-    /* Initialize the User LED to provide a simple heartbeat when commands arrive. */
-    cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP,
-                    CYBSP_LED_STATE_OFF);
+    DeviceFunction_init(&robot_arm, "robot_arm", DEVICE_EXEC_PIN, 1);
+    robot_arm_initialized = true;
 
-    /* Subscribe to the specified MQTT topic. */
-    subscribe_to_topic();
-
-    /* Create a message queue to communicate with other tasks and callbacks. */
+    /* Create the queue before subscribing, so callback can enqueue safely. */
     subscriber_task_q = xQueueCreate(SUBSCRIBER_TASK_QUEUE_LENGTH, sizeof(subscriber_data_t));
+
+    /* Subscribe to the specified MQTT topics. */
+    subscribe_to_topic();
 
     while (true)
     {
@@ -169,69 +176,9 @@ void subscriber_task(void *pvParameters)
             printf("Subscriber: startup -> published idle\n");
         }
 
-        /* Poll queue with timeout so local button/timer demo logic can run. */
         if (pdTRUE == xQueueReceive(subscriber_task_q, &subscriber_q_data, pdMS_TO_TICKS(SUBSCRIBER_LOOP_POLL_MS)))
         {
-            switch(subscriber_q_data.cmd)
-            {
-                case SUBSCRIBE_TO_TOPIC:
-                {
-                    subscribe_to_topic();
-                    break;
-                }
-
-                case UNSUBSCRIBE_FROM_TOPIC:
-                {
-                    unsubscribe_from_topic();
-                    break;
-                }
-
-                case HANDLE_ROBOT_CMD:
-                {
-                    cyhal_gpio_toggle(CYBSP_USER_LED);
-                    if (subscriber_q_data.robot_cmd == ROBOT_CMD_STOP)
-                    {
-                        robot_running_active = false;
-                        handle_robot_cmd(subscriber_q_data.robot_cmd, subscriber_q_data.retain);
-                    }
-                    else if (subscriber_q_data.robot_cmd == ROBOT_CMD_UNKNOWN)
-                    {
-                        handle_robot_cmd(subscriber_q_data.robot_cmd, subscriber_q_data.retain);
-                    }
-                    else
-                    {
-                        robot_running_active = true;
-                        robot_running_until = xTaskGetTickCount() + pdMS_TO_TICKS(DEMO_RUNNING_TIME_MS);
-                        current_state = ROBOT_STATE_MOVING;
-                        publish_state("running");
-                        printf("Subscriber: robot cmd received -> running for %lu ms\n",
-                               (unsigned long)DEMO_RUNNING_TIME_MS);
-                    }
-                    break;
-                }
-
-                case HANDLE_TRANSPORT_DONE:
-                {
-                    if (!robot_running_active)
-                    {
-                        robot_running_active = true;
-                        robot_running_until = xTaskGetTickCount() + pdMS_TO_TICKS(DEMO_RUNNING_TIME_MS);
-                        current_state = ROBOT_STATE_MOVING;
-                        publish_state("running");
-                        printf("Subscriber: transport done -> robot running for %lu ms\n",
-                               (unsigned long)DEMO_RUNNING_TIME_MS);
-                    }
-                    break;
-                }
-            }
-        }
-
-        if (robot_running_active && ((int32_t)(xTaskGetTickCount() - robot_running_until) >= 0))
-        {
-            robot_running_active = false;
-            current_state = ROBOT_STATE_IDLE;
-            publish_state("idle");
-            printf("Subscriber: robot cycle done -> back to idle\n");
+            handle_subscriber_cmd(&subscriber_q_data);
         }
     }
 }
@@ -449,6 +396,8 @@ static void handle_robot_cmd(robot_cmd_t cmd, bool retain)
         case ROBOT_CMD_PLACE:
         case ROBOT_CMD_HOME:
         {
+            pending_robot_action = true;
+            pending_robot_cmd = cmd;
             current_state = ROBOT_STATE_IDLE;
             publish_state("idle");
             printf("Subscriber: cmd=%d accepted, waiting for transportband done\n", (int)cmd);
@@ -457,6 +406,13 @@ static void handle_robot_cmd(robot_cmd_t cmd, bool retain)
 
         case ROBOT_CMD_STOP:
         {
+            pending_robot_action = false;
+            pending_robot_cmd = ROBOT_CMD_UNKNOWN;
+            if (robot_arm_initialized)
+            {
+                cyhal_gpio_write(robot_arm.motor_pin, CYBSP_LED_STATE_OFF);
+                robot_arm.is_running = false;
+            }
             current_state = ROBOT_STATE_STOPPED;
             publish_state("idle");
             break;
@@ -465,6 +421,8 @@ static void handle_robot_cmd(robot_cmd_t cmd, bool retain)
         case ROBOT_CMD_UNKNOWN:
         default:
         {
+            pending_robot_action = false;
+            pending_robot_cmd = ROBOT_CMD_UNKNOWN;
             current_state = ROBOT_STATE_ERROR;
             publish_error("unknown command");
             break;
@@ -472,6 +430,81 @@ static void handle_robot_cmd(robot_cmd_t cmd, bool retain)
     }
 
     printf("Subscriber: handled cmd=%d retain=%d -> state=%d\n", (int)cmd, (int)retain, (int)current_state);
+}
+
+static void handle_transport_done(void)
+{
+    if (!pending_robot_action)
+    {
+        return;
+    }
+
+    if (!robot_arm_initialized)
+    {
+        publish_error("device not initialized");
+        return;
+    }
+
+    if (DeviceFunction_is_running(&robot_arm))
+    {
+        return;
+    }
+
+    current_state = ROBOT_STATE_MOVING;
+    printf("Subscriber: transport done -> executing cmd=%d on %s\n",
+           (int)pending_robot_cmd,
+           DeviceFunction_get_device_name(&robot_arm));
+
+    DeviceFunction_execute(&robot_arm);
+
+    pending_robot_action = false;
+    pending_robot_cmd = ROBOT_CMD_UNKNOWN;
+    current_state = ROBOT_STATE_IDLE;
+    printf("Subscriber: robot cycle done -> back to idle\n");
+}
+
+static void handle_subscriber_cmd(const subscriber_data_t *subscriber_q_data)
+{
+    if (subscriber_q_data == NULL)
+    {
+        return;
+    }
+
+    switch(subscriber_q_data->cmd)
+    {
+        case SUBSCRIBE_TO_TOPIC:
+        {
+            subscribe_to_topic();
+            break;
+        }
+
+        case UNSUBSCRIBE_FROM_TOPIC:
+        {
+            unsubscribe_from_topic();
+            if (robot_arm_initialized)
+            {
+                DeviceFunction_deinit(&robot_arm);
+                robot_arm_initialized = false;
+            }
+            break;
+        }
+
+        case HANDLE_ROBOT_CMD:
+        {
+            cyhal_gpio_toggle(CYBSP_USER_LED);
+            handle_robot_cmd(subscriber_q_data->robot_cmd, subscriber_q_data->retain);
+            break;
+        }
+
+        case HANDLE_TRANSPORT_DONE:
+        {
+            handle_transport_done();
+            break;
+        }
+
+        default:
+            break;
+    }
 }
 
 /******************************************************************************
