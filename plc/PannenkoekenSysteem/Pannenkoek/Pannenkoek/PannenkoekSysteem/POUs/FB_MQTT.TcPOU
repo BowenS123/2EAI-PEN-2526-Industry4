@@ -25,6 +25,9 @@ VAR
 	bSubscribedRobotCmd		: BOOL := FALSE;
 	bSubscribedRobotState	: BOOL := FALSE;
 	bSubscribedRobotError	: BOOL := FALSE;
+	bSubscribedMixerCmd		: BOOL := FALSE;
+	bSubscribedMixerState	: BOOL := FALSE;
+	bSubscribedMixerError	: BOOL := FALSE;
 	bSubscribedTransportCmd	: BOOL := FALSE;
 
 	{attribute 'TcEncoding':='UTF-8'}
@@ -64,6 +67,27 @@ IF fbMqttClient.bConnected THEN
 	IF NOT bSubscribedRobotError THEN
 		bSubscribedRobotError := fbMqttClient.Subscribe(
 			sTopic := GVL_MQTT.sTopicRobotError,
+			eQoS := TcIotMqttQos.AtMostOnceDelivery
+		);
+	END_IF
+
+	IF NOT bSubscribedMixerCmd THEN
+		bSubscribedMixerCmd := fbMqttClient.Subscribe(
+			sTopic := GVL_MQTT.sTopicMixerCmd,
+			eQoS := TcIotMqttQos.AtMostOnceDelivery
+		);
+	END_IF
+
+	IF NOT bSubscribedMixerState THEN
+		bSubscribedMixerState := fbMqttClient.Subscribe(
+			sTopic := GVL_MQTT.sTopicMixerState,
+			eQoS := TcIotMqttQos.AtMostOnceDelivery
+		);
+	END_IF
+
+	IF NOT bSubscribedMixerError THEN
+		bSubscribedMixerError := fbMqttClient.Subscribe(
+			sTopic := GVL_MQTT.sTopicMixerError,
 			eQoS := TcIotMqttQos.AtMostOnceDelivery
 		);
 	END_IF
@@ -121,6 +145,9 @@ ELSE
 	bSubscribedRobotCmd := FALSE;
 	bSubscribedRobotState := FALSE;
 	bSubscribedRobotError := FALSE;
+	bSubscribedMixerCmd := FALSE;
+	bSubscribedMixerState := FALSE;
+	bSubscribedMixerError := FALSE;
 	bSubscribedTransportCmd := FALSE;
 	fbPublishTimer(IN := FALSE);
 END_IF
@@ -138,11 +165,23 @@ IF fbMessageQueue.nQueuedMessages > 0 THEN
 		);
 
 		IF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotCmd) THEN
-			GVL_MQTT.sRobotStatusRaw := sPayloadRcv;
+			GVL_MQTT.sRobotCmdRaw := sPayloadRcv;
+			GVL_MQTT.sRobotCmdDisplay := sPayloadRcv;
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotState) THEN
 			GVL_MQTT.sRobotStateRaw := sPayloadRcv;
+			GVL_MQTT.sRobotStateDisplay := F_ParseStateDisplay(sPayload := sPayloadRcv);
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotError) THEN
 			GVL_MQTT.sRobotErrorRaw := sPayloadRcv;
+			GVL_MQTT.sRobotErrorDisplay := F_ParseErrorDisplay(sPayload := sPayloadRcv);
+		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicMixerCmd) THEN
+			GVL_MQTT.sMixerCmdRaw := sPayloadRcv;
+			GVL_MQTT.sMixerCmdDisplay := sPayloadRcv;
+		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicMixerState) THEN
+			GVL_MQTT.sMixerStateRaw := sPayloadRcv;
+			GVL_MQTT.sMixerStateDisplay := F_ParseStateDisplay(sPayload := sPayloadRcv);
+		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicMixerError) THEN
+			GVL_MQTT.sMixerErrorRaw := sPayloadRcv;
+			GVL_MQTT.sMixerErrorDisplay := F_ParseErrorDisplay(sPayload := sPayloadRcv);
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicTransportbandCmd) THEN
 			GVL_MQTT.sTransportbandCmdRaw := sPayloadRcv;
 
