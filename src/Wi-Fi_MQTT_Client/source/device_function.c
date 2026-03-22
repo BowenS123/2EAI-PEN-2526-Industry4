@@ -38,7 +38,6 @@ void DeviceFunction_init(DeviceFunction *dev, const char* name, cyhal_gpio_t mot
 void DeviceFunction_deinit(DeviceFunction *dev) {
     if (dev == NULL) return;
     
-    // Zet motor uit
     if (dev->pin_initialized) {
         cyhal_gpio_write(dev->motor_pin, 0);
         cyhal_gpio_free(dev->motor_pin);
@@ -50,7 +49,7 @@ void DeviceFunction_deinit(DeviceFunction *dev) {
 
 void DeviceFunction_execute(DeviceFunction *dev) {
     if (dev == NULL) return;
-    
+    // proces begin
     cyhal_gpio_write(dev->motor_pin, 1);
     dev->is_running = true;
     publisher_data_t pub_cmd_0 = {
@@ -62,6 +61,7 @@ void DeviceFunction_execute(DeviceFunction *dev) {
     
     cyhal_system_delay_ms(3000);
     
+    // proces gedaan
     cyhal_gpio_write(dev->motor_pin, 0);
     dev->is_running = false;
     publisher_data_t pub_cmd = {
