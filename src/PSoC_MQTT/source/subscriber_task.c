@@ -296,17 +296,9 @@ static robot_cmd_t parse_robot_cmd(const char *payload, int payload_len)
     memcpy(buf, payload, copy_len);
     buf[copy_len] = '\0';
 
-    if (strstr(buf, "\"cmd\":\"pick\"") != NULL)
+    if (strstr(buf, "\"cmd\":\"start\"") != NULL)
     {
-        return ROBOT_CMD_PICK;
-    }
-    if (strstr(buf, "\"cmd\":\"place\"") != NULL)
-    {
-        return ROBOT_CMD_PLACE;
-    }
-    if (strstr(buf, "\"cmd\":\"home\"") != NULL)
-    {
-        return ROBOT_CMD_HOME;
+        return ROBOT_CMD_START;
     }
     if (strstr(buf, "\"cmd\":\"stop\"") != NULL)
     {
@@ -357,18 +349,11 @@ static void handle_robot_cmd(robot_cmd_t cmd, bool retain)
 {
     switch (cmd)
     {
-        case ROBOT_CMD_PICK:
-        case ROBOT_CMD_PLACE:
-        case ROBOT_CMD_HOME:
+		case ROBOT_CMD_START:
         {
-            pending_robot_action = true;
-            pending_robot_cmd = cmd;
-            current_state = ROBOT_STATE_IDLE;
-            publish_state("idle");
-            printf("Subscriber: cmd=%d accepted, waiting for transportband done\n", (int)cmd);
+			handle_transport_done();
             break;
         }
-
         case ROBOT_CMD_STOP:
         {
             pending_robot_action = false;
