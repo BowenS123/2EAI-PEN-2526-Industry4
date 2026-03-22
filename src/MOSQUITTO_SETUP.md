@@ -149,29 +149,18 @@ Als dit werkt, kan de PSoC6 ook verbinden.
 
 ---
 
-## 7. Troubleshooting
-
-| Symptoom | Oorzaak | Oplossing |
-|---|---|---|
-| `netstat` toont alleen `127.0.0.1:1883` | `listener 0.0.0.0` ontbreekt in config | Stap 2b opnieuw uitvoeren en service herstarten |
-| PSoC6 foutcode `0x8060009` | Firewall blokkeert poort 1883 | Stap 5 uitvoeren als Administrator |
-| PSoC6 foutcode `0x8060009` na firewall fix | `allow_anonymous false` effectief | Voeg `allow_anonymous true` toe aan config |
-| `mosquitto_pub` meldt *Connection refused* | Service draait niet | `net start mosquitto` als Administrator |
-| Broker IP klopt niet meer (DHCP) | Laptop kreeg nieuw IP | Update `MQTT_BROKER_ADDRESS` in `mqtt_client_config.h` en hercompileer |
-
----
 
 ## 8. (Optioneel) Beveiliging hardenen
 
 Alleen relevant buiten een gesloten testnetwerk.
 
-### 9a. Aanmaken password file
+### 8a. Aanmaken password file
 
 ```bash
 "C:\Program Files\mosquitto\mosquitto_passwd.exe" -c "C:\Program Files\mosquitto\pwfile.txt" psoc6user
 ```
 
-### 9b. Aanmaken ACL file
+### 8b. Aanmaken ACL file
 
 Maak `C:\Program Files\mosquitto\aclfile.txt` aan met:
 
@@ -180,7 +169,7 @@ user psoc6user
 topic readwrite pancake/#
 ```
 
-### 9c. Config aanpassen
+### 8c. Config aanpassen
 
 Vervang de twee regels uit stap 2b door:
 
@@ -395,3 +384,15 @@ Bij een fout, bijvoorbeeld een onbekend command, wordt dat:
 - [ ] Transportband `{"state":"done"}` start robot `running` voor 3 seconden
 - [ ] Robot gaat daarna automatisch terug naar `{"state":"idle"}`
 - [ ] Robot error topic publiceert `{"state":"ok","error":false,"message":""}` tijdens normale werking
+
+## Troubleshooting
+
+| Symptoom | Oorzaak | Oplossing |
+|---|---|---|
+| `netstat` toont alleen `127.0.0.1:1883` | `listener 0.0.0.0` ontbreekt in config | Stap 2b opnieuw uitvoeren en service herstarten |
+| PSoC6 foutcode `0x8060009` | Firewall blokkeert poort 1883 | Stap 5 uitvoeren als Administrator |
+| PSoC6 foutcode `0x8060009` na firewall fix | `allow_anonymous false` effectief | Voeg `allow_anonymous true` toe aan config |
+| `mosquitto_pub` meldt *Connection refused* | Service draait niet | `net start mosquitto` als Administrator |
+| Broker IP klopt niet meer (DHCP) | Laptop kreeg nieuw IP | Update `MQTT_BROKER_ADDRESS` in `mqtt_client_config.h` en hercompileer |
+
+---
