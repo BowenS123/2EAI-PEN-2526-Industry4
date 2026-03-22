@@ -184,7 +184,7 @@ topic readwrite pancake/#
 
 Vervang de twee regels uit stap 2b door:
 
-```
+```bash
 listener 1883 0.0.0.0
 allow_anonymous false
 password_file C:\Program Files\mosquitto\pwfile.txt
@@ -261,7 +261,7 @@ De robot kan daarnaast nog steeds reageren op `pancake/robot/cmd`. In de huidige
 Open terminal & laat deze subscriber open staan:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <laptop-ip> -p 1883 -t "pancake/#" -v
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
 ```
 
 ### Stap 2 — Controle opstartbericht
@@ -278,7 +278,7 @@ pancake/robot/error {"state":"ok","error":false,"message":""}
 Publiceer een `done` bericht op het transportband topic:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <laptop-ip> -p 1883 -t "pancake/transportband/state" -m "{\"state\":\"done\"}" -q 0
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/transportband/state" -m "{\"state\":\"done\"}" -q 0
 ```
 
 Verwachte output in de monitor:
@@ -301,7 +301,7 @@ pancake/robot/error {"state":"ok","error":false,"message":""}
 Je kunt dezelfde demo ook starten via een robot command:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <laptop-ip> -p 1883 -t "pancake/robot/cmd" -m "{\"cmd\":\"pick\"}" -q 1
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/robot/cmd" -m "{\"cmd\":\"pick\"}" -q 1
 ```
 
 Ook dan is de verwachte state-flow:
@@ -316,6 +316,55 @@ En na 3 seconden:
 ```json
 pancake/robot/state {"state":"idle"}
 ```
+## 9.2 ESP32 Mixer
+
+### Configuratie
+1. In `src/config.h`, pas de Wi-Fi instellingen aan:
+```c
+#ifndef CONFIG_H
+#define CONFIG_H
+const char* WIFI_SSID="Automation";
+const char* WIFI_PASSWORD="Automation";
+#endif
+```
+
+2. In `main.cpp`, pas de MQTT instellingen aan:
+```c
+// MQTT instellingen
+const char* mqtt_server = "192.168.1.12";
+const int mqtt_port = 1883;
+```
+
+### Stap 1: Opstarten subscriber mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
+```
+
+Controle: dit is output als succesvol geconnecteerd en opgestart:
+
+```json
+Published to pancake/mixer/status: {"state":"connected"}
+```
+
+### Stap 2: publisher mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/mixer/cmd" -m "{\"cmd\":\"start\"}"
+```
+
+## 10. Huidige state-machine
+
+| Trigger | Directe robot state | Na 3 seconden |
+|---|---|---|
+| Opstarten | `{"state":"idle"}` | blijft `idle` |
+| `pancake/transportband/state` = `{"state":"done"}` | `{"state":"running"}` | `{"state":"idle"}` |
+| `pancake/robot/cmd` = `{"cmd":"pick"}` | `{"state":"running"}` | `{"state":"idle"}` |
+| `pancake/robot/cmd` = `{"cmd":"place"}` | `{"state":"running"}` | `{"state":"idle"}` |
+| `pancake/robot/cmd` = `{"cmd":"home"}` | `{"state":"running"}` | `{"state":"idle"}` |
+| `pancake/robot/cmd` = `{"cmd":"stop"}` | `{"state":"idle"}` | geen timer | Onbekend command | error topic | geen timer |
+
+---
 
 ### Error payloads
 
@@ -330,21 +379,6 @@ Bij een fout, bijvoorbeeld een onbekend command, wordt dat:
 ```json
 {"state":"error","error":true,"message":"unknown command"}
 ```
-
----
-
-## 10. Huidige state-machine
-
-| Trigger | Directe robot state | Na 3 seconden |
-|---|---|---|
-| Opstarten | `{"state":"idle"}` | blijft `idle` |
-| `pancake/transportband/state` = `{"state":"done"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"pick"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"place"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"home"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"stop"}` | `{"state":"idle"}` | geen timer | Onbekend command | error topic | geen timer |
-
----
 
 ## Samenvatting checklist
 
