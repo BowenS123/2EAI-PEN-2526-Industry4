@@ -17,10 +17,13 @@
 #define EN3_PIN     P10_5
 
 #define BUTTON_PIN  P0_4
+#define SERVO_PIN   P10_6
 
-#define TARGET_POS1 200
-#define TARGET_POS2 400
-#define TARGET_POS3 300
+#define TARGET_POS1 800
+#define TARGET_POS2 800
+#define TARGET_POS3 600
+
+cyhal_pwm_t pwm;
 
 int M1_Pos = 0;
 int M2_Pos = 0;
@@ -28,7 +31,7 @@ int M3_Pos = 0;
 
 bool vorige_button = 1;
 
-// Motor 1
+// STEPPERS
 void Motor1()
 {
     cyhal_gpio_write(STEP_PIN, 1);
@@ -37,7 +40,6 @@ void Motor1()
     cyhal_system_delay_ms(2);
 }
 
-// Motor 2
 void Motor2()
 {
     cyhal_gpio_write(STEP2_PIN, 1);
@@ -46,7 +48,6 @@ void Motor2()
     cyhal_system_delay_ms(2);
 }
 
-// Motor 3
 void Motor3()
 {
     cyhal_gpio_write(STEP3_PIN, 1);
@@ -55,30 +56,41 @@ void Motor3()
     cyhal_system_delay_ms(2);
 }
 
+// SERVO
+void Servo()
+{
+    cyhal_pwm_set_duty_cycle(&pwm, 5, 50);   // 0°
+    cyhal_system_delay_ms(1000);
+
+    cyhal_pwm_set_duty_cycle(&pwm, 7.5, 50); // 90°
+    cyhal_system_delay_ms(1000);
+
+    cyhal_pwm_set_duty_cycle(&pwm, 5, 50);   // 🔥 0°
+    cyhal_system_delay_ms(1000);
+}
+
 int main(void)
 {
     cybsp_init();
     __enable_irq();
 
-    // Motor 1
     cyhal_gpio_init(STEP_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(DIR_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(EN_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
 
-    // Motor 2
     cyhal_gpio_init(STEP2_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(DIR2_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(EN2_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
 
-    // Motor 3
     cyhal_gpio_init(STEP3_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(DIR3_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
     cyhal_gpio_init(EN3_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
 
-    // Button
     cyhal_gpio_init(BUTTON_PIN, CYHAL_GPIO_DIR_INPUT, CYHAL_GPIO_DRIVE_PULLUP, 1);
 
-    // Drivers aan
+    cyhal_pwm_init(&pwm, SERVO_PIN, NULL);
+    cyhal_pwm_start(&pwm);
+
     cyhal_gpio_write(EN_PIN, 1);
     cyhal_gpio_write(EN2_PIN, 1);
     cyhal_gpio_write(EN3_PIN, 1);
@@ -89,7 +101,7 @@ int main(void)
 
         if(button == 0 && vorige_button == 1)
         {
-            // vooruit richtingen
+            // vooruit
             cyhal_gpio_write(DIR_PIN, 0);
             cyhal_gpio_write(DIR2_PIN, 1);
             cyhal_gpio_write(DIR3_PIN, 0);
@@ -115,15 +127,15 @@ int main(void)
                 M3_Pos++;
             }
 
-            // 5 sec wachten
-            cyhal_system_delay_ms(5000);
+            
+            cyhal_system_delay_ms(1000);
+            Servo();
 
-            // terug richtingen
+            // terug
             cyhal_gpio_write(DIR_PIN, 1);
             cyhal_gpio_write(DIR2_PIN, 0);
             cyhal_gpio_write(DIR3_PIN, 1);
 
-            // terug lopen
             while(M1_Pos > 0 || M2_Pos > 0 || M3_Pos > 0)
             {
                 if(M1_Pos > 0)
