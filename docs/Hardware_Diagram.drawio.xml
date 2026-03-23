@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.5.2">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.4">
   <diagram name="Page-1" id="Qh8zD_PYyQuE-C6LGVD8">
-    <mxGraphModel dx="1178" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="904" dy="968" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="kwmes4Ga3cQsWukzeOVW-40" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="180" width="280" x="570" y="520" as="geometry" />
+        <mxCell id="kwmes4Ga3cQsWukzeOVW-40" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="90" width="280" x="570" y="520" as="geometry" />
         </mxCell>
-        <mxCell id="kwmes4Ga3cQsWukzeOVW-26" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="" vertex="1">
+        <mxCell id="kwmes4Ga3cQsWukzeOVW-26" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
           <mxGeometry height="335" width="335" x="235" y="185" as="geometry" />
         </mxCell>
         <mxCell id="kwmes4Ga3cQsWukzeOVW-24" edge="1" parent="1" source="MRloUJQgCxtJJfvhR5j_-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="MRloUJQgCxtJJfvhR5j_-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="MRloUJQgCxtJJfvhR5j_-1" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Weegschaal" vertex="1">
-          <mxGeometry height="70" width="140" x="585" y="50" as="geometry" />
+          <mxGeometry height="70" width="140" x="720" y="90" as="geometry" />
         </mxCell>
         <mxCell id="kwmes4Ga3cQsWukzeOVW-4" edge="1" parent="1" source="MRloUJQgCxtJJfvhR5j_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.07;exitY=0.4;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="MRloUJQgCxtJJfvhR5j_-4">
           <mxGeometry relative="1" as="geometry" />
@@ -23,7 +22,7 @@
         <mxCell id="kwmes4Ga3cQsWukzeOVW-37" edge="1" parent="1" source="MRloUJQgCxtJJfvhR5j_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.55;exitY=0.95;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kwmes4Ga3cQsWukzeOVW-29">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="MRloUJQgCxtJJfvhR5j_-2" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" value="MQTT" vertex="1">
+        <mxCell id="MRloUJQgCxtJJfvhR5j_-2" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="MQTT" vertex="1">
           <mxGeometry height="80" width="120" x="550" y="180" as="geometry" />
         </mxCell>
         <mxCell id="MRloUJQgCxtJJfvhR5j_-6" edge="1" parent="1" source="MRloUJQgCxtJJfvhR5j_-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="MRloUJQgCxtJJfvhR5j_-5">
@@ -50,7 +49,7 @@
         <mxCell id="MRloUJQgCxtJJfvhR5j_-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="PSoC" vertex="1">
           <mxGeometry height="60" width="120" x="360" y="240" as="geometry" />
         </mxCell>
-        <mxCell id="MRloUJQgCxtJJfvhR5j_-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="GIGE camera" vertex="1">
+        <mxCell id="MRloUJQgCxtJJfvhR5j_-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="GIGE camera" vertex="1">
           <mxGeometry height="35" width="120" x="1010" y="355" as="geometry" />
         </mxCell>
         <mxCell id="MRloUJQgCxtJJfvhR5j_-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Inductieve sensor" vertex="1">
@@ -59,7 +58,7 @@
         <mxCell id="kwmes4Ga3cQsWukzeOVW-23" edge="1" parent="1" source="MRloUJQgCxtJJfvhR5j_-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kwmes4Ga3cQsWukzeOVW-22">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="MRloUJQgCxtJJfvhR5j_-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Driver" vertex="1">
+        <mxCell id="MRloUJQgCxtJJfvhR5j_-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Driver" vertex="1">
           <mxGeometry height="30" width="120" x="655" y="360" as="geometry" />
         </mxCell>
         <mxCell id="MRloUJQgCxtJJfvhR5j_-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="lichtsluis ?" vertex="1">
@@ -96,7 +95,7 @@
         <mxCell id="kwmes4Ga3cQsWukzeOVW-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=0;" value="UTP" vertex="1">
           <mxGeometry height="30" width="60" x="1000" y="300" as="geometry" />
         </mxCell>
-        <mxCell id="kwmes4Ga3cQsWukzeOVW-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="M" vertex="1">
+        <mxCell id="kwmes4Ga3cQsWukzeOVW-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="M" vertex="1">
           <mxGeometry height="46" width="42.5" x="693.75" y="414" as="geometry" />
         </mxCell>
         <mxCell id="kwmes4Ga3cQsWukzeOVW-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;rotation=0;" value="RS232" vertex="1">
@@ -113,12 +112,6 @@
         </mxCell>
         <mxCell id="kwmes4Ga3cQsWukzeOVW-35" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="DC-Motor" vertex="1">
           <mxGeometry height="50" width="100" x="720" y="545" as="geometry" />
-        </mxCell>
-        <mxCell id="kwmes4Ga3cQsWukzeOVW-39" edge="1" parent="1" source="kwmes4Ga3cQsWukzeOVW-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="kwmes4Ga3cQsWukzeOVW-29">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="kwmes4Ga3cQsWukzeOVW-38" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Servo" vertex="1">
-          <mxGeometry height="50" width="100" x="720" y="600" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
