@@ -2365,7 +2365,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				</Box>
 				<EtherCAT/>
 			</Device>
-			<Device Id="2" DevType="112" AmsPort="28674" AmsNetId="199.4.42.250.3.1" RemoteName="Device 2 (EtherCAT Automation Protocol)">
+			<Device Id="2" Disabled="true" DevType="112" AmsPort="28674" AmsNetId="199.4.42.250.3.1" RemoteName="Device 2 (EtherCAT Automation Protocol)">
 				<Name>Device 2 (EtherCAT Automation Protocol)</Name>
 				<AddressInfo>
 					<Pnp>
@@ -2380,7 +2380,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 				<Ethernet DeviceDesc="Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig"/>
 				<Eap EapDeviceGuid="{4A6A72B8-FCBA-413B-A717-C0D5E687750C}"/>
 			</Device>
-			<Device Id="3" DevType="112" AmsPort="28675" AmsNetId="199.4.42.250.4.1" RemoteName="Device 3 (EtherCAT Automation Protocol)">
+			<Device Id="3" Disabled="true" DevType="112" AmsPort="28675" AmsNetId="199.4.42.250.4.1" RemoteName="Device 3 (EtherCAT Automation Protocol)">
 				<Name>Device 3 (EtherCAT Automation Protocol)</Name>
 				<AddressInfo>
 					<Pnp>

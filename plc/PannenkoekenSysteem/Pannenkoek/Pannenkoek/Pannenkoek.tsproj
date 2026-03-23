@@ -1809,7 +1809,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{17FD44B8-199A-4B80-8B23-793C2383B34C}" Name="PannenkoekSysteem" PrjFilePath="PannenkoekSysteem\PannenkoekSysteem.plcproj" TmcFilePath="PannenkoekSysteem\PannenkoekSysteem.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc" TmcHash="{1926DC10-0A4F-A253-C73D-AADA9390D555}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc" TmcHash="{E6A56A3D-416B-0A9B-BAB9-106DBEAFC246}">
 					<Name>PannenkoekSysteem Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
