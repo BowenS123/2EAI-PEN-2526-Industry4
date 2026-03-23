@@ -19,7 +19,7 @@ Instructies om Mosquitto als LAN MQTT broker te draaien zodat een PSoC6/ESP/... 
     - [PSoC6 Robotarm](#91-psoc6)
     - [ESP32 Mixer](#92-esp32-mixer)
     - [PLC Transportband](#93-beckoff-plc)
-    
+
 -  **Slot samenvatting**
     - [**Checklist**](#samenvatting-checklist)
     - [**Troubleshooting**](#troubleshooting)
@@ -30,8 +30,6 @@ Instructies om Mosquitto als LAN MQTT broker te draaien zodat een PSoC6/ESP/... 
 1. Download de **Windows installer** van [mosquitto.org/download](https://mosquitto.org/download/).
 2. Installeer met standaard opties. Standaard installatiepad: `C:\Program Files\mosquitto\`.
 3. De installer maakt een Windows Service aan die automatisch start bij opstarten.
-
-
 
 ## 2. Mosquitto configureren voor LAN-toegang
 
