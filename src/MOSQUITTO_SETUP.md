@@ -16,9 +16,10 @@ Instructies om Mosquitto als LAN MQTT broker te draaien zodat een PSoC6/ESP/... 
     4. [Optionele beveiliging](#8-optioneel-beveiliging-hardenen)
 
 - **Demo & Devices**
-  - [PSoC6 Robotarm](#91-psoc6)
-  - [ESP32 Mixer](#92-esp32-mixer)
-
+    - [PSoC6 Robotarm](#91-psoc6)
+    - [ESP32 Mixer](#92-esp32-mixer)
+    - [PLC Transportband](#93-beckoff-plc)
+    
 -  **Slot samenvatting**
     - [**Checklist**](#samenvatting-checklist)
     - [**Troubleshooting**](#troubleshooting)
@@ -337,8 +338,6 @@ Published to pancake/mixer/status: {"state":"connected"}
 "C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/mixer/cmd" -m "{\"cmd\":\"start\"}"
 ```
 
-
-
 ### Error payloads
 
 De robot publiceert momenteel deze error-JSON structuur:
@@ -352,6 +351,70 @@ Bij een fout, bijvoorbeeld een onbekend command, wordt dat:
 ```json
 {"state":"error","error":true,"message":"unknown command"}
 ```
+
+## 9.3 Beckoff PLC
+
+### Configuratie & Topics in `GVL_MQTT`:
+
+```iecst
+VAR_GLOBAL
+	// MQTT Broker Configuratie - HiveMQ Public Broker
+	sMqttBroker			: STRING(255) := '192.168.0.197';	// HiveMQ Public Broker (laptop ip)
+	nMqttPort			: UINT := 1883;						// Standard MQTT port
+	sMqttClientID		: STRING(255) := 'Twincat_Test';    // Unieke client ID
+	bEnableMqtt			: BOOL := TRUE;						// VISU: MQTT connect aan/uit
+    	
+	// MQTT Topics - PSOC: Robotarm
+	sTopicRobotCmd				: STRING(255) := 'pancake/robot/cmd';
+	sTopicRobotState			: STRING(255) := 'pancake/robot/state';
+	sTopicRobotError			: STRING(255) := 'pancake/robot/error';
+
+	// MQTT Topics - PLC: Transportband
+	sTopicTransportbandCmd		: STRING(255) := 'pancake/transportband/cmd';
+	sTopicTransportbandState	: STRING(255) := 'pancake/transportband/state';
+	sTopicTransportbandError	: STRING(255) := 'pancake/transportband/error';
+
+	// MQTT Topics - ESP: Mixer
+	sTopicMixerCmd				: STRING(255) := 'pancake/mixer/cmd';
+	sTopicMixerState			: STRING(255) := 'pancake/mixer/state';
+	sTopicMixerError			: STRING(255) := 'pancake/mixer/error';
+    //...
+END_VAR
+```
+
+### (Opstart)code in `FB_MQTT`:
+
+```iecst
+IF NOT bMqttConfigured THEN
+	bMqttConfigured := TRUE;
+	fbMqttClient.sHostName := GVL_MQTT.sMqttBroker;
+	fbMqttClient.nHostPort := GVL_MQTT.nMqttPort;
+	fbMqttClient.sClientId := GVL_MQTT.sMqttClientID;
+	fbMqttClient.ipMessageQueue := fbMessageQueue;
+END_IF
+
+fbMqttClient.Execute(bConnect := GVL_MQTT.bEnableMqtt);
+GVL_MQTT.bMqttConnected := fbMqttClient.bConnected;
+IF fbMqttClient.bConnected THEN // publish data
+    // ...
+IF fbMessageQueue.nQueuedMessages > 0 THEN // subscribe data
+	IF fbMessageQueue.Dequeue(fbMessage := fbMessage) THEN
+		fbMessage.GetPayload(
+			pPayload := ADR(sPayloadRcv),
+			nPayloadSize := SIZEOF(sPayloadRcv),
+			bSetNullTermination := FALSE
+		);
+        // ....
+```
+
+### Stap 1: Opstarten subscriber mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
+```
+
+### Stap 2: Start PLC programma
+In het dashboard kan de MQTT data gepublished en verzonden worden.
 
 ## Samenvatting checklist (met PSoC robotarm)
 
