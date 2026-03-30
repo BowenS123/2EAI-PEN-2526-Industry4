@@ -9,21 +9,28 @@ ingrediënten met kwaliteitscontrole.
 ## Hardware
 
 - Inductieve sensor (PLC)
-- Servo-motoren
+- Servo-motoren voor Mixer & Robotarm
+- NEMA17
+    - [Stepmotor_lab jaar 1](docs/Stepmotor_lab.pdf)
 - DC-Motor voor Mixer & PLC Transportband
+    - [DC Motor PLC: EL7332](docs/datasheets/DC_Motor_EL7332.pdf)
 - Weegschaal met RS232 connectie
 - Batch-reader
 - Robot-arm (IGUS SCARA-robot) via PSoC6
 - Transportband via PLC
     - 3D print transportbandadapter
 - 3D-printer
+    - [Report turning servo adapter](docs/Report%20turning%20cilinder.pdf)
+    - [Voorbeeld linear adapter](docs/Linear_actuator%20adapters%203D.pdf)
 - pigtail connectors
+</br></br>
+zie ook: [Bomlijst](docs/Bomlijst.md)
 
 ![Overzicht](docs/images/status_tasks.png)
 
 ## Software
 
-- Blender/Fusion => .stl => print
+- [Blender/Fusion => .stl => print](hardware/3Dprint/)
 - Modustoolbox (MTB) => PSoC
 - VSCode => ESP32
 - Twincat3 => Beckoff PLC
