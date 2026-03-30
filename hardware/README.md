@@ -24,7 +24,7 @@ Dit document bevat een overzicht van de gebruikte hardwarecomponenten in dit pro
 > Voeg hier een afbeelding of diagram toe waarin de bedrading en verbindingen van de componenten worden weergegeven.
 
 - Bestand: `./schematics/wiringschema.png`
-- Alternatief: teken met [Fritzing](https://fritzing.org) en exporteer als PNG/SVG.
+- Alternatief: teken met [Fritzing] en exporteer als PNG/SVG.
 
 ## 📏 Specificaties en toleranties
 
