@@ -9,14 +9,14 @@ docs/
 ├── images/              # Afbeeldingen
 ├── videos/              # Video bestanden
 └── datasheets/          # Datasheets
+	├── DMXSl20.pdf
+	├── DRE_DATA_MOT-AN-S-060-005-042-L-A-AAAA_EN.pdf
+	├── Linear_actuator adapters 3D.pdf
+	├── Operating Manual dryve D7-1 V1.0 EN.pdf
+	├── P5oK6.pdf
+	└── Stepmotor_lab.pdf
+
 ```
-
-## Referentie documenten
-
-- `docs/Linear_actuator adapters 3D.docx`: [Linear_actuator adapters 3D.docx](./Linear_actuator%20adapters%203D.docx)
-- `docs/Stepmotor_lab.docx`: [Stepmotor_lab.docx](./Stepmotor_lab.docx)
-- `docs/datasheets/Linear_actuator adapters 3D.pdf`: [Linear_actuator adapters 3D.pdf](./datasheets/Linear_actuator%20adapters%203D.pdf)
-- `docs/datasheets/Stepmotor_lab.pdf`: [Stepmotor_lab.pdf](./datasheets/Stepmotor_lab.pdf)
 
 ## Afbeeldingen
 
