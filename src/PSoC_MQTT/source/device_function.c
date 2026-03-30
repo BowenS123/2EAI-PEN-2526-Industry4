@@ -32,7 +32,7 @@ void DeviceFunction_init(DeviceFunction *dev, const char* name, cyhal_gpio_t mot
     
     // Initializeer andere variabelen
     dev->is_running = false;
-    dev->state_done = state_done_req;
+    dev->state_done = false;
 }
 
 void DeviceFunction_deinit(DeviceFunction *dev) {
@@ -45,35 +45,41 @@ void DeviceFunction_deinit(DeviceFunction *dev) {
     }
     
     dev->is_running = false;
+    dev->state_done = false;
 }
 
 void DeviceFunction_execute(DeviceFunction *dev) {
-    if (dev == NULL) return;
-    // proces begin
-    dev->is_running = true;
-    publisher_data_t pub_cmd = {
-                   .cmd = PUBLISH_STATE,
-                   .state = "running",
-                   .detail = NULL
-                 };
-    xQueueSend(publisher_task_q, &pub_cmd, portMAX_DELAY);
-    printf("Device is running\n");
+	if (dev == NULL) return;
+	printf("Device is running\n");
+	if(!dev->state_done){
+	    // proces begin
+	    dev->is_running = true;
+	    publisher_data_t pub_cmd = {
+	                   .cmd = PUBLISH_STATE,
+	                   .state = "running",
+	                   .detail = NULL
+	                 };
+	    xQueueSend(publisher_task_q, &pub_cmd, portMAX_DELAY);
+	    
+	    // executiecode
+	    cyhal_gpio_write(dev->motor_pin, 1);
+	    
+	
+	    cyhal_system_delay_ms(3000);
+	    
+	    // proces gedaan
+	    cyhal_gpio_write(dev->motor_pin, 0);
+	    dev->is_running = false;
+	    dev->state_done = true;
+	    publisher_data_t pub_cmd_done = {
+	                   .cmd = PUBLISH_STATE,
+	                   .state = "done",
+	                   .detail = NULL
+	                 };
+		printf("Device is done\n");
+	    xQueueSend(publisher_task_q, &pub_cmd_done, portMAX_DELAY);
+	}
     
-    // executiecode
-    cyhal_gpio_write(dev->motor_pin, 1);
-
-    cyhal_system_delay_ms(3000);
-    
-    // proces gedaan
-    cyhal_gpio_write(dev->motor_pin, 0);
-    dev->is_running = false;
-    publisher_data_t pub_cmd_done = {
-                   .cmd = PUBLISH_STATE,
-                   .state = "done",
-                   .detail = NULL
-                 };
-	printf("Device is done\n");
-    xQueueSend(publisher_task_q, &pub_cmd_done, portMAX_DELAY);
 }
 
 const char* DeviceFunction_get_device_name(DeviceFunction *dev) {

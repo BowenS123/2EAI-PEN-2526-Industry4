@@ -114,7 +114,7 @@ void subscriber_task(void *pvParameters)
     /* To avoid compiler warnings */
     (void) pvParameters;
 
-    DeviceFunction_init(&robot_arm, "robot_arm", DEVICE_EXEC_PIN, 1);
+    DeviceFunction_init(&robot_arm, "robot_arm", DEVICE_EXEC_PIN, 0);
     robot_arm_initialized = true;
 
     /* Create the queue before subscribing, so callback can enqueue safely. */

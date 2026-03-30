@@ -1,9 +1,10 @@
 # 2EAI-PEN-2526-Industry4 (pannekoek)
 
-## Over het project
-
-Ontwikkelen van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
+Dit project ontwikkelt van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
 ingrediënten met kwaliteitscontrole.
+
+![Overzicht](docs/images/status_tasks.png)
+
 
 ## Hardware
 
@@ -24,7 +25,7 @@ ingrediënten met kwaliteitscontrole.
 - Modustoolbox(MTB) => PSoC
 - Twincat3 => Beckoff PLC
 
-## Programmeertaal
+## Programmeertalen
 
 - C/C++ => MTB
 - Structure text => Twincat3
@@ -61,6 +62,8 @@ ingrediënten met kwaliteitscontrole.
 Niets zo frustrerend als goede code vinden zonder uitleg over hoe je het aan de praat krijgt.
 
 - [ ] Voeg hier een stapsgewijze handleiding toe.
+    1. start PSOC, PLC & ESP Mixer
+    2. Intitial MQTT start publish: 
 - [ ] Leg uit hoe je het programma start.
 
 
