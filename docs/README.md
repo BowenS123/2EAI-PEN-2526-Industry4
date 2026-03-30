@@ -15,6 +15,8 @@ docs/
 	├── Operating Manual dryve D7-1 V1.0 EN.pdf
 	├── P5oK6.pdf
 	└── Stepmotor_lab.pdf
+    ├── Linear_actuator adapters 3D.docx
+    ├── Stepmotor_lab.docx
 
 ```
 
@@ -27,6 +29,11 @@ docs/
 - `docs/datasheets/Operating Manual dryve D7-1 V1.0 EN.pdf`: [Operating Manual dryve D7-1 V1.0 EN.pdf](./datasheets/Operating%20Manual%20dryve%20D7-1%20V1.0%20EN.pdf)
 - `docs/datasheets/P5oK6.pdf`: [P5oK6.pdf](./datasheets/P5oK6.pdf)
 - `docs/datasheets/Stepmotor_lab.pdf`: [Stepmotor_lab.pdf](./datasheets/Stepmotor_lab.pdf)
+
+## Bronbestanden (DOCX)
+
+- docs/Linear_actuator adapters 3D.docx
+- docs/Stepmotor_lab.docx
 
 ## Afbeeldingen
 
