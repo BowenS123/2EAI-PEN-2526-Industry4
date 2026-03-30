@@ -6,7 +6,12 @@ Deze folder bevat alle documenten met bijhorende media en resource bestanden voo
 
 ```
 docs/
+├── C6015_Herinstallatie_Email.md
+├── Report turning cilinder.pdf
+├── logica&3Dprint.drawio.xml
 ├── images/              # Afbeeldingen
+│   ├── plan_3Dprint_draaimotor.jpg
+│   └── ...
 ├── videos/              # Video bestanden
 └── datasheets/          # Datasheets
 	├── DMXSl20.pdf
@@ -14,10 +19,10 @@ docs/
 	├── Linear_actuator adapters 3D.pdf
 	├── Operating Manual dryve D7-1 V1.0 EN.pdf
 	├── P5oK6.pdf
-	└── Stepmotor_lab.pdf
+	├── Stepmotor_lab.pdf
     ├── Linear_actuator adapters 3D.docx
     ├── Stepmotor_lab.docx
-    ├── git-cheat-sheet-education.pdf
+    └── git-cheat-sheet-education.pdf
 ```
 
 ## Referentie documenten
