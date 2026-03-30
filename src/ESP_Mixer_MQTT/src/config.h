@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 // WiFi Credentials - EDIT THESE VALUES
-const char* WIFI_SSID="Proximus-Home-8B28";
-const char* WIFI_PASSWORD="wjb3yuzz47cyr";
+const char* WIFI_SSID="Automation";
+const char* WIFI_PASSWORD="Automation";
 
 #endif

@@ -17,7 +17,7 @@
 */
 
 // MQTT instellingen
-const char* mqtt_server = "192.168.1.12";
+const char* mqtt_server = "192.168.1.240";
 const int mqtt_port = 1883;
 
 DeviceFunction mixer("Mixer", 26,5);        // Motor op pin 26, state done requirement
