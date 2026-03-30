@@ -248,7 +248,7 @@ git reset --hard HEAD
 
 **Basis tutorials:**
 - [GitHub Git Guide](https://github.com/git-guides)
-- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+- [Git Cheat Sheet](./datasheets/git-cheat-sheet-education.pdf)
 
 **Interactieve tutorials:**
 - [Learn Git Branching](https://learngitbranching.js.org/)

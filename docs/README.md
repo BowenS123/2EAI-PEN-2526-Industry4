@@ -17,7 +17,7 @@ docs/
 	└── Stepmotor_lab.pdf
     ├── Linear_actuator adapters 3D.docx
     ├── Stepmotor_lab.docx
-
+    ├── git-cheat-sheet-education.pdf
 ```
 
 ## Referentie documenten
