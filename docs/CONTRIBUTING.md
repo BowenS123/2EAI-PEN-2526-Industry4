@@ -250,8 +250,6 @@ git reset --hard HEAD
 - [GitHub Git Guide](https://github.com/git-guides)
 - [Git Cheat Sheet](./datasheets/git-cheat-sheet-education.pdf)
 
-**Interactieve tutorials:**
-- [Learn Git Branching](https://learngitbranching.js.org/)
 
 ---
 

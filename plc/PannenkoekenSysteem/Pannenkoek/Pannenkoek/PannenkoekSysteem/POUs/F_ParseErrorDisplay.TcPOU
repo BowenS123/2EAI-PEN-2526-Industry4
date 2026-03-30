@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="F_ParseErrorDisplay" Id="{e07496d2-24f7-4b96-a249-f05a1949ecf1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_ParseErrorDisplay : STRING(255)
+VAR_INPUT
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayload		: STRING(255);
+END_VAR
+VAR
+	nStartPos	: INT;
+	nEndPos		: INT;
+	nPartLen	: INT;
+	sParsed		: STRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_ParseErrorDisplay := sPayload;
+
+IF FIND(sPayload, '"error":false') > 0 THEN
+	F_ParseErrorDisplay := 'OK';
+ELSIF FIND(sPayload, '"error":true') > 0 THEN
+	nStartPos := FIND(sPayload, '"message":"');
+	IF nStartPos > 0 THEN
+		nStartPos := nStartPos + 11;
+		nEndPos := FIND(sPayload, '"}');
+		nPartLen := nEndPos - nStartPos;
+		IF nPartLen > 0 THEN
+			sParsed := MID(sPayload, nPartLen, nStartPos);
+			IF LEN(sParsed) > 0 THEN
+				F_ParseErrorDisplay := sParsed;
+			ELSE
+				F_ParseErrorDisplay := 'ERROR';
+			END_IF
+		ELSE
+			F_ParseErrorDisplay := 'ERROR';
+		END_IF
+	ELSE
+		F_ParseErrorDisplay := 'ERROR';
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="F_ParseErrorDisplay">
+      <LineId Id="1" Count="0" />
+      <LineId Id="2" Count="25" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

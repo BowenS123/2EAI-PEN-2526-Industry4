@@ -8,11 +8,7 @@ Brief description of the project: what it is, why it was created, and its main p
 
 This section explains what to expect once all hardware and software has been set up according to **Getting Started**. It is intended as a guide for non-technical users.
 
-1. Connect the board to your computer via USB.
-2. The green LED will automatically turn on to indicate the system is active.
-3. A welcome message will appear in the serial terminal.
-4. The linear slider performs an automatic calibration and moves to the center.
-5. Wait for a beep signal and then place the phone on the slider holder.
+1. 
 
 Follow any additional instructions shown in the terminal or on the interface.
 
@@ -60,5 +56,8 @@ Nothing more frustrating than finding good code but not knowing how to run it.
 
 ## People
 
-- **Contri Butor1** – _Student_ – [GitHub](https://github.com/CONTRIBUTOR1)
-- **Dieter Vanrykel** – _Teacher_ – [GitHub](https://github.com/Vanrykel)
+- **Milan Posman** – _Student_
+- **Contri Butor1** – _Student_
+- **Contri Butor1** – _Student_
+- **Contri Butor1** – _Student_
+- **Dieter Vanrykel** – _Teacher_

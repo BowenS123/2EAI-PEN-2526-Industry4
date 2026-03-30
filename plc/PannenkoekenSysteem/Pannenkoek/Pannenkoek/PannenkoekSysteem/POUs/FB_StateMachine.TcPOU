@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_StateMachine" Id="{734d8fb6-0da9-4e7f-80a6-9c9e670df0f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_StateMachine
+
+VAR_INPUT
+    bStart 				: BOOL;   // start knop
+    bStop  				: BOOL;   // stop knop
+    bError 				: BOOL;   // fouten
+	bTransportbandStart	: BOOL;
+END_VAR
+
+VAR_OUTPUT
+    eStateOut       : E_MainState; // Huidige state zichtbaar buiten
+END_VAR
+
+VAR
+	eState : E_MainState := E_MainState.INIT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE eState OF
+  E_MainState.INIT:
+    eState := E_MainState.IDLE;
+
+  E_MainState.IDLE:
+    IF bError THEN
+      eState := E_MainState.ERROR;
+    ELSIF bStart OR bTransportbandStart THEN
+      eState := E_MainState.RUNNING;
+    END_IF
+
+  E_MainState.RUNNING:
+    IF bError THEN
+      eState := E_MainState.ERROR;
+    ELSIF bStop THEN
+      eState := E_MainState.STOPPING;
+    END_IF
+
+  E_MainState.STOPPING:
+    eState := E_MainState.IDLE;
+
+  E_MainState.ERROR:
+    IF bStop THEN
+      eState := E_MainState.IDLE;
+    END_IF
+END_CASE
+
+eStateOut := eState;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_StateMachine">
+      <LineId Id="9" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="10" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
