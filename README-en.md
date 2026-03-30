@@ -1,7 +1,5 @@
 # Name of the Project
 
-![Overzicht](docs/images/status_tasks.png)
-
 ## About the Project
 
 Brief description of the project: what it is, why it was created, and its main purpose.

@@ -25,4 +25,4 @@ Bijkomend zorgt het openen van een branch vanuit de issue er eveneens voor dat h
 - Een teamlid zal de PR **reviewen** en mogelijk vragen stellen of extra informatie verzoeken. Er kan gevraagd worden om wijzigingen aan te brengen voordat een PR kan worden gemerged.
 - De docent zal de informatie bekijken en de PR sluiten als deze voltooid is. Om de aandacht van de docent te trekken, gebruik **@mention**.
 - Bij het openen van een **issue**, overweeg om de titel te beginnen met het label van de oplossing waaraan je bijdraagt (bijv. [TwinCAT] of [VISION]). De meeste oplossingsnamen kunnen worden gevonden als mappen binnen de hoofdmap.
-- Alle problemen kunnen best worden gekoppeld aan het GitHub project "Professional Skills
+- Alle problemen kunnen best worden gekoppeld aan het [GitHub project "Professional Skills](https://github.com/orgs/PXLDigital/projects/18/views/1)."
