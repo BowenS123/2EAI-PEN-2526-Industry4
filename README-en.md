@@ -1,6 +1,6 @@
 # Name of the Project
 
-![Overzicht](./resources/media/Overview.jpg)
+![Overzicht](docs/images/status_tasks.png)
 
 ## About the Project
 

@@ -1,28 +1,35 @@
 # Mosquitto MQTT Broker – Setup op Windows voor lokaal netwerk
 
-Instructies om Mosquitto als lokale MQTT broker te draaien zodat een PSoC6 (of andere devices op hetzelfde Wi-Fi netwerk) ermee kunnen verbinden.
+Instructies om Mosquitto als LAN MQTT broker te draaien zodat een PSoC6/ESP/... ermee kunnen verbinden zonder toegang tot het internet.
 
----
+## Inhoudsopgave
 
-## Netwerk overzicht
+- **Aan de slag**
+    1. [Installatie](#1-mosquitto-installeren)
+    2. [Configuratie LAN-toegang](#2-mosquitto-configureren-voor-lan-toegang)
+    3. [(Her)starten mosquitto](#3-mosquitto-service-herstarten)
+  
+- **Netwerk & Firewall**
+    1. [Controle LAN](#4-controleer-of-broker-luistert-op-lan)
+    2. [Firewall configuratie](#5-windows-firewall-openen-voor-poort-1883-powershell)
+    3. [Verbinding testen](#6-verbinding-testen-lokaal-op-laptop-command-prompt)
+    4. [Optionele beveiliging](#8-optioneel-beveiliging-hardenen)
 
-```
-[PSoC6 @ 192.168.0.226]  ─── Wi-Fi ───►  [Laptop @ 192.168.0.197]
-   pancake/robot/cmd  ──subscribe──►       Mosquitto broker :1883
-    pancake/transportband/state ─subscribe──► Mosquitto broker :1883
-   pancake/robot/state ◄─publish───        Mosquitto broker :1883
-   pancake/robot/error ◄─publish───        Mosquitto broker :1883
-```
+- **Demo & Devices**
+    - [PSoC6 Robotarm](#91-psoc6)
+    - [ESP32 Mixer](#92-esp32-mixer)
+    - [PLC Transportband](#93-beckoff-plc)
 
----
+-  **Slot samenvatting**
+    - [**Checklist**](#samenvatting-checklist)
+    - [**Troubleshooting**](#troubleshooting)
+
 
 ## 1. Mosquitto installeren
 
 1. Download de **Windows installer** van [mosquitto.org/download](https://mosquitto.org/download/).
 2. Installeer met standaard opties. Standaard installatiepad: `C:\Program Files\mosquitto\`.
 3. De installer maakt een Windows Service aan die automatisch start bij opstarten.
-
----
 
 ## 2. Mosquitto configureren voor LAN-toegang
 
@@ -48,11 +55,11 @@ allow_anonymous true
 | `listener 1883 0.0.0.0` | Luister op poort 1883 op **alle** network interfaces (LAN + localhost) |
 | `allow_anonymous true` | Clients mogen verbinden **zonder** gebruikersnaam/wachtwoord |
 
-> **Productie tip:** vervang `allow_anonymous true` door `password_file` + `acl_file` wanneer de machine buiten een gesloten testnetwerk staat. Zie [Sectie 6](#6-optioneel-beveiliging-hardenen).
+> **Productie:** vervang `allow_anonymous true` door `password_file` + `acl_file` wanneer de machine buiten een gesloten testnetwerk staat. Zie [Optionele beveiliging](#8-optioneel-beveiliging-hardenen)
 
 ### 2c. Sla op en sluit Kladblok
 
----
+
 
 ## 3. Mosquitto service herstarten
 
@@ -86,7 +93,6 @@ TCP    0.0.0.0:1883    0.0.0.0:0    LISTENING
 
 > Als je alleen `127.0.0.1:1883` ziet, is stap 2 niet goed opgeslagen of is de service niet herstart.
 
----
 
 ## 5. Windows Firewall openen voor poort 1883 (powershell)
 
@@ -116,7 +122,6 @@ DisplayName         Enabled Direction Action
 Mosquitto MQTT 1883    True  Inbound  Allow
 ```
 
----
 
 ## 6. Verbinding testen (lokaal op laptop) (command prompt)
 
@@ -147,31 +152,18 @@ pancake/robot/cmd {"cmd":"pick"}
 
 Als dit werkt, kan de PSoC6 ook verbinden.
 
----
-
-## 7. Troubleshooting
-
-| Symptoom | Oorzaak | Oplossing |
-|---|---|---|
-| `netstat` toont alleen `127.0.0.1:1883` | `listener 0.0.0.0` ontbreekt in config | Stap 2b opnieuw uitvoeren en service herstarten |
-| PSoC6 foutcode `0x8060009` | Firewall blokkeert poort 1883 | Stap 5 uitvoeren als Administrator |
-| PSoC6 foutcode `0x8060009` na firewall fix | `allow_anonymous false` effectief | Voeg `allow_anonymous true` toe aan config |
-| `mosquitto_pub` meldt *Connection refused* | Service draait niet | `net start mosquitto` als Administrator |
-| Broker IP klopt niet meer (DHCP) | Laptop kreeg nieuw IP | Update `MQTT_BROKER_ADDRESS` in `mqtt_client_config.h` en hercompileer |
-
----
 
 ## 8. (Optioneel) Beveiliging hardenen
 
 Alleen relevant buiten een gesloten testnetwerk.
 
-### 9a. Aanmaken password file
+### 8a. Aanmaken password file
 
 ```bash
 "C:\Program Files\mosquitto\mosquitto_passwd.exe" -c "C:\Program Files\mosquitto\pwfile.txt" psoc6user
 ```
 
-### 9b. Aanmaken ACL file
+### 8b. Aanmaken ACL file
 
 Maak `C:\Program Files\mosquitto\aclfile.txt` aan met:
 
@@ -180,18 +172,18 @@ user psoc6user
 topic readwrite pancake/#
 ```
 
-### 9c. Config aanpassen
+### 8c. Config aanpassen
 
 Vervang de twee regels uit stap 2b door:
 
-```
+```bash
 listener 1883 0.0.0.0
 allow_anonymous false
 password_file C:\Program Files\mosquitto\pwfile.txt
 acl_file C:\Program Files\mosquitto\aclfile.txt
 ```
 
-Herstart de service via stap 3.
+[3. Herstart de Mosquitto service](#3-mosquitto-service-herstarten). Vergeet ook code niet aan te passen.
 
 ---
 
@@ -261,7 +253,7 @@ De robot kan daarnaast nog steeds reageren op `pancake/robot/cmd`. In de huidige
 Open terminal & laat deze subscriber open staan:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <laptop-ip> -p 1883 -t "pancake/#" -v
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
 ```
 
 ### Stap 2 — Controle opstartbericht
@@ -278,7 +270,7 @@ pancake/robot/error {"state":"ok","error":false,"message":""}
 Publiceer een `done` bericht op het transportband topic:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <laptop-ip> -p 1883 -t "pancake/transportband/state" -m "{\"state\":\"done\"}" -q 0
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/transportband/state" -m "{\"state\":\"done\"}"
 ```
 
 Verwachte output in de monitor:
@@ -289,32 +281,59 @@ pancake/robot/state {"state":"running"}
 pancake/robot/error {"state":"ok","error":false,"message":""}
 ```
 
-Na ongeveer 3 seconden:
+### Stap 4 — Stop trigger via robot command
 
-```json
-pancake/robot/state {"state":"idle"}
-pancake/robot/error {"state":"ok","error":false,"message":""}
-```
-
-### Stap 4 — Trigger via robot command
-
-Je kunt dezelfde demo ook starten via een robot command:
+Je kunt dit stoppen/resetten via een robot command:
 
 ```bash
-"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <laptop-ip> -p 1883 -t "pancake/robot/cmd" -m "{\"cmd\":\"pick\"}" -q 1
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/robot/cmd" -m "{\"cmd\":\"stop\"}"
 ```
 
-Ook dan is de verwachte state-flow:
+### PSoC robotarm samenvatting: Input => Output 
 
-```json
-pancake/robot/state {"state":"running"}
-pancake/robot/error {"state":"ok","error":false,"message":""}
+| Trigger | Directe robot state | Na executie process |
+|---|---|---|
+| Opstarten | `{"state":"idle"}` | blijft `idle` |
+| `pancake/transportband/state` = `{"state":"done"}` | `{"state":"running"}` | `{"state":"done"}` |
+| `pancake/robot/cmd` = `{"cmd":"start"}` | `{"state":"running"}` | `{"state":"done"}` |
+| `pancake/robot/cmd` = `{"cmd":"stop"}` | `{"state":"idle"}` | geen timer 
+| Onbekend command | error topic | geen timer |
+
+## 9.2 ESP32 Mixer
+
+### Configuratie
+1. In `src/config.h`, pas de Wi-Fi instellingen aan:
+```c
+#ifndef CONFIG_H
+#define CONFIG_H
+const char* WIFI_SSID="Automation";
+const char* WIFI_PASSWORD="Automation";
+#endif
 ```
 
-En na 3 seconden:
+2. In `main.cpp`, pas de MQTT instellingen aan:
+```c
+// MQTT instellingen
+const char* mqtt_server = "192.168.1.12";
+const int mqtt_port = 1883;
+```
+
+### Stap 1: Opstarten subscriber mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
+```
+
+Controle: dit is output als succesvol geconnecteerd en opgestart:
 
 ```json
-pancake/robot/state {"state":"idle"}
+Published to pancake/mixer/status: {"state":"connected"}
+```
+
+### Stap 2: publisher mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_pub.exe" -h <ip> -p 1883 -t "pancake/mixer/cmd" -m "{\"cmd\":\"start\"}"
 ```
 
 ### Error payloads
@@ -331,22 +350,71 @@ Bij een fout, bijvoorbeeld een onbekend command, wordt dat:
 {"state":"error","error":true,"message":"unknown command"}
 ```
 
----
+## 9.3 Beckoff PLC
 
-## 10. Huidige state-machine
+### Configuratie & Topics in `GVL_MQTT`:
 
-| Trigger | Directe robot state | Na 3 seconden |
-|---|---|---|
-| Opstarten | `{"state":"idle"}` | blijft `idle` |
-| `pancake/transportband/state` = `{"state":"done"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"pick"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"place"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"home"}` | `{"state":"running"}` | `{"state":"idle"}` |
-| `pancake/robot/cmd` = `{"cmd":"stop"}` | `{"state":"idle"}` | geen timer | Onbekend command | error topic | geen timer |
+```iecst
+VAR_GLOBAL
+	// MQTT Broker Configuratie - HiveMQ Public Broker
+	sMqttBroker			: STRING(255) := '192.168.0.197';	// HiveMQ Public Broker (laptop ip)
+	nMqttPort			: UINT := 1883;						// Standard MQTT port
+	sMqttClientID		: STRING(255) := 'Twincat_Test';    // Unieke client ID
+	bEnableMqtt			: BOOL := TRUE;						// VISU: MQTT connect aan/uit
+    	
+	// MQTT Topics - PSOC: Robotarm
+	sTopicRobotCmd				: STRING(255) := 'pancake/robot/cmd';
+	sTopicRobotState			: STRING(255) := 'pancake/robot/state';
+	sTopicRobotError			: STRING(255) := 'pancake/robot/error';
 
----
+	// MQTT Topics - PLC: Transportband
+	sTopicTransportbandCmd		: STRING(255) := 'pancake/transportband/cmd';
+	sTopicTransportbandState	: STRING(255) := 'pancake/transportband/state';
+	sTopicTransportbandError	: STRING(255) := 'pancake/transportband/error';
 
-## Samenvatting checklist
+	// MQTT Topics - ESP: Mixer
+	sTopicMixerCmd				: STRING(255) := 'pancake/mixer/cmd';
+	sTopicMixerState			: STRING(255) := 'pancake/mixer/state';
+	sTopicMixerError			: STRING(255) := 'pancake/mixer/error';
+    //...
+END_VAR
+```
+
+### (Opstart)code in `FB_MQTT`:
+
+```iecst
+IF NOT bMqttConfigured THEN
+	bMqttConfigured := TRUE;
+	fbMqttClient.sHostName := GVL_MQTT.sMqttBroker;
+	fbMqttClient.nHostPort := GVL_MQTT.nMqttPort;
+	fbMqttClient.sClientId := GVL_MQTT.sMqttClientID;
+	fbMqttClient.ipMessageQueue := fbMessageQueue;
+END_IF
+
+fbMqttClient.Execute(bConnect := GVL_MQTT.bEnableMqtt);
+GVL_MQTT.bMqttConnected := fbMqttClient.bConnected;
+IF fbMqttClient.bConnected THEN // publish data
+    // ...
+IF fbMessageQueue.nQueuedMessages > 0 THEN // subscribe data
+	IF fbMessageQueue.Dequeue(fbMessage := fbMessage) THEN
+		fbMessage.GetPayload(
+			pPayload := ADR(sPayloadRcv),
+			nPayloadSize := SIZEOF(sPayloadRcv),
+			bSetNullTermination := FALSE
+		);
+        // ....
+```
+
+### Stap 1: Opstarten subscriber mosquito
+
+```bash
+"C:\Program Files\mosquitto\mosquitto_sub.exe" -h <ip> -p 1883 -t "pancake/#" -v
+```
+
+### Stap 2: Start PLC programma
+In het dashboard kan de MQTT data gepublished en verzonden worden.
+
+## Samenvatting checklist (met PSoC robotarm)
 
 - [ ] Mosquitto geïnstalleerd via mosquitto.org
 - [ ] `listener 1883 0.0.0.0` toegevoegd aan mosquitto.conf
@@ -358,6 +426,18 @@ Bij een fout, bijvoorbeeld een onbekend command, wordt dat:
 - [ ] PSoC6 `MQTT_BROKER_ADDRESS` ingesteld op laptop-IP
 - [ ] PSoC6 toont `MQTT connection successful`
 - [ ] PSoC6 publiceert opstartbericht `{"state":"idle"}` op `pancake/robot/state`
-- [ ] Transportband `{"state":"done"}` start robot `running` voor 3 seconden
-- [ ] Robot gaat daarna automatisch terug naar `{"state":"idle"}`
+- [ ] Transportband `{"state":"done"}` start robot `running`
+- [ ] Robot gaat daarna automatisch terug naar `{"state":"done"}`
 - [ ] Robot error topic publiceert `{"state":"ok","error":false,"message":""}` tijdens normale werking
+
+## Troubleshooting
+
+| Symptoom | Oorzaak | Oplossing |
+|---|---|---|
+| `netstat` toont alleen `127.0.0.1:1883` | `listener 0.0.0.0` ontbreekt in config | Stap 2b opnieuw uitvoeren en service herstarten |
+| PSoC6 foutcode `0x8060009` | Firewall blokkeert poort 1883 | Stap 5 uitvoeren als Administrator |
+| PSoC6 foutcode `0x8060009` na firewall fix | `allow_anonymous false` effectief | Voeg `allow_anonymous true` toe aan config |
+| `mosquitto_pub` meldt *Connection refused* | Service draait niet | `net start mosquitto` als Administrator |
+| Broker IP klopt niet meer (DHCP) | Laptop kreeg nieuw IP | Update `MQTT_BROKER_ADDRESS` in `mqtt_client_config.h` en hercompileer |
+
+---

@@ -89,6 +89,216 @@
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{CC07E0A0-FC03-45CD-BFD9-D46B7C731E7C}" TcBaseType="true">ETHERNET_ADDRESS</Name>
+			<BitSize>48</BitSize>
+			<SubItem>
+				<Name>b</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>6</Elements>
+				</ArrayInfo>
+				<BitSize>48</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{F45D8924-F151-4141-9296-7C8BB697BD07}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{DFBA8D25-8BA6-4B60-AF8D-E2ECDB904F6B}">GEV_DISCOVERY_INFO</Name>
+			<Comment><![CDATA[Contains GigE Vision discovery information.]]></Comment>
+			<BitSize>1728</BitSize>
+			<SubItem>
+				<Name>nMajorSpecVersion</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Major spec version]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nMinorSpecVersion</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Minor spec version]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nDeviceMode</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Device mode]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nIpConfigOptions</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[IP config options]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nIpConfigCurrent</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Current IP config]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>96</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nIpAddrCurrent</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Current IP address]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nSubnetMaskCurrent</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Current subnet mask]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>160</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nDefaultGateway</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Defautl gateway]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sManufacturerName</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000020}">STRING(32)</Type>
+				<Comment><![CDATA[Manufacturer name]]></Comment>
+				<BitSize>264</BitSize>
+				<BitOffs>224</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sModelName</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000020}">STRING(32)</Type>
+				<Comment><![CDATA[Model name]]></Comment>
+				<BitSize>264</BitSize>
+				<BitOffs>488</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sDeviceVersion</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000020}">STRING(32)</Type>
+				<Comment><![CDATA[Device version]]></Comment>
+				<BitSize>264</BitSize>
+				<BitOffs>752</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sManufacturerSpecificInfo</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000030}">STRING(48)</Type>
+				<Comment><![CDATA[Manufacturer specific info]]></Comment>
+				<BitSize>392</BitSize>
+				<BitOffs>1016</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sSerialNumber</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000010}">STRING(16)</Type>
+				<Comment><![CDATA[Serial number]]></Comment>
+				<BitSize>136</BitSize>
+				<BitOffs>1408</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>sUserDefinedName</Name>
+				<Type GUID="{18071995-0000-0000-0000-000100000010}">STRING(16)</Type>
+				<Comment><![CDATA[User defined name]]></Comment>
+				<BitSize>136</BitSize>
+				<BitOffs>1544</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>stDeviceMacAddr</Name>
+				<Type GUID="{CC07E0A0-FC03-45CD-BFD9-D46B7C731E7C}">ETHERNET_ADDRESS</Type>
+				<Comment><![CDATA[Device MAC address]]></Comment>
+				<BitSize>48</BitSize>
+				<BitOffs>1680</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{4A60F1B1-63F9-463F-BA1F-04F097444FDB}"/>
+				<Hide GUID="{4875A87B-CC95-4A56-853B-324BA4A38486}"/>
+				<Hide GUID="{191BDC03-35AD-45DE-909B-4655625ED5E9}"/>
+				<Hide GUID="{E6337516-CD1F-437D-806E-3B32630AEABF}"/>
+				<Hide GUID="{B0FDC227-00A4-44A0-AFEE-31A0B0B0FE92}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{076882E7-F81E-4D85-82E9-92C4E11AEE9A}">ITcIoGvcpProtocolRecv</Name>
+			<Comment><![CDATA[Interface providing callback methods for a GVCP receiver.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>ReceiveOpResult</Name>
+				<Comment><![CDATA[Receive the result of operations performed using the GVCP protocol.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipData</Name>
+					<Comment><![CDATA[Acknowledge packet if a send operation was executed, otherwise 0]]></Comment>
+					<Type GUID="{C10B6EE2-EA6E-4FED-AC4E-D3C8366F26C0}">ITcVnData</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>hrOperationResult</Name>
+					<Comment><![CDATA[HRESULT of the performed operation]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>ReceiveDevice</Name>
+				<Comment><![CDATA[Get the found devices of a broadcast discovery of cameras in subnet.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>stDeviceInfo</Name>
+					<Comment><![CDATA[Returns a GEV_DISCOVERY_INFO struct describing a found device.]]></Comment>
+					<Type GUID="{DFBA8D25-8BA6-4B60-AF8D-E2ECDB904F6B}" ReferenceTo="true">GEV_DISCOVERY_INFO</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>DiscoveryFinished</Name>
+				<Comment><![CDATA[Callback method called after the discovery process has been finished.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{BE11F84E-46F8-4FD4-99C7-75C9F02C0D27}"/>
+				<Hide GUID="{4D230301-9611-412B-A74A-FB2B87F51E5D}"/>
+				<Hide GUID="{353CD97E-F77B-4D13-AB6D-C2DC324197BA}"/>
+				<Hide GUID="{8AE023E4-6027-4B3D-835E-D6D846957540}"/>
+				<Hide GUID="{DCD80E96-6B21-457F-B460-DC021722D5BE}"/>
+				<Hide GUID="{2D6E9E98-EE0E-406A-8F33-0F79D53841CB}"/>
+				<Hide GUID="{31F17146-5D96-4E19-8E38-0B07ED1D7E62}"/>
+				<Hide GUID="{45A892B4-EE5D-4E3B-B5B8-322415A3E7A6}"/>
+				<Hide GUID="{B48A45B8-A946-4665-B0D6-5C2AE46D9F6F}"/>
+				<Hide GUID="{CAD21E51-E5D6-4149-AA38-7AE6CF798EAC}"/>
+				<Hide GUID="{F8B7808B-1F3D-46B1-B9EB-92D9FB6DEDDF}"/>
+				<Hide GUID="{5787F6CA-34E3-418F-A6F2-71059FF350E4}"/>
+				<Hide GUID="{72C62886-9829-4F3B-B076-D5E34A47E113}"/>
+				<Hide GUID="{B0E47EFC-FF17-46F0-B316-1BA9386F2F67}"/>
+				<Hide GUID="{DD6AF666-5F01-450B-943D-C952F101564C}"/>
+				<Hide GUID="{CECC3D34-6BB0-4269-96CC-90D728F2DEB0}"/>
+				<Hide GUID="{A9DB12A4-FD7B-4D50-9E35-4F2E656DAF29}"/>
+				<Hide GUID="{02061957-CE83-4811-A2B2-075EA8E6A903}"/>
+				<Hide GUID="{355F4769-D171-48C0-8DB2-6CD88C086E41}"/>
+				<Hide GUID="{0D5DFAE0-1C2D-4DC0-BE9F-E5489BB5EB87}"/>
+				<Hide GUID="{A59946BC-6B30-411E-B6FD-3422E3060EC8}"/>
+				<Hide GUID="{17974FDD-CB3B-42D4-880B-3CC7BCF3955D}"/>
+				<Hide GUID="{6779450E-D088-451C-91B6-6E225D75D6E2}"/>
+				<Hide GUID="{325D3E34-8560-4B65-85BF-AF8409C94C67}"/>
+				<Hide GUID="{F83D1DEF-6F6B-4907-A867-641DC38EA8E9}"/>
+				<Hide GUID="{554E536D-19DD-4E20-BFFF-234DB6FC3D2A}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{657520DB-518C-41A3-9E92-0670C7E6804F}" Namespace="VN">ETcVnPixelEncoding</Name>
 			<Comment><![CDATA[Offers pixel encodings.]]></Comment>
 			<BitSize>8</BitSize>
@@ -574,6 +784,443 @@
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{E157680C-3577-4579-BB71-A51E5EBFDD63}">GVSP_PIXEL_FORMAT</Name>
+			<Comment><![CDATA[Shows the GVSP (GigE Vision Streaming Protocol) pixel format.]]></Comment>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>Color</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[Indicates if the pixel format is mono or color.]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>EffectivePixelSize</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[Effective pixel size in bit]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Id</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[GVSP pixel format ID]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{C823D4AE-514B-42EC-B8B1-32180E8DD514}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{3642C447-4E03-46B5-B473-41DEC5A58EC3}">GVSP_LEADER_PAYLOAD_IMAGE</Name>
+			<Comment><![CDATA[Shows information over the GVSP (GigE Vision Streaming Protocol) leader payload image.]]></Comment>
+			<BitSize>256</BitSize>
+			<SubItem>
+				<Name>Timestamp</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment><![CDATA[Image timestamp]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>PixelFormat</Name>
+				<Type GUID="{E157680C-3577-4579-BB71-A51E5EBFDD63}">GVSP_PIXEL_FORMAT</Type>
+				<Comment><![CDATA[Image pixel format]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>SizeX</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Image size in x direction]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>96</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>SizeY</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Image size in y direction]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>OffsetX</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Image x-offset from (0,0) origin]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>160</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>OffsetY</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Image y-offset from (0,0) origin]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>PaddingX</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Image padding in x direction]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>224</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>PaddingY</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Image padding in y direction]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>240</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{58DB88EF-1BD0-4FA1-A44A-4E49DD76798C}"/>
+				<Hide GUID="{C33F4A39-7F34-4340-A63D-3B2897452852}"/>
+				<Hide GUID="{7099872F-F015-4909-A50C-C1AA57B84491}"/>
+				<Hide GUID="{B2F8FF4F-E6E0-4BFB-B71D-FDDD46B26A28}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{63FC7E33-91CD-44CD-9015-0BD1DC25722C}">GVSP_IMAGE_INFO</Name>
+			<Comment><![CDATA[Shows GVSP (GigE Vision Streaming Protocol) meta information.]]></Comment>
+			<BitSize>448</BitSize>
+			<SubItem>
+				<Name>CameraIpAddress</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Camera IP address]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>LocalIpAddress</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+				<Comment><![CDATA[Local IP address]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>CameraUdpPort</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Camera UDP port]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>LocalUdpPort</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[Local UDP port]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>80</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>GvspChannelId</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[ID of GVSP channel]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>96</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>GevStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+				<Comment><![CDATA[GigE Vision status code]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>112</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>BlockId</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment><![CDATA[Block Id (incremented for each acquired image, but reset to 0 on overflow)]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>LeaderInfo</Name>
+				<Type GUID="{3642C447-4E03-46B5-B473-41DEC5A58EC3}">GVSP_LEADER_PAYLOAD_IMAGE</Type>
+				<Comment><![CDATA[Contains information about timestamp, pixel format and size.]]></Comment>
+				<BitSize>256</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{0777258D-381F-458F-A497-21C981554519}"/>
+				<Hide GUID="{269AFEEE-A8FF-4187-A101-94AF570E12F6}"/>
+				<Hide GUID="{594F2758-C5FF-4853-928C-10ACCAD221BF}"/>
+				<Hide GUID="{F9C34D97-0F43-4DEF-890C-FA4AB69A7AB8}"/>
+				<Hide GUID="{C23241C0-32AB-4220-A15B-0DEF814E0992}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{238E9E96-5AEF-4E8B-9052-C371A8C7BBED}">ITcIoGevImage</Name>
+			<Comment><![CDATA[Interface for GigE Vision images.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{A78D28D9-F618-4D35-8FB8-162CE7C7F8EB}">ITcVnImageBase</BaseType>
+			<Method>
+				<Name>CheckIfCopy</Name>
+				<Comment><![CDATA[Check if image data is a copy.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>DecreaseHeight</Name>
+				<Comment><![CDATA[Sets image height to newHeight if it is smaller than the current value.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nNewHeight</Name>
+					<Comment><![CDATA[Height value to set.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetBlockId</Name>
+				<Comment><![CDATA[Gets the GVSP block ID.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nBlockId</Name>
+					<Comment><![CDATA[Returns the block ID.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-00000000000B}" ReferenceTo="true">ULINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetGevStatus</Name>
+				<Comment><![CDATA[Gets the block status.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nGevStatus</Name>
+					<Comment><![CDATA[Returns the GigE Vision status code.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}" ReferenceTo="true">UINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetGvspImageInfo</Name>
+				<Comment><![CDATA[Gets a pointer to the GVSP leader payload.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ppGvspImageInfo</Name>
+					<Comment><![CDATA[Pointer to the GVSP meta information.]]></Comment>
+					<Type GUID="{63FC7E33-91CD-44CD-9015-0BD1DC25722C}" PointerTo="2">GVSP_IMAGE_INFO</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>SetGevStatus</Name>
+				<Comment><![CDATA[Sets the block status.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nGevStatus</Name>
+					<Comment><![CDATA[GigE Vision status code.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\Images</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{593EF556-B4E9-49C0-ABE1-E4D8BE51B4AE}"/>
+				<Hide GUID="{72B350FF-FAEB-403E-AA81-94BB95D932FB}"/>
+				<Hide GUID="{BA329CAB-1DE1-4426-907C-1775B1DE759D}"/>
+				<Hide GUID="{C3F827A9-6947-4C84-9040-F259731CB13D}"/>
+				<Hide GUID="{CFF153AA-18C6-4604-AA2F-B04F51246284}"/>
+				<Hide GUID="{99C177D3-A4A1-4CCD-BD52-0A83DE16A9A7}"/>
+				<Hide GUID="{1F9F11B2-255F-44A9-A3E2-EFBB5E18D648}"/>
+				<Hide GUID="{99480F09-CD93-43F9-B257-79E561959C0C}"/>
+				<Hide GUID="{CB33AFE2-C3FF-4B72-AFA4-4A77AAEAB3C7}"/>
+				<Hide GUID="{460FCCFC-EDEA-47E2-BA07-A67BA29BFC73}"/>
+				<Hide GUID="{D9BD7DD0-95D2-4473-B301-1F6DF84E8EA3}"/>
+				<Hide GUID="{1CDA143C-262B-40A8-AEA6-D2C5FCD7B5ED}"/>
+				<Hide GUID="{210F1BBE-9065-4C98-96A6-2CD9D4A29459}"/>
+				<Hide GUID="{C9BFFC54-F343-4EE9-85E2-008EA70240AE}"/>
+				<Hide GUID="{554F73F1-9DAD-4F5F-A5C6-98C9C976B1E7}"/>
+				<Hide GUID="{C5B0D1B5-ED93-465F-B596-BBADE9CEC644}"/>
+				<Hide GUID="{BC0D39E5-785E-4113-A0BE-E1413CFE54C1}"/>
+				<Hide GUID="{60D918F2-517D-4305-B31B-D4F38928E826}"/>
+				<Hide GUID="{41A4C702-1386-4FB4-9DDA-A100331393D8}"/>
+				<Hide GUID="{973E445D-EAAA-4306-9BA2-6BCF03A20655}"/>
+				<Hide GUID="{61CEC126-F1AA-4275-B86E-2E67FDD551FB}"/>
+				<Hide GUID="{8515B7CA-C832-4465-90E6-CB8D699DCFD6}"/>
+				<Hide GUID="{7B8DD0F9-F878-43EA-9832-932DA79B62CF}"/>
+				<Hide GUID="{4569043D-97A8-492F-9685-F023EA20380E}"/>
+				<Hide GUID="{A0603B48-EBBD-4D63-B57B-543BBA8F22AF}"/>
+				<Hide GUID="{F13F46CC-4FC7-45CC-A86A-E6E64FF8033B}"/>
+				<Hide GUID="{C59A424D-2A48-4A08-9AA0-055D680CD0CD}"/>
+				<Hide GUID="{45D66CAB-7721-4BB9-BF1C-8D5439B2584A}"/>
+				<Hide GUID="{8F6DB120-D15B-45B2-93F4-A6498E2D45C9}"/>
+				<Hide GUID="{1C3C5FA2-A896-47A2-8A69-048E3AD706C0}"/>
+				<Hide GUID="{48F87C66-396C-4AC9-A401-CF6664B6054A}"/>
+				<Hide GUID="{80EEEDA3-87C3-446B-8550-729ED6DC863B}"/>
+				<Hide GUID="{5E4ECC61-4CD9-4C86-A4D8-59BB62447A49}"/>
+				<Hide GUID="{4A13784A-CA05-421C-A460-2433E54B0454}"/>
+				<Hide GUID="{A5D3ACFB-80B2-4137-9B07-2B82F85E63AE}"/>
+				<Hide GUID="{724E8661-0288-43B6-B37C-DF293B751920}"/>
+				<Hide GUID="{9C5F7401-B59D-4C22-832A-39BE87E1D1B0}"/>
+				<Hide GUID="{2370360A-6F33-4CD9-967B-C9DC1E1CB2A2}"/>
+				<Hide GUID="{878FBA1B-0338-4AD9-B376-8655029BCDC4}"/>
+				<Hide GUID="{5606BCB9-7711-4A05-B3AF-644D1F115524}"/>
+				<Hide GUID="{AE0E7C67-7E57-41B3-9F75-52877F9D3D17}"/>
+				<Hide GUID="{90227F42-E390-4A0F-A6AF-1D77A9437D2A}"/>
+				<Hide GUID="{B05FAC1B-0EDA-44F2-93BB-E7B2830A52EA}"/>
+				<Hide GUID="{30DF03D4-0335-47AF-AF00-BAFC3D324E2B}"/>
+				<Hide GUID="{5DAC439D-D260-45B1-8142-C296A4999625}"/>
+				<Hide GUID="{CF801C66-7EAD-4432-A402-9094E1A78DF2}"/>
+				<Hide GUID="{207BC341-B774-42D2-B49B-30409BA704D2}"/>
+				<Hide GUID="{CC1F8494-CE79-4C81-A8F6-8077D8256A5E}"/>
+				<Hide GUID="{E1F78451-2857-4663-B6E8-55A3BEC90D24}"/>
+				<Hide GUID="{8FE78220-DBB7-4958-A0E1-9EFC97BC3B32}"/>
+				<Hide GUID="{842482EF-EDCB-48B2-99F5-681C2846E171}"/>
+				<Hide GUID="{D295008D-4954-4722-81AF-E874DFEEB6AB}"/>
+				<Hide GUID="{B9C330DD-5022-4341-8091-1D00A94DBD1E}"/>
+				<Hide GUID="{6E3396CA-8455-4454-A9D9-543E84590F4B}"/>
+				<Hide GUID="{7BD489D4-3A33-4B42-BE21-6666B76E00AA}"/>
+				<Hide GUID="{AF01CF50-DEC0-43B9-8ABA-386352103BB5}"/>
+				<Hide GUID="{73340C0E-E2CE-4112-970F-71A6580861F1}"/>
+				<Hide GUID="{0E346AE6-3F3C-4B76-A3D8-5F5FEE1D3ECF}"/>
+				<Hide GUID="{F192C6B4-6CA4-4F81-B6C9-858CEB8E023F}"/>
+				<Hide GUID="{3E8E609E-5B35-4D05-8E61-D386CA7B0C0F}"/>
+				<Hide GUID="{7FD5830C-F5A6-4D29-93A0-3641B9D93C77}"/>
+				<Hide GUID="{48A4E243-D0AB-4409-BFA3-C397B24CCEAD}"/>
+				<Hide GUID="{D130E7CF-93AC-4E40-8D2B-DEC119B49710}"/>
+				<Hide GUID="{485ED3A9-995B-4AAC-9981-6BDF94C60C5A}"/>
+				<Hide GUID="{24D27655-B455-42FD-BA6F-D92718620EC4}"/>
+				<Hide GUID="{FA20D6E3-A78F-4BEC-834A-AE7361E352F5}"/>
+				<Hide GUID="{6B1A3169-9D41-4F8A-8749-1A86E99A3DA3}"/>
+				<Hide GUID="{60B76E83-59AD-4114-B7B5-6FC0630356C9}"/>
+				<Hide GUID="{658C16AB-0E04-4FA0-B201-35E5A956B7CB}"/>
+				<Hide GUID="{A46C6804-9C01-4ED2-B413-DECDF117BC80}"/>
+				<Hide GUID="{B307B631-EA76-4DED-B572-A87389A0712E}"/>
+				<Hide GUID="{DBAA8747-8C00-4DFC-AE7A-4233D4AA2A3C}"/>
+				<Hide GUID="{37F8A6A9-DBBB-4743-AE4E-92B31DC3EC32}"/>
+				<Hide GUID="{474356EC-C88F-4477-8313-AFBEFFA6B4A7}"/>
+				<Hide GUID="{2ABA2BA3-4A69-4247-A193-7025A2B5D093}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{8AF7EE15-BF89-4CB3-9E90-BDB09BA66CBD}">ITcIoGvspProtocolRecv</Name>
+			<Comment><![CDATA[Interface providing callback methods for a GVSP receiver.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>ReceiveImage</Name>
+				<Comment><![CDATA[Receive an image.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipImage</Name>
+					<Comment><![CDATA[The image to receive]]></Comment>
+					<Type GUID="{238E9E96-5AEF-4E8B-9052-C371A8C7BBED}">ITcIoGevImage</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>hrAcquisitionResult</Name>
+					<Comment><![CDATA[HRESULT of the image acquisition]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{3B4A28E1-E0B7-4EB9-850A-C690E5F90675}"/>
+				<Hide GUID="{B2F9AA3F-E9F4-4614-8E02-0A6B13A0B85B}"/>
+				<Hide GUID="{315BA5B1-507D-49FB-841A-F83DCA8641A0}"/>
+				<Hide GUID="{D138BC93-A79C-485D-97D1-56E392C4DBB3}"/>
+				<Hide GUID="{D1929577-1FB9-47FE-9056-1519D4185A35}"/>
+				<Hide GUID="{E344E2F4-0B6B-42E9-B75E-B00043C1C110}"/>
+				<Hide GUID="{BA788C84-D20A-4F84-B365-D06319520DA9}"/>
+				<Hide GUID="{705A4EC8-0EE8-4002-B1C0-AD9E7B4F54A5}"/>
+				<Hide GUID="{4E15442A-29F5-4B06-BC8C-223990315B3E}"/>
+				<Hide GUID="{9DD124A0-F7E3-4E77-82AA-60AA589E20B0}"/>
+				<Hide GUID="{B7EA7155-1C6A-4709-9F13-44800DE341BD}"/>
+				<Hide GUID="{BD5948C0-22DC-4385-B358-E8C9EA5F8BAE}"/>
+				<Hide GUID="{C11D1A40-AB10-46F1-A5BA-2B75114D56B5}"/>
+				<Hide GUID="{79AA3BA5-7CF3-4CAF-8B0A-ED05A9EA4E5B}"/>
+				<Hide GUID="{A53EA983-AC04-4053-8841-97434409A7E1}"/>
+				<Hide GUID="{0BC255F1-3ECF-44E2-A80B-4E788B97AA3B}"/>
+				<Hide GUID="{1BA0AF40-9236-4913-AF85-53CF01BD4E2C}"/>
+				<Hide GUID="{B90A6F8A-036C-4D27-9CB4-50D90BD52472}"/>
+				<Hide GUID="{7AD21949-7DA4-46A9-B862-04D093EA9D60}"/>
+				<Hide GUID="{8DBF9705-FFC6-4C7F-9DA3-D2F779297E5E}"/>
+				<Hide GUID="{773BE939-97AC-489A-B079-83E91B5E2013}"/>
+				<Hide GUID="{22E4DD9E-D1C0-405A-B7BC-035B57A717E8}"/>
+				<Hide GUID="{38E0EDC5-597B-49A4-BEE6-97C134967E9D}"/>
+				<Hide GUID="{63B0F5F7-1AD4-4A30-A2DF-BDBB312C7619}"/>
+				<Hide GUID="{AB2D92FA-19E6-445A-8463-66EB010ABF2E}"/>
+				<Hide GUID="{6DE70CC2-2721-45E3-B7E1-967E7861DCDF}"/>
+				<Hide GUID="{DC14988B-445A-49E0-A58D-486658D0A707}"/>
+				<Hide GUID="{36E2A65D-B75E-4ABC-82D5-A29283745CA8}"/>
+				<Hide GUID="{206B83A6-7A4B-4B19-A853-EB7EE5DC7B9D}"/>
+				<Hide GUID="{B495F615-7032-4E63-BAB1-11C06315B107}"/>
+				<Hide GUID="{5821C14F-89EA-41D2-B375-FBAA5312B675}"/>
+				<Hide GUID="{182FE8BA-65A0-4998-B262-B03C4E6F2D1B}"/>
+				<Hide GUID="{79FE6037-5F22-409D-96ED-237C6E84FFBB}"/>
+				<Hide GUID="{5FF49B00-CD10-433E-9AD1-B638C0AC6673}"/>
+				<Hide GUID="{211829A5-1D47-4949-8CF9-F72ABAB084C2}"/>
+				<Hide GUID="{FEC253E5-B301-4CD0-9C8F-5C1D6978AB66}"/>
+				<Hide GUID="{7B87C8AD-F59D-465F-82E8-AD1B879C28BB}"/>
+				<Hide GUID="{F39D9D32-7D2E-47FD-A555-7CEA68A8CAC4}"/>
+				<Hide GUID="{9C34DF7E-2760-43A7-AF34-B8FAFC7D0E85}"/>
+				<Hide GUID="{2A2A70A5-204B-4984-ABDA-BD5B8C76BF6F}"/>
+				<Hide GUID="{542C8E68-61AB-4544-BCCE-39677D11D301}"/>
+				<Hide GUID="{DAECD7AB-831F-4156-9929-B8975886936C}"/>
+				<Hide GUID="{6667CEBF-57B3-4FFA-BD4C-781E19682ED8}"/>
+				<Hide GUID="{3CE3823B-3CF2-4693-8DF2-75C17B807BA4}"/>
+				<Hide GUID="{D2F7F40B-12B4-4061-A2F4-76750E3EA8D0}"/>
+				<Hide GUID="{A8E25530-A9BC-4D70-BCE1-0C2FE6967C95}"/>
+				<Hide GUID="{04DC88D1-4221-4434-8C37-DCD33DF08AC7}"/>
+				<Hide GUID="{1261AFFC-A5CA-4908-8402-D5687D2FE752}"/>
+				<Hide GUID="{96F090D3-A1D7-45B0-9812-69A4CC38AAE5}"/>
+				<Hide GUID="{F2CEC1B8-7191-464B-A534-5A89750AB50C}"/>
+				<Hide GUID="{893CC926-943A-47DA-B235-52B1FA2D7B47}"/>
+				<Hide GUID="{9F84F286-4B31-4E4D-BEA1-CF41386910A4}"/>
+				<Hide GUID="{E393FD7F-F994-4B4B-B3C8-92ED83F885DC}"/>
+				<Hide GUID="{1FA96713-3B61-423B-9858-12BD2025A94D}"/>
+				<Hide GUID="{A99CDB11-6C41-4037-84DD-7D362D4C967E}"/>
+				<Hide GUID="{E2792EF9-746D-47BE-81EC-4E24452ED255}"/>
+				<Hide GUID="{E6D72C30-82EC-48AA-B9E2-0C655CB7EBE8}"/>
+				<Hide GUID="{882B3A9D-FE75-4F7C-81E6-0777B3BEA0A1}"/>
+				<Hide GUID="{0176368B-9354-4157-A18D-9FA0897A2AED}"/>
+				<Hide GUID="{8C5E57CD-28FA-409D-9955-1A38382109BA}"/>
+				<Hide GUID="{23285D6A-0AE9-4AA4-B92D-A0D4601E9BEB}"/>
+				<Hide GUID="{6D82C4C8-9606-4AE2-A523-619E9DBD9DA1}"/>
+				<Hide GUID="{6881BA16-358F-4DDB-B90D-596BBDFD94D2}"/>
+				<Hide GUID="{2E111E12-E112-4B29-AEF1-D19FB93C7D6B}"/>
+				<Hide GUID="{B01974E4-4730-41B0-86F3-9D620712CEF9}"/>
+				<Hide GUID="{A1F37783-F29C-43B5-84DB-EA37AC57AC3D}"/>
+				<Hide GUID="{57DEF5FD-C2C7-4A06-B1AB-30DB5FBA9400}"/>
+				<Hide GUID="{70F7EFB7-09AE-462E-9181-CAFD0DC62D9B}"/>
+				<Hide GUID="{2D43042B-89D9-4BBF-A01B-0A4F822D36AB}"/>
+				<Hide GUID="{39F2EA83-94F6-42CD-9F9D-1EB88F749A94}"/>
+				<Hide GUID="{279B3E9B-CFE9-45FE-866A-C650B7FDD705}"/>
+				<Hide GUID="{B5EEF1E9-9A32-49EB-88F2-55DEA969DC41}"/>
+				<Hide GUID="{BBC5CAFF-24DC-45E2-B7ED-6396C654FDB5}"/>
+				<Hide GUID="{AB836E5E-1622-4495-BB9D-36E7B3E92175}"/>
+				<Hide GUID="{45BE6022-F9D7-424D-8759-E9C9E28A2C52}"/>
+				<Hide GUID="{1C755273-7BC3-416D-A104-5A6DD329ED1C}"/>
+				<Hide GUID="{BC26A5A3-DC77-4878-99B8-54F48FAA1879}"/>
+				<Hide GUID="{C6DE44F1-DD90-4930-BD80-200CD70C53B0}"/>
+				<Hide GUID="{DC0F770A-4F52-43BF-BCEC-48A355483C1F}"/>
+				<Hide GUID="{4C6BFC0A-FA5D-4158-8F62-C388AFF5F1FB}"/>
+				<Hide GUID="{69B487C5-927B-456E-93A4-870A8C638A0B}"/>
+				<Hide GUID="{40EF09E0-D4A6-45A5-8FD7-248CE31EC51C}"/>
+				<Hide GUID="{A9F8AE83-FCA3-4A77-B3EF-20E1F49801FF}"/>
+				<Hide GUID="{4E95AF82-C987-42DE-9DA3-984D1D34E22F}"/>
+				<Hide GUID="{D2EE5D7E-990B-4C0B-87B6-AF16F530A445}"/>
+				<Hide GUID="{57314C4E-66D9-4829-A4C3-113AC56FD7B6}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{3404B97C-9B43-42E9-9D95-3DB0DA598A36}">ITcIoImageRecv</Name>
 			<Comment><![CDATA[Interface for a image receiver.]]></Comment>
 			<BitSize X64="64">32</BitSize>
@@ -778,37 +1425,62 @@
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{2A45F794-2ECF-4340-9A69-A3AE84C60C9D}">ITcIoFileImageAcquisition</Name>
-			<Comment><![CDATA[Interface for file image acquisition.]]></Comment>
+			<Name GUID="{B0162C95-E9FA-4151-A74F-59489FF2D3A0}">GEV_CAMERA_STATE</Name>
+			<Comment><![CDATA[Describes the GigEVision camera connection state.]]></Comment>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[GEV_CAMERA_IDLE]]></Text>
+				<Enum>0</Enum>
+				<Comment><![CDATA[Camera is idle (no control or stream channel open).]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[GEV_CONTROL_CHANNEL_OPEN_MASK]]></Text>
+				<Enum>1</Enum>
+				<Comment><![CDATA[The control channel is open.]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[GEV_STREAM_CHANNELS_OPEN_MASK]]></Text>
+				<Enum>2</Enum>
+				<Comment><![CDATA[At least 1 stream channel is open.]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[GEV_CONTROL_CHANNEL_OPEN]]></Text>
+				<Enum>1</Enum>
+				<Comment><![CDATA[The control channel is open, but no stream channel.]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[GEV_STREAM_CHANNELS_OPEN]]></Text>
+				<Enum>3</Enum>
+				<Comment><![CDATA[At least 1 stream channel and the control channel are open.]]></Comment>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>plcWarning_disable</Name>
+					<Value>C0125</Value>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
+			<Name GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Name>
+			<Comment><![CDATA[Interface for GigE Vision image acquisition.]]></Comment>
 			<BitSize X64="64">32</BitSize>
 			<BaseType GUID="{D245C557-353A-4D5F-A69A-DDF424681A3C}">ITcIoImageAcquisition</BaseType>
 			<Method>
 				<Name>CheckConnection</Name>
-				<Comment><![CDATA[Checks the connection]]></Comment>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
-			</Method>
-			<Method>
-				<Name>TriggerImage</Name>
-				<Comment><![CDATA[Initialize the software trigger and trigger a single image. Skips nSkipImages and triggers the capturing of image nSkipImages+1.]]></Comment>
+				<Comment><![CDATA[Checks the camera connection]]></Comment>
 				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
 				<ReturnBitSize>32</ReturnBitSize>
 				<Parameter>
-					<Name>nSkipImages</Name>
-					<Comment><![CDATA[Number of images to skip]]></Comment>
-					<Type GUID="{18071995-0000-0000-0000-000000000009}" Optional="0">DINT</Type>
-					<BitSize>32</BitSize>
+					<Name>eAssumedState</Name>
+					<Comment><![CDATA[The internally assumed state of the camera.]]></Comment>
+					<Type GUID="{B0162C95-E9FA-4151-A74F-59489FF2D3A0}" ReferenceTo="true">GEV_CAMERA_STATE</Type>
+					<BitSize X64="64">32</BitSize>
 				</Parameter>
-			</Method>
-			<Method>
-				<Name>TriggerImageByName</Name>
-				<Comment><![CDATA[Initialize the software trigger and trigger a single image specified by its name in the client assistant.]]></Comment>
-				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
-				<ReturnBitSize>32</ReturnBitSize>
 				<Parameter>
-					<Name>sImageName</Name>
-					<Comment><![CDATA[Image name to trigger]]></Comment>
-					<Type GUID="{18071995-0000-0000-0000-00000000001A}">PCCH</Type>
+					<Name>eActualState</Name>
+					<Comment><![CDATA[The actually observable state of the camera.]]></Comment>
+					<Type GUID="{B0162C95-E9FA-4151-A74F-59489FF2D3A0}" ReferenceTo="true">GEV_CAMERA_STATE</Type>
 					<BitSize X64="64">32</BitSize>
 				</Parameter>
 			</Method>
@@ -819,8 +1491,939 @@
 				</Property>
 			</Properties>
 			<Hides>
-				<Hide GUID="{199B2ADE-E454-4B15-B820-C506B621B9DB}"/>
-				<Hide GUID="{9F0A0F06-64EA-439F-9F22-424A3B6B40F4}"/>
+				<Hide GUID="{DC893B9F-B550-4DB4-A0E1-D49ACE21BF2C}"/>
+				<Hide GUID="{F6E9474A-4CF8-4BF3-A4B0-BE912984B4B1}"/>
+				<Hide GUID="{2399D3FD-0446-44E9-9B9F-D51D6E9B5EB3}"/>
+				<Hide GUID="{AA14BC01-1C0E-4727-87CB-A9A127035BEB}"/>
+				<Hide GUID="{2C28CE00-5546-44F0-8E7A-E72791823B74}"/>
+				<Hide GUID="{E90449AF-C3A4-466A-91B1-37A5CF2DCB35}"/>
+				<Hide GUID="{DDC3E49B-0C30-41E6-BD11-7A2D58E37B5A}"/>
+				<Hide GUID="{A0F51DA7-5388-46CE-9B35-B8F9233CA2D0}"/>
+				<Hide GUID="{567A4AAE-4B23-429F-B343-2C4902CBD43D}"/>
+				<Hide GUID="{994C557F-43F5-43E0-9A11-8D2D2842E146}"/>
+				<Hide GUID="{F02A31B5-37D3-445C-941D-2322D4F5C578}"/>
+				<Hide GUID="{239F5895-0FB8-43CD-90DC-CFF75DDB1ABE}"/>
+				<Hide GUID="{02E349E6-5465-4F41-9265-71E1E7F64236}"/>
+				<Hide GUID="{8D89E0C7-F8F8-42EB-A355-52474F41D2DC}"/>
+				<Hide GUID="{E2951866-48FA-43FE-BC11-168AF0563A33}"/>
+				<Hide GUID="{DAF838D3-B9A7-4C63-8924-FDFEDDB10100}"/>
+				<Hide GUID="{258D3E8C-9255-48A3-BBA3-71550F57F419}"/>
+				<Hide GUID="{3C330AC5-B5E5-4559-9E04-897C70DE0E19}"/>
+				<Hide GUID="{064BFA01-8E4D-496F-B2EC-A017C1CAC74F}"/>
+				<Hide GUID="{4E0B6DF4-2B3F-4ED5-A7EE-47BFF859FCCE}"/>
+				<Hide GUID="{AA7E2CF1-9FB0-4038-BDAF-6AF490155ADB}"/>
+				<Hide GUID="{DD254449-1655-4C97-A207-CA48CDE1CB8D}"/>
+				<Hide GUID="{294B1357-EB03-4430-97CC-71DF7FFE9EB7}"/>
+				<Hide GUID="{93A3264F-01D1-416E-8DC0-2953ED273972}"/>
+				<Hide GUID="{C39F5613-93D0-4D44-9792-B7F9E1F34CFE}"/>
+				<Hide GUID="{80D49BB9-66F8-4571-9607-EFE9D63EE71A}"/>
+				<Hide GUID="{64405FA3-E599-408C-A8CD-AF0BDA236548}"/>
+				<Hide GUID="{05AE007E-E590-4D29-9291-B0CF01804AA2}"/>
+				<Hide GUID="{02214787-BC30-4906-8E82-7BE8FD4B47ED}"/>
+				<Hide GUID="{D556DE7F-2B29-4777-9267-C3589E5C019B}"/>
+				<Hide GUID="{79493A02-26DC-46C4-9B81-14DD28F92227}"/>
+				<Hide GUID="{6A1F33F4-DF53-455E-92F5-0E8065E8A3A5}"/>
+				<Hide GUID="{9B5F560F-3193-4ED4-BC04-F7ED0F1A3D6D}"/>
+				<Hide GUID="{A0BA314C-99C0-427C-B085-E664A645483B}"/>
+				<Hide GUID="{BF167C78-3619-48EE-AC03-F1A9F9CCD5DC}"/>
+				<Hide GUID="{6612F8BD-F472-415A-8B5A-235E2E0E00CA}"/>
+				<Hide GUID="{1C333FAB-7A1E-428F-B0EA-4ED7397B94AF}"/>
+				<Hide GUID="{C0C9778A-6C17-4E70-A97B-7B9196C92C0D}"/>
+				<Hide GUID="{B7A44C97-84BE-4140-A1AA-79B2EE1A8859}"/>
+				<Hide GUID="{53F733F4-9A94-4045-9F93-368B781BA73C}"/>
+				<Hide GUID="{4D545A6C-EF03-4968-8CD1-2E268EADD476}"/>
+				<Hide GUID="{176D6DFE-845B-466D-8E7E-5D9704C8CAF1}"/>
+				<Hide GUID="{A3B4F0AE-D022-4D21-B89D-C703F15B09AB}"/>
+				<Hide GUID="{6B1F6DF7-8440-4DE5-B8E6-9B08CAA0BF95}"/>
+				<Hide GUID="{699CDAB4-9812-4AB7-9DEE-BA181AB12CB5}"/>
+				<Hide GUID="{6AAB9687-4A3B-45D2-8CF6-0674F6A084FA}"/>
+				<Hide GUID="{83452FDE-5409-4E04-A9A0-BC6C5FF2ED62}"/>
+				<Hide GUID="{44760529-4FAA-49F2-8B38-E332E40AD8CC}"/>
+				<Hide GUID="{2BD143B2-BEDD-41CB-8D46-003F7E27FE38}"/>
+				<Hide GUID="{FC0686B6-77FF-469B-B23C-C663EEA7BCBA}"/>
+				<Hide GUID="{A87CBE50-8129-4265-8F42-6E11D4C6BD09}"/>
+				<Hide GUID="{EBACAA34-7F34-48AB-B9BF-B4053411AEE9}"/>
+				<Hide GUID="{7A7E3096-71A0-4470-BCAD-8B46CB026580}"/>
+				<Hide GUID="{F03591EB-C098-4BA1-9F9F-B1E268004C6A}"/>
+				<Hide GUID="{9FE75AD0-1FDB-47DB-B157-E784080C8704}"/>
+				<Hide GUID="{F4E134BA-6373-419A-B6EC-31B5AB97C716}"/>
+				<Hide GUID="{25E146F7-F477-4017-B18A-1D99181ED54F}"/>
+				<Hide GUID="{F130D3DD-4EBC-438D-83A0-8599F6AB85CB}"/>
+				<Hide GUID="{E70919E6-F886-40CE-9739-B445D95912C6}"/>
+				<Hide GUID="{4977B385-B052-42A0-9327-73F244F2CC67}"/>
+				<Hide GUID="{E3313FF8-42B0-45D4-8322-26AD43287AB2}"/>
+				<Hide GUID="{8C0E3E5E-F3B8-451D-997D-BF92E06FC2FF}"/>
+				<Hide GUID="{28659D4B-BD61-4621-B893-D4BEC6AFAC0A}"/>
+				<Hide GUID="{7851ADC4-14FB-4F04-8196-299C04F73A3E}"/>
+				<Hide GUID="{C1B2808A-5E06-4240-91D1-9841134CABDC}"/>
+				<Hide GUID="{D0087E05-C6CB-4A3F-8271-89B9B5CC55A3}"/>
+				<Hide GUID="{6E8DA5DA-018A-40A0-A4C8-97BEBDD20083}"/>
+				<Hide GUID="{F884FA18-BAC4-4AAF-BF2B-7B0ACB2A07A3}"/>
+				<Hide GUID="{EE54EB5D-0A33-4F09-AC71-DE4C16EA9B38}"/>
+				<Hide GUID="{881EFC18-C0E6-4431-8E4B-C11827B32C03}"/>
+				<Hide GUID="{4767780D-B7C4-4452-B524-BA3ECDE6D6CB}"/>
+				<Hide GUID="{BA806F10-9D01-454C-92F6-E8754A3B7B55}"/>
+				<Hide GUID="{E0F649ED-CB4A-413A-A541-DF52D32C9162}"/>
+				<Hide GUID="{BD4955A9-2549-48B2-ADB5-E7BC2C490DBF}"/>
+				<Hide GUID="{A3A6B8EF-CFFB-4185-805D-18A87723573E}"/>
+				<Hide GUID="{7AACBC9C-DE3E-4B79-8DFD-1B849FC05498}"/>
+				<Hide GUID="{92AD873E-38B6-4BA3-A346-7D62C3667FCB}"/>
+				<Hide GUID="{B1F38C6B-029D-4E0F-A3DA-8B5455B8929C}"/>
+				<Hide GUID="{8C367472-8FEB-45F5-9AAD-B1D2C5AC3C13}"/>
+				<Hide GUID="{454C56CA-A1E1-4A48-9B1C-4A25DD526FF0}"/>
+				<Hide GUID="{E50DD53D-CC8B-4541-9426-414E9A3B3B71}"/>
+				<Hide GUID="{DEE5ABF4-364B-4BD4-833E-C3F0C93EF73E}"/>
+				<Hide GUID="{FA679B52-D0DD-4EF0-8B35-BD61CDB15089}"/>
+				<Hide GUID="{5E838E82-6BB4-4F99-9B56-DAE614D82E65}"/>
+				<Hide GUID="{E67DD707-4377-4D58-ADDE-E2845926B17B}"/>
+				<Hide GUID="{C1C8BD9F-C780-44B7-8920-78A6229E3F62}"/>
+				<Hide GUID="{8BC4C144-E48A-439B-90A7-60C3C4632DC0}"/>
+				<Hide GUID="{8AD81C29-C9D5-417E-8951-BD7C73D374F7}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-00000000003E}" TcBaseType="true" HideSubItems="true">IPADDR</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>4</Elements>
+			</ArrayInfo>
+			<Format>
+				<Printf>%d.%d.%d.%d</Printf>
+				<Parameter>[3]</Parameter>
+				<Parameter>[2]</Parameter>
+				<Parameter>[1]</Parameter>
+				<Parameter>[0]</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{3035DC67-0682-4C8E-97F8-30598AC69C61}">ETcIoGevAutoInitMode</Name>
+			<Comment><![CDATA[Offers camera initialization modes.]]></Comment>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[AUTOINIT_SO]]></Text>
+				<Enum>0</Enum>
+				<Comment><![CDATA[Writes ForceIP (if existing in InitCameraCommands), reads CtrlChannelInfo and writes camera feature values of InitCameraCommands in the module´s SO-Phase.]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[AUTOINIT_AFTER_SO]]></Text>
+				<Enum>1</Enum>
+				<Comment><![CDATA[Writes ForceIP (if existing in InitCameraCommands), reads CtrlChannelInfo and writes camera feature values of InitCameraCommands when OpenCamera is called.]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[NO_AUTOINIT]]></Text>
+				<Enum>2</Enum>
+				<Comment><![CDATA[Writes ForceIP (if existing in InitCameraCommands), reads CtrlChannelInfo and writes camera feature values of InitCameraCommands when InitializeCamera is called.]]></Comment>
+			</EnumInfo>
+			<Hides>
+				<Hide GUID="{01D13993-E50B-425B-AA36-871C6A31579F}"/>
+				<Hide GUID="{388869DD-9B68-46D7-908E-0DB707FCE357}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{478C4436-6F33-4F6F-B4A8-88074B54DCD4}" TcBaseType="true">ETYPE_VLAN_HEADER</Name>
+			<BitSize>32</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+		</DataType>
+		<DataType>
+			<Name GUID="{03010095-0000-0000-E000-000000000064}" TcBaseType="true">ITcIoUdpProtocolRecv</Name>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>ReceiveData</Name>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipAddr</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>udpDestPort</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>udpSrcPort</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>nData</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>pData</Name>
+					<Type GUID="{18071995-0000-0000-0000-000000000018}">PVOID</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>pVlan</Name>
+					<Type GUID="{478C4436-6F33-4F6F-B4A8-88074B54DCD4}" PointerTo="1" Optional="0">ETYPE_VLAN_HEADER</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+		</DataType>
+		<DataType>
+			<Name GUID="{7C53C9A1-5EBD-4DFF-B561-5213B6EBED4A}">ITcIoGvspStreamChannelInfo</Name>
+			<Comment><![CDATA[Interface to access the GVSP stream channel info.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>AdjustPacketSize</Name>
+				<Comment><![CDATA[Adjust the maximum packet size of this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspPacketSize</Name>
+					<Comment><![CDATA[New maximum GVSP packet size]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>CheckIfValid</Name>
+				<Comment><![CDATA[Check if the GVSP stream channel is valid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>GetChannelId</Name>
+				<Comment><![CDATA[Get the ID of this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspChannelId</Name>
+					<Comment><![CDATA[Returns the GVSP stream channel ID]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}" ReferenceTo="true">UINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetLocalPort</Name>
+				<Comment><![CDATA[Get the local port that is used for this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspPort</Name>
+					<Comment><![CDATA[Returns the GVSP stream channel port]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}" ReferenceTo="true">UINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetLocalIpAddress</Name>
+				<Comment><![CDATA[Get the local IP address that is used for this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipAddress</Name>
+					<Comment><![CDATA[Returns the IP address]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetPacketDelay</Name>
+				<Comment><![CDATA[Get the minimum packet delay of this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspPacketDelay</Name>
+					<Comment><![CDATA[Returns the minimum packet delay]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetPacketSize</Name>
+				<Comment><![CDATA[Get the maximum packet size of this stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspPacketSize</Name>
+					<Comment><![CDATA[Returns the maximum packet size]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>SetInvalid</Name>
+				<Comment><![CDATA[Mark this GVSP stream channel as invalid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>SetValid</Name>
+				<Comment><![CDATA[Mark this GVSP stream channel as valid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{B5908CE9-2DD6-4A5B-BCD2-64D7616B6559}"/>
+				<Hide GUID="{259BC631-A1D4-4924-8E56-7A89EF3F9265}"/>
+				<Hide GUID="{9B45824A-3A9A-488C-929B-895CF1316324}"/>
+				<Hide GUID="{9244B9EB-B5BA-4CCE-BD24-2D1EEFAE6839}"/>
+				<Hide GUID="{11E14750-4B61-4A88-9A32-54CD4F9D3DBA}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{36FC2D2A-D6F7-4BED-965E-BEBE542DF002}">ITcIoGvcpProtocol</Name>
+			<Comment><![CDATA[Interface for the GVCP protocol.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>CheckReceived</Name>
+				<Comment><![CDATA[Check for received data and process it.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>RegisterReceiver</Name>
+				<Comment><![CDATA[Register a GVCP receiver.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipRecv</Name>
+					<Comment><![CDATA[Interface containing the callback methods]]></Comment>
+					<Type GUID="{076882E7-F81E-4D85-82E9-92C4E11AEE9A}">ITcIoGvcpProtocolRecv</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>UnregisterReceiver</Name>
+				<Comment><![CDATA[Unregister the GVCP receiver.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>OpenControlChannel</Name>
+				<Comment><![CDATA[Open the GVCP control channel and start transmitting the heartbeat signal.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipDeviceAddr</Name>
+					<Comment><![CDATA[IP address of the destination device]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>gvcpPrivileges</Name>
+					<Comment><![CDATA[Requested privileges]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>CloseControlChannel</Name>
+				<Comment><![CDATA[Close the GVCP control channel and stop transmitting the heartbeat signal.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>bOmitAcknowledgement</Name>
+					<Comment><![CDATA[If true, no acknowledge packet is requested]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>OpenStreamChannel</Name>
+				<Comment><![CDATA[Open a stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipGvspChannelInfo</Name>
+					<Comment><![CDATA[Required information, including the local port number and the channel ID]]></Comment>
+					<Type GUID="{7C53C9A1-5EBD-4DFF-B561-5213B6EBED4A}">ITcIoGvspStreamChannelInfo</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>bSplitConcatenatedCommands</Name>
+					<Comment><![CDATA[If true, multi-read and multi-write commands are split into sequences of single read and single write commands, respectively. If false, concatenated commands are sent.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>CloseStreamChannel</Name>
+				<Comment><![CDATA[Close a stream channel.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipGvspChannelInfo</Name>
+					<Comment><![CDATA[Required information, including the local port number and the channel ID]]></Comment>
+					<Type GUID="{7C53C9A1-5EBD-4DFF-B561-5213B6EBED4A}">ITcIoGvspStreamChannelInfo</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>bSplitConcatenatedCommands</Name>
+					<Comment><![CDATA[If true, multi-read and multi-write commands are split into sequences of single read and single write commands, respectively. If false, concatenated commands are sent.]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>bOmitAcknowledgement</Name>
+					<Comment><![CDATA[If true, no acknowledge packet is requested]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{D3EDAE8A-88EE-447C-9C3A-71CD6840176A}"/>
+				<Hide GUID="{C9043C24-FEC6-4C56-9B37-714277AAAD54}"/>
+				<Hide GUID="{ECA5F68B-B430-498F-A69E-92671FF04130}"/>
+				<Hide GUID="{3BFC0369-7577-4C57-8AFC-60E9AD239CD8}"/>
+				<Hide GUID="{4A36201F-7DCD-497B-9FFD-D0D470B3EE1E}"/>
+				<Hide GUID="{C5D117DD-BC38-4053-ACD8-9303C114DDF7}"/>
+				<Hide GUID="{63CBCF98-3FF0-45D9-ACB9-B37EA469099B}"/>
+				<Hide GUID="{76D76F28-7662-457E-B500-9A4C7922929C}"/>
+				<Hide GUID="{AD0769C6-7630-417C-82A0-62A076C22988}"/>
+				<Hide GUID="{2A1B9185-19FE-40A7-880A-DEE89584C144}"/>
+				<Hide GUID="{25C35384-E467-402D-986A-5428470B48E3}"/>
+				<Hide GUID="{23C08245-C3CC-42F0-9967-15834F60C0B3}"/>
+				<Hide GUID="{F5B96CF7-3A79-45A0-862C-1BF56651E752}"/>
+				<Hide GUID="{55441111-A372-4C7A-9925-DAF26EB397CE}"/>
+				<Hide GUID="{D90841FC-5F9D-4DCD-93BE-09B7F58D348F}"/>
+				<Hide GUID="{7659CEEE-4A1C-4CEB-979C-A4C41216B61E}"/>
+				<Hide GUID="{27340E2B-26A2-41B3-AA6C-8D1D50DF1214}"/>
+				<Hide GUID="{E153EF09-6B7A-4A5E-BB85-52C97F50581E}"/>
+				<Hide GUID="{9073259E-5E3D-4F46-8D43-C836E0F90ADA}"/>
+				<Hide GUID="{1DBC026F-2428-407F-AD8B-9C2EC1E9B393}"/>
+				<Hide GUID="{1DA609C4-3EDA-4F0E-B82F-070301646B04}"/>
+				<Hide GUID="{41511E97-0A69-41CD-99A3-0A6065B5A9DE}"/>
+				<Hide GUID="{76E4C9FA-BDD3-436E-9CBE-9585CC942595}"/>
+				<Hide GUID="{F79A8146-7E64-4B35-B254-F191C34FEC44}"/>
+				<Hide GUID="{E24580B5-6B6A-453C-8DE6-3A3DD607D75C}"/>
+				<Hide GUID="{E2F9205F-558B-4B07-A308-970854756E50}"/>
+				<Hide GUID="{658A0793-325B-4E8C-A9B6-B42309152EDB}"/>
+				<Hide GUID="{985BD185-712D-45D4-BBC4-D3E24DC2457B}"/>
+				<Hide GUID="{02397F18-C2D3-4E25-8E82-0CBDE5846A96}"/>
+				<Hide GUID="{3CCC9DBB-395A-4A41-B737-7447C01DE356}"/>
+				<Hide GUID="{D3AC65CB-177B-4167-8E47-450B4CADE494}"/>
+				<Hide GUID="{0FAF16D3-164E-4804-A162-6A860C046839}"/>
+				<Hide GUID="{DD434AC2-29B4-4DE7-84BE-F56A41412252}"/>
+				<Hide GUID="{76065DEB-7D40-4799-B40D-05257C265A50}"/>
+				<Hide GUID="{2A83AB62-D3CF-4460-AF25-AE40BADD01E2}"/>
+				<Hide GUID="{23FF7442-E91F-48CD-85F7-F7300ECF4E90}"/>
+				<Hide GUID="{4BBD34A0-2AAA-4042-8B7F-24ED351B4718}"/>
+				<Hide GUID="{E311BCA4-8A1B-48F7-A95C-1A4B22205469}"/>
+				<Hide GUID="{372431B3-1F10-4564-9FF4-5539B9976B83}"/>
+				<Hide GUID="{4CD52FDB-7ADE-40BF-A7A1-2D3244BE4B24}"/>
+				<Hide GUID="{F1FEC218-C05F-4375-B99F-7DA5092163EE}"/>
+				<Hide GUID="{2EEA0354-5C0B-4FD8-AE4F-692CE70BF5D3}"/>
+				<Hide GUID="{5E111630-41A9-4520-8F0B-3313401B6ADD}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{08D29B88-1630-43C1-9A4D-7F336CDC6498}">ITcIoGvspResendProvider</Name>
+			<Comment><![CDATA[Interface providing GVSP resend functionality.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>RequestPacketResend</Name>
+				<Comment><![CDATA[Send a PACKETRESEND_CMD requesting a sequence of GVSP packets.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvspChannelId</Name>
+					<Comment><![CDATA[ID of the stream channel on which the packet(s) is/are to be resent]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+					<BitSize>16</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>gvspBlockId</Name>
+					<Comment><![CDATA[Block ID of the requested packet(s)]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+					<BitSize>64</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>gvspFirstPacketId</Name>
+					<Comment><![CDATA[First packet to send]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>gvspLastPacketId</Name>
+					<Comment><![CDATA[Last packet to send]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>bEi</Name>
+					<Comment><![CDATA[GVSP extended ID flag]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+					<BitSize>8</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>CheckIfPacketResendPermitted</Name>
+				<Comment><![CDATA[Check if packet resend is permitted.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{0E9F0F39-8A76-4FFD-B2E8-86739DD2D6EC}"/>
+				<Hide GUID="{C1FE5A8D-73D5-48B0-989B-38705F89A663}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{ABF4254D-8A8C-4A66-81B8-946D5B4FD3CE}">ITcIoGvcpControlChannelInfo</Name>
+			<Comment><![CDATA[Interface to access the GVCP control channel info.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>CheckIfValid</Name>
+				<Comment><![CDATA[Check if the GVCP control channel is valid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>SetCapabilityFlags</Name>
+				<Comment><![CDATA[Set the flags from the GVCP Capabilities bootstrap register.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nFlags</Name>
+					<Comment><![CDATA[The GVCP Capability flags]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>CheckConcatenation</Name>
+				<Comment><![CDATA[Check if the control channel supports command concatenation.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>CheckWriteMem</Name>
+				<Comment><![CDATA[Check if the control channel supports WRITEMEM commands.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>CheckPacketResend</Name>
+				<Comment><![CDATA[Check if the control channel supports packet resend.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>GetDestPort</Name>
+				<Comment><![CDATA[Get the GVCP destination port.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>gvcpPort</Name>
+					<Comment><![CDATA[Returns the GVCP port]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000005}" ReferenceTo="true">UINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetDestIpAddress</Name>
+				<Comment><![CDATA[Get the GVCP destination IP address.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipAddress</Name>
+					<Comment><![CDATA[Returns the IP address]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetPrivileges</Name>
+				<Comment><![CDATA[Get the GVCP privileges.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nPrivileges</Name>
+					<Comment><![CDATA[Returns the privileges]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000008}" ReferenceTo="true">UDINT</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>SetInvalid</Name>
+				<Comment><![CDATA[Mark the GVCP control channel as invalid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>SetValid</Name>
+				<Comment><![CDATA[Mark the GVCP control channel as valid.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{7F3D214E-A1B3-4CB2-B439-57E9ADF47B30}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{ED3602E9-06F1-4D1C-806B-3A0622C7541C}">GEV_SEND_DIAGNOSIS</Name>
+			<Comment><![CDATA[Contains statistics for send protocol diagnosis.]]></Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>nSuccess</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of successfully sent packets]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nError</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of packets causing errors during transmission]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nTimeout</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of timeouts that have occurred]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{05915CC6-FB91-45DE-9815-B090207AA9FA}"/>
+				<Hide GUID="{67BFA25E-2545-4D82-A8CB-9AF17F98854E}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{89C621F5-81B0-4DC4-8D0C-514BFD0DC56B}">GEV_RECEIVE_DIAGNOSIS</Name>
+			<Comment><![CDATA[Contains statistics for receive protocol diagnosis.]]></Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>nSuccess</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of successfully received packets]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nError</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of received packets signalling or causing errors]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nIgnored</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of ignored packets]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>128</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{59AD2490-6DD0-477D-A677-C6440128AEF5}"/>
+				<Hide GUID="{AA1C8B5D-74FD-48F1-B4CA-E443C0293964}"/>
+				<Hide GUID="{3414DAE2-5D11-42F8-AD6B-9359A2EB8530}"/>
+				<Hide GUID="{A8599F1C-EA0B-40A7-8EC7-CAA4B4D8B782}"/>
+				<Hide GUID="{B492B7E4-BDA4-49D4-833E-A5738158F1B1}"/>
+				<Hide GUID="{6012671D-B853-4931-A3E7-1FBD4586D702}"/>
+				<Hide GUID="{3F3CB72E-DA75-4150-B877-2B9E1C25F1BD}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{C662F9EF-32D9-40DA-AD52-6C3061A4FD62}">GVCP_PROTOCOL_DIAGNOSIS</Name>
+			<Comment><![CDATA[Contains statistics for GVCP protocol diagnosis.]]></Comment>
+			<BitSize>384</BitSize>
+			<SubItem>
+				<Name>stSend</Name>
+				<Type GUID="{ED3602E9-06F1-4D1C-806B-3A0622C7541C}">GEV_SEND_DIAGNOSIS</Type>
+				<Comment><![CDATA[Statistics for sent packets]]></Comment>
+				<BitSize>192</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>stRecv</Name>
+				<Type GUID="{89C621F5-81B0-4DC4-8D0C-514BFD0DC56B}">GEV_RECEIVE_DIAGNOSIS</Type>
+				<Comment><![CDATA[Statistics for received packets]]></Comment>
+				<BitSize>192</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{908CE9C4-B3E5-4596-95FD-279D16F73466}"/>
+				<Hide GUID="{1AC27DA8-AF05-42DF-BE0A-B98645C8AD86}"/>
+				<Hide GUID="{254FED97-A18D-4589-BC13-6F7E0532D766}"/>
+				<Hide GUID="{DF678D88-04C0-426B-9443-CFF9007163F0}"/>
+				<Hide GUID="{52AFC6D4-B3FE-4435-8F21-6F1859AD9803}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{52F40B6C-EFC4-49DD-BAB5-CD2FB3FA5D47}">ITcIoGvspProtocol</Name>
+			<Comment><![CDATA[Interface for the GVSP protocol.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{00000001-0000-0000-E000-000000000064}">ITcUnknown</BaseType>
+			<Method>
+				<Name>CheckReceived</Name>
+				<Comment><![CDATA[Check for received data and process it.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>RegisterReceiver</Name>
+				<Comment><![CDATA[Register a GVSP receiver]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipRecv</Name>
+					<Comment><![CDATA[Interface containing the callback functions]]></Comment>
+					<Type GUID="{8AF7EE15-BF89-4CB3-9E90-BDB09BA66CBD}">ITcIoGvspProtocolRecv</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>UnregisterReceiver</Name>
+				<Comment><![CDATA[Unregister the GVSP receiver.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>GetGvspStreamChannelInfo</Name>
+				<Comment><![CDATA[Get access to the GVSP stream channel managed by this GVSP protocol instance]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>ipGvspStreamChannelInfo</Name>
+					<Comment><![CDATA[Returns the interface pointer with access methods for the GVSP channel]]></Comment>
+					<Type GUID="{7C53C9A1-5EBD-4DFF-B561-5213B6EBED4A}" ReferenceTo="true">ITcIoGvspStreamChannelInfo</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>StartCapture</Name>
+				<Comment><![CDATA[Start capturing images.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>StopCapture</Name>
+				<Comment><![CDATA[Stop capturing images.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\GigEVision</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{CB066056-26BC-4AB4-829E-C6AD32C366C9}"/>
+				<Hide GUID="{56C6B809-B30E-435D-BA06-91D547A9AE49}"/>
+				<Hide GUID="{E8C6E9B8-1A9E-47F3-AB14-9995275E49A0}"/>
+				<Hide GUID="{132EC879-18C5-4DD1-88A7-B2F3DDB15AD0}"/>
+				<Hide GUID="{0ADCA1C9-ADEF-4E2F-8258-1AE334D50F97}"/>
+				<Hide GUID="{BCA3F75B-27DD-4BC2-A835-C42A4A6BA148}"/>
+				<Hide GUID="{DBDC6DB3-B203-4DE5-8CE4-CD867F9FA76B}"/>
+				<Hide GUID="{DC0E2544-05C7-4064-93C5-73E53A4B90EF}"/>
+				<Hide GUID="{54816F20-9D73-4359-AF53-EAEDDF383B49}"/>
+				<Hide GUID="{C7752BFE-955E-400C-84F7-F2860CCE999E}"/>
+				<Hide GUID="{E8DC3CF8-71B5-437B-B7F3-CDC45D7AC67C}"/>
+				<Hide GUID="{FDA10BCF-48A5-4C78-A7D7-B7A2068A276E}"/>
+				<Hide GUID="{2BE02AF5-BD73-4EA4-9FA4-5D31A62D9A42}"/>
+				<Hide GUID="{22085518-C982-49BE-AA5C-1643065F3BA5}"/>
+				<Hide GUID="{67D7685E-5217-489F-BF90-41CD16A27044}"/>
+				<Hide GUID="{D1480E88-08A3-411D-9D20-4BE7088F23FA}"/>
+				<Hide GUID="{E94C9838-B550-42CE-A29C-7F71C8A5327B}"/>
+				<Hide GUID="{21C255CD-0F56-49CE-90A2-3B94E52F5A22}"/>
+				<Hide GUID="{BE2625C3-91B9-4B00-8B69-9513823B775F}"/>
+				<Hide GUID="{429EA440-3FF9-4378-A021-DFD495767099}"/>
+				<Hide GUID="{6B4CD4DD-518C-4460-93E7-845F71D8636E}"/>
+				<Hide GUID="{AF6B2C2F-4752-4B10-A8F4-F172EB6EBE4B}"/>
+				<Hide GUID="{410CEDBC-DB85-46FE-8AD6-6A1177D2DD04}"/>
+				<Hide GUID="{1DF2EF2D-0857-40FC-85E7-01666219E9AA}"/>
+				<Hide GUID="{65FE14F2-29E4-4E7E-8CE0-4BA28495E116}"/>
+				<Hide GUID="{1EAAC91F-8002-48A9-A07D-B764AAAD2A8E}"/>
+				<Hide GUID="{A39ADFA9-B8D7-4A82-8CDF-9FC3DDE8077F}"/>
+				<Hide GUID="{46BAD088-999C-4AA2-A670-E20C8D2C5CAA}"/>
+				<Hide GUID="{76210FB2-28D9-44BE-81E6-A4C1DC998780}"/>
+				<Hide GUID="{108DB6E0-47C3-413F-8401-7C2309B4C69D}"/>
+				<Hide GUID="{576D04AE-F4A8-4DD4-9D6A-9C9522713FE3}"/>
+				<Hide GUID="{28ED46D3-92DE-40E3-8CF5-0AC71D429D1E}"/>
+				<Hide GUID="{E42D3C3A-2E17-46CE-9253-F719D27CF1DC}"/>
+				<Hide GUID="{184D5AE1-C411-4B0A-A2B5-332B3667DC79}"/>
+				<Hide GUID="{BBC1C1BD-9E49-48A4-BA37-596404CAE470}"/>
+				<Hide GUID="{99B3A303-AAAF-4A92-9A47-DD1AA46D6212}"/>
+				<Hide GUID="{7FEE09BB-A38A-4533-AFDA-44AB18E28C93}"/>
+				<Hide GUID="{981825AC-EEAB-4C94-A40A-01675A880EF7}"/>
+				<Hide GUID="{02B1C13A-AE18-49A5-B77A-A14E320E721F}"/>
+				<Hide GUID="{4A84336C-A0BB-4FF3-A550-873988EB60FD}"/>
+				<Hide GUID="{293664B8-67D3-4FE7-8471-58CB6B822FD0}"/>
+				<Hide GUID="{6051CF50-1F76-4DA8-800E-A24A3708CFDB}"/>
+				<Hide GUID="{882BD3DD-4F5B-448E-94D1-EB7C2BD914AE}"/>
+				<Hide GUID="{3D893039-961B-40BE-A399-80304B4D300C}"/>
+				<Hide GUID="{1CED092E-5AF1-4AAA-90B3-D7F9C343B149}"/>
+				<Hide GUID="{D47E7864-F59F-421E-B2F8-ECB31FD596C2}"/>
+				<Hide GUID="{D075A04E-C61F-4C0B-8B7C-5124CE98C021}"/>
+				<Hide GUID="{BABC7690-050E-456B-95C0-A1A9C6B8CF9A}"/>
+				<Hide GUID="{A8B3BAFF-4753-486A-B45A-88ECD63F78B9}"/>
+				<Hide GUID="{3E5862C8-BCC0-41A3-A224-5466371F32C5}"/>
+				<Hide GUID="{DA6A77CF-0040-436B-97F2-7C02265D836A}"/>
+				<Hide GUID="{45F2018C-1870-4C8F-8EBE-803FC41FFC8F}"/>
+				<Hide GUID="{4A5DA50C-B334-4DFA-A131-FFB1294204E7}"/>
+				<Hide GUID="{A830554B-5D0E-431B-BCAE-CF0521A7C0BC}"/>
+				<Hide GUID="{7E8D3E3C-9C94-4BB4-82F2-B81A152310C2}"/>
+				<Hide GUID="{84496DCC-161D-4CC6-897E-60FC7F4DF250}"/>
+				<Hide GUID="{AC39CF8B-8BB5-4876-A359-D34C0326FEB4}"/>
+				<Hide GUID="{E1ED6C79-4546-4395-80F4-54B36DC8CE1B}"/>
+				<Hide GUID="{6DAB5B7D-0B96-4D86-B269-3EFA4F45726B}"/>
+				<Hide GUID="{C976868D-5949-4137-9F6B-E96196384431}"/>
+				<Hide GUID="{A812D474-A97B-4A54-B6B1-604D63FC4956}"/>
+				<Hide GUID="{15757F37-EB3E-48CA-88A5-54EC909E4D3A}"/>
+				<Hide GUID="{3A7D208B-E434-4510-8346-C265FAECCF65}"/>
+				<Hide GUID="{5D70CBDC-9200-46CC-A097-C488BC7C68BC}"/>
+				<Hide GUID="{5A765D5B-BBF0-4329-894C-160B56658450}"/>
+				<Hide GUID="{AD18BA36-F394-4BE7-ADA1-BE33D670FEA2}"/>
+				<Hide GUID="{4E8F3FAE-E6A0-49F3-B796-F82A44A4D159}"/>
+				<Hide GUID="{4E7DCF07-66AD-469C-AD83-603661F67F5E}"/>
+				<Hide GUID="{98B98B5B-10D0-4925-815F-F7F2B3A61F1F}"/>
+				<Hide GUID="{72E3276B-42A1-49E2-AA44-F1B7E3098826}"/>
+				<Hide GUID="{FFC483B3-06CB-4412-B621-96C67D132B70}"/>
+				<Hide GUID="{0AE26E4C-4F89-4B22-B05A-5385E56865A5}"/>
+				<Hide GUID="{9BEA6DD4-0A3A-4A79-832C-C5CFA3D3F3D4}"/>
+				<Hide GUID="{37184E1F-B0C9-4BBB-859A-3C66201E8AFF}"/>
+				<Hide GUID="{6F33F443-232D-493E-9680-4F08FD80BDF0}"/>
+				<Hide GUID="{A00E94C5-19D0-4C7F-857E-AB44CA4058B0}"/>
+				<Hide GUID="{A362FF5E-73FC-46BC-8C42-D2C9621D7A12}"/>
+				<Hide GUID="{4F35B261-603F-4AC3-B4CB-6A7E9A74B4D2}"/>
+				<Hide GUID="{C78FB267-8BE4-47C0-BD55-36F40EDDC787}"/>
+				<Hide GUID="{0C5F96B0-D775-425A-89CD-8A6897ADCE81}"/>
+				<Hide GUID="{C2D58421-5C37-482A-B498-A4B8DB7CFBA7}"/>
+				<Hide GUID="{6482E67F-32BE-4A62-81D4-DD064D34371D}"/>
+				<Hide GUID="{5A19A5DB-A864-4299-91E4-4E8A91689F18}"/>
+				<Hide GUID="{BB472718-74F9-4678-9EA7-F9726ED1447C}"/>
+				<Hide GUID="{66DC7913-00D9-434E-B24A-27D3B0681F1D}"/>
+				<Hide GUID="{DE8C220A-BA33-47B2-BD51-60E9C18BF5C9}"/>
+				<Hide GUID="{026E7EED-0F11-4B38-98B1-43F5AABD087C}"/>
+				<Hide GUID="{CC32CF46-5FF3-472F-AB1E-4D65BE66927F}"/>
+				<Hide GUID="{A3584B79-D480-4EFE-BAF1-B118C3584B69}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{0A1261D6-25DE-41B0-93AE-B1561A06E163}">GVSP_PROTOCOL_DIAGNOSIS</Name>
+			<Comment><![CDATA[Contains statistics for GVSP protocol diagnosis.]]></Comment>
+			<BitSize>832</BitSize>
+			<SubItem>
+				<Name>stRecv</Name>
+				<Type GUID="{89C621F5-81B0-4DC4-8D0C-514BFD0DC56B}">GEV_RECEIVE_DIAGNOSIS</Type>
+				<Comment><![CDATA[Statistics for received packets]]></Comment>
+				<BitSize>192</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nResendRequests</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of packet resend requests]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>192</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nCompletedBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of successfully received images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>256</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nAbortedBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of aborted images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>320</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nTimedOutBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of timed out images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>384</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nInvalidBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of invalid images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>448</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nFurtherErroneousBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of other erroneous images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>512</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nDuplicateBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of duplicate images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>576</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nMissingBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of missing images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>640</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nUnexpectedBlocks</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of unexpected images]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>704</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nBlockIdOverflows</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</Type>
+				<Comment TxtId=""><![CDATA[Number of block ID overflows (not an error)]]></Comment>
+				<BitSize>64</BitSize>
+				<BitOffs>768</BitOffs>
+			</SubItem>
+			<Hides>
+				<Hide GUID="{64520AEB-77DE-44C0-94A8-DC4790DBFEC7}"/>
+				<Hide GUID="{30826CC4-5C1E-42A6-B23E-6A8004BA0396}"/>
+				<Hide GUID="{D3C02F1A-1369-4A4A-AE68-15D5094F2FCD}"/>
+				<Hide GUID="{38255BFA-1309-4EE0-82C1-FFC954690442}"/>
+				<Hide GUID="{3370F727-16E1-4EB0-B678-3D849DC79679}"/>
+				<Hide GUID="{30E0B591-E995-46F0-B1B8-73F06B0A5493}"/>
+				<Hide GUID="{CE8C524E-67EE-4FCF-849D-90E0C2E3621F}"/>
+				<Hide GUID="{49DACBB0-1AEF-4DE9-A47B-D07DBBD532FC}"/>
+				<Hide GUID="{B6C0DD72-F9EE-4752-B548-5B3893B367EF}"/>
+				<Hide GUID="{FEFDB370-B1F3-4F39-A6FE-F700A6D75215}"/>
+				<Hide GUID="{3B858564-2327-4FC1-BD4A-7FD47CE61CD0}"/>
+				<Hide GUID="{40D75F38-0633-4E24-B6CA-4116671DAD65}"/>
+				<Hide GUID="{C313D725-352C-452F-A0B0-9F802909B5DE}"/>
+				<Hide GUID="{71EF92C7-9E62-4BC1-B372-DA24B53B3F65}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -1060,6 +2663,104 @@
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{ED7659DB-95DC-4A4A-B62F-02C9870D5E81}">ITcVnGevImageProvider</Name>
+			<Comment><![CDATA[Interface for a GigE Vision image provider.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{B05227C0-7FB6-4EBC-B79C-8DC65E1F5DAA}">ITcVnImageProvider</BaseType>
+			<Method>
+				<Name>GetCurrentGevImage</Name>
+				<Comment><![CDATA[Gets the current GigE Vision image by detaching its internal reference.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>pipGevImage</Name>
+					<Comment><![CDATA[Pointer to the interface pointer to be returned, might be 0 if the image acquisition failed.]]></Comment>
+					<Type GUID="{238E9E96-5AEF-4E8B-9052-C371A8C7BBED}" PointerTo="1">ITcIoGevImage</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>GetCurrentImageWithGvspInfo</Name>
+				<Comment><![CDATA[Gets the current image by detaching its internal reference and additionally provide the GVSP info.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>pipImage</Name>
+					<Comment><![CDATA[Pointer to the interface pointer to be returned, might be 0 if the image acquisition failed.]]></Comment>
+					<Type GUID="{70D42C6D-6F4E-4719-8B29-2883D5D59B1C}" PointerTo="1">ITcVnImage</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+				<Parameter>
+					<Name>stGvspInfo</Name>
+					<Comment><![CDATA[Contains useful meta information like image id, time stamp etc.]]></Comment>
+					<Type GUID="{63FC7E33-91CD-44CD-9015-0BD1DC25722C}" ReferenceTo="true">GVSP_IMAGE_INFO</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\Images\Acquisition</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{F4B34347-E512-4D63-B974-48AC8F42B02C}"/>
+				<Hide GUID="{7E7793B3-78D4-47C2-A949-F8D1A2B9C979}"/>
+				<Hide GUID="{622F47C9-F264-4F8B-9227-CC3C00F3F563}"/>
+				<Hide GUID="{43E8D0B1-51AE-4A9E-B090-F7A4BC596E63}"/>
+				<Hide GUID="{BE3483B8-D4B8-4ACC-818F-97D4EFCA7876}"/>
+				<Hide GUID="{00CA9B16-F870-4F90-B50D-AB22E3AC881B}"/>
+				<Hide GUID="{999BC8B3-9201-4B6D-9F96-9982566102DF}"/>
+				<Hide GUID="{3BC1AB97-AB93-4392-8420-7D9B93CDAF5C}"/>
+			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{2A45F794-2ECF-4340-9A69-A3AE84C60C9D}">ITcIoFileImageAcquisition</Name>
+			<Comment><![CDATA[Interface for file image acquisition.]]></Comment>
+			<BitSize X64="64">32</BitSize>
+			<BaseType GUID="{D245C557-353A-4D5F-A69A-DDF424681A3C}">ITcIoImageAcquisition</BaseType>
+			<Method>
+				<Name>CheckConnection</Name>
+				<Comment><![CDATA[Checks the connection]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+			</Method>
+			<Method>
+				<Name>TriggerImage</Name>
+				<Comment><![CDATA[Initialize the software trigger and trigger a single image. Skips nSkipImages and triggers the capturing of image nSkipImages+1.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>nSkipImages</Name>
+					<Comment><![CDATA[Number of images to skip]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-000000000009}" Optional="0">DINT</Type>
+					<BitSize>32</BitSize>
+				</Parameter>
+			</Method>
+			<Method>
+				<Name>TriggerImageByName</Name>
+				<Comment><![CDATA[Initialize the software trigger and trigger a single image specified by its name in the client assistant.]]></Comment>
+				<ReturnType GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</ReturnType>
+				<ReturnBitSize>32</ReturnBitSize>
+				<Parameter>
+					<Name>sImageName</Name>
+					<Comment><![CDATA[Image name to trigger]]></Comment>
+					<Type GUID="{18071995-0000-0000-0000-00000000001A}">PCCH</Type>
+					<BitSize X64="64">32</BitSize>
+				</Parameter>
+			</Method>
+			<Properties>
+				<Property>
+					<Name>docuFolder</Name>
+					<Value>Interfaces\Images\Acquisition</Value>
+				</Property>
+			</Properties>
+			<Hides>
+				<Hide GUID="{199B2ADE-E454-4B15-B820-C506B621B9DB}"/>
+				<Hide GUID="{9F0A0F06-64EA-439F-9F22-424A3B6B40F4}"/>
+			</Hides>
+		</DataType>
+		<DataType>
 			<Name GUID="{F5435722-337D-4786-87F5-6DEC5A1CAED5}">ITcVnFileImageProvider</Name>
 			<Comment><![CDATA[Interface for an image provider for images from outside realtime environment.]]></Comment>
 			<BitSize X64="64">32</BitSize>
@@ -1126,24 +2827,6 @@
 				<Hide GUID="{46225BB0-35B3-4D4B-BC10-070DFDBBBED2}"/>
 				<Hide GUID="{1D101FDA-92E7-499D-A06D-491833E56DFD}"/>
 			</Hides>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
-			<BitSize>1</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>1</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
-			<BitSize>6</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>6</Elements>
-			</ArrayInfo>
 		</DataType>
 		<DataType>
 			<Name GUID="{AC23D64B-CDFA-4D43-AE8B-364A856EB3E2}">ITcVnMlModel</Name>
@@ -1783,12 +3466,6 @@
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424d360300000000000036000000280000001000000010000000010018000000000000000000c40e0000c40e00000000000000000000554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3be1d7d1e1d7d1e1d7d1e1d7d1e1d7d1e1d7d1e1d7d1dfd6cfdfd6cfdfd6cfdfd6cfdfd6cfdfd6cfdfd6cf554f3b554f3be3dbd4e3dbd4554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3bdfd6cfdfd6cf554f3b554f3be3dbd4e3dbd4554f3bc1b39ac1b399c0b299bfb097beae94bbac90b8a88cb7a488554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bc6b9a3c6b8a2c5b7a0c4b59fc2b49bbfb197bdae92baaa8d554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bcbbfaacbbeaac9bda9c9bba5c6b8a2c3b59ec0b298bdae93554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bcfc6b1d0c4b1cec3afcdc1adcabea8c7baa5c4b69ec0b298554f3be1d7d1dfd6cf554f3b554f3beee6e1eee6e1554f3bd4cabad4cabad2c9b6d1c6b3cec3afcabfa9c8baa4c4b59e554f3be1d7d1dfd6cf554f3b554f3bf2ebe7f2ebe7554f3b554f3b554f3bd7cfbed4cbbad2c7b4cec2af554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf2ebe7f2ebe7f5eeebf2ebe7554f3bdad4c4d8cfbfd4cabad0c6b3554f3be7ded9e3dbd4e3dbd4e1d7d1554f3b554f3bf5eeebf5eeebf5eeebf5eeeb554f3bded8cbdad3c4d7cdbdd2c8b6554f3bece4dfe3dbd4e3dbd4e1d7d1554f3b554f3bf5eeebf5eeeb554f3b554f3b554f3be1dbcfdcd6c7d8cfbfd3c9b8554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf5eeebf7f0ed554f3be8e3dbe5e1d7e1dbcfddd5c8d8cfbfd3cab7cec4b0c9bda8554f3be3dbd4e1d7d1554f3b554f3bf5eeebf5eeeb554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf5eeebf5eeebf5eeebf5eeebf5eeebf2ebe7f2ebe7eee6e1ece4dfece4dfece4dfe3dbd4e3dbd4e1d7d1554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b</ImageData>
-		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff00ffff00ffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ff00bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c080808000bfff00bfff00bfff00bfff00bfffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ff00bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{9CA79363-712C-4A08-A83A-BF95048EC49E}" TargetNetId="199.4.42.250.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
@@ -1805,11 +3482,17 @@
 				<Task Id="4" Priority="5" CycleTime="100000" AmsPort="351" AdtTasks="true">
 					<Name>VnTask ImgAcq (FileSource1)</Name>
 				</Task>
+				<Task Id="5" Priority="6" CycleTime="10000" AmsPort="352" AdtTasks="true">
+					<Name>VnTask ImgAcq (Camera1)</Name>
+				</Task>
+				<Task Id="6" Priority="7" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>VnTask ADS (Camera1)</Name>
+				</Task>
 			</Tasks>
 		</System>
 		<Plc>
 			<Project GUID="{17FD44B8-199A-4B80-8B23-793C2383B34C}" Name="PannenkoekSysteem" PrjFilePath="PannenkoekSysteem\PannenkoekSysteem.plcproj" TmcFilePath="PannenkoekSysteem\PannenkoekSysteem.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc" TmcHash="{1926DC10-0A4F-A253-C73D-AADA9390D555}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc" TmcHash="{BE1FBD79-9829-8CB9-CB4D-6BAECC5FD2A4}">
 					<Name>PannenkoekSysteem Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
@@ -1883,8 +3566,1108 @@
 					</ParameterValues>
 				</TmcDesc>
 			</JobPool>
-			<App VisionAppGUID="{C20A9117-2B5D-4E22-A8B5-AD0E36DC3836}">
+			<App Disabled="true" VisionAppGUID="{C20A9117-2B5D-4E22-A8B5-AD0E36DC3836}">
 				<Name>Application1</Name>
+				<Camera Id="1" VisionObjectGUID="{8FF6A638-E908-41DC-A4F3-9B9F53C883A9}">
+					<Name>Camera1</Name>
+					<Xml>
+						<TcSmExtensions>
+							<TcSmExtension Guid="{E1903838-ED0C-4FE8-A3F7-E433F11BFE82}">
+								<Settings>
+									<CameraController>
+										<CalcMaxPacketNumberKey Type="System.Boolean">True</CalcMaxPacketNumberKey>
+										<HeartbeatRateInitiallySet Type="System.Boolean">False</HeartbeatRateInitiallySet>
+										<AdsTimeoutInitiallySet Type="System.Boolean">False</AdsTimeoutInitiallySet>
+										<GvcpTransmissionTimeoutInitiallySet Type="System.Boolean">False</GvcpTransmissionTimeoutInitiallySet>
+									</CameraController>
+								</Settings>
+								<GenApiFileName/>
+								<TreeValueCache>
+									<RegisterValues/>
+									<MetaData/>
+									<DesiredValues/>
+								</TreeValueCache>
+								<CommonFeature/>
+							</TcSmExtension>
+						</TcSmExtensions>
+					</Xml>
+					<Module Id="#x01010050" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcIoGigEVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+						<Name>Camera1 Image Acquisition (CGevImageAcquisition)</Name>
+						<ImageId>1000</ImageId>
+						<TmcDesc GUID="{8B8C3693-0B4E-4D00-A22A-AFC6977207C3}" TcSmClass="CTComVisionObjDef">
+							<Name>CGevImageAcquisition</Name>
+							<CLSID ClassFactory="TcIoGigEVision">{8B8C3693-0B4E-4D00-A22A-AFC6977207C3}</CLSID>
+							<Licenses>
+								<License>
+									<LicenseId>{2FF93140-10E2-4662-A464-31B8A4673F26}</LicenseId>
+								</License>
+							</Licenses>
+							<InitSequence>PSO</InitSequence>
+							<Contexts>
+								<Context>
+									<Id>1</Id>
+									<ManualConfig>
+										<OTCID>#x02010050</OTCID>
+									</ManualConfig>
+									<Priority>6</Priority>
+									<CycleTime>1000000</CycleTime>
+								</Context>
+							</Contexts>
+							<Interfaces>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000010-0000-0000-E000-000000000064}">ITcCyclic</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{076882E7-F81E-4D85-82E9-92C4E11AEE9A}">ITcIoGvcpProtocolRecv</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{8AF7EE15-BF89-4CB3-9E90-BDB09BA66CBD}">ITcIoGvspProtocolRecv</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Type>
+								</Interface>
+							</Interfaces>
+							<Parameters>
+								<Parameter HideParameter="true" DisableCodeGeneration="true">
+									<Name>SortOrder</Name>
+									<Comment TxtId=""><![CDATA[Sort order of task]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x030020b0</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>CameraIpAddress</Name>
+									<Comment><![CDATA[IP address of the camera]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000003E}">IPADDR</BaseType>
+									<PTCID>#x00000001</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>StartAcquisitionCommands</Name>
+									<Comment><![CDATA[Array holding the commands sent by ITcIoGevImageAcquisition::StartAcquisition()]]></Comment>
+									<BitSize>0</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements Min="0" Max="135">0</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000002</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>StopAcquisitionCommands</Name>
+									<Comment><![CDATA[Array holding the commands sent by ITcIoGevImageAcquisition::StopAcquisition()]]></Comment>
+									<BitSize>0</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements Min="0" Max="135">0</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000003</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>SoftwareTriggerCommands</Name>
+									<Comment><![CDATA[Array holding the commands sent by ITcIoGevImageAcquisition::SoftwareTrigger()]]></Comment>
+									<BitSize>0</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements Min="0" Max="135">0</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000004</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name HideSubItems="true">InitCameraCommands</Name>
+									<Comment><![CDATA[Array holding the commands used for initializing the camera]]></Comment>
+									<BitSize>0</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements Min="0" MaxUnbounded="true">0</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000005</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>InitializationTimeout</Name>
+									<Comment><![CDATA[Timeout for initializing the camera [Default: 2000]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<Unit><![CDATA[ms]]></Unit>
+									<PTCID>#x00000006</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>InitializationAutoMode</Name>
+									<Comment TxtId=""><![CDATA[Decide when the camera should be initialized. [Default: AUTOINIT_AFTER_SO]]]></Comment>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{3035DC67-0682-4C8E-97F8-30598AC69C61}">ETcIoGevAutoInitMode</BaseType>
+									<PTCID>#x00000008</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>EnableConcatenatedCommands</Name>
+									<Comment><![CDATA[If enabled, commands are send as gev multiwrite or gev multiread for a camera which supports this [Default: TRUE]]]></Comment>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x00000007</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+							</Parameters>
+							<InterfacePointers>
+								<InterfacePointer>
+									<PTCID>#x03002060</PTCID>
+									<Name>CyclicCaller</Name>
+									<Type GUID="{0300001E-0000-0000-E000-000000000064}">ITcCyclicCaller</Type>
+								</InterfacePointer>
+								<InterfacePointer>
+									<PTCID>#x00000011</PTCID>
+									<Name>GvcpProtocol</Name>
+									<Type GUID="{36FC2D2A-D6F7-4BED-965E-BEBE542DF002}">ITcIoGvcpProtocol</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+								<InterfacePointer>
+									<PTCID>#x00000012</PTCID>
+									<Name>GvspProtocol</Name>
+									<Type GUID="{52F40B6C-EFC4-49DD-BAB5-CD2FB3FA5D47}">ITcIoGvspProtocol</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+								<InterfacePointer>
+									<PTCID>#x00000013</PTCID>
+									<Name>UdpProtocol</Name>
+									<Type GUID="{03010097-0000-0000-E000-000000000064}">ITcIoUdpProtocol</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+							</InterfacePointers>
+							<Properties>
+								<Property>
+									<Name>Category</Name>
+									<Value>TcVnOperateInConfigMode</Value>
+								</Property>
+								<Property>
+									<Name>Category</Name>
+									<Value>TcIoGevImageAcquisition</Value>
+								</Property>
+							</Properties>
+							<ParentOTCID>#x06020010</ParentOTCID>
+							<ParameterValues>
+								<Value>
+									<Name>SortOrder</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraIpAddress</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>InitializationTimeout</Name>
+									<Value>2000</Value>
+								</Value>
+								<Value>
+									<Name>InitializationAutoMode</Name>
+									<EnumText>AUTOINIT_AFTER_SO</EnumText>
+								</Value>
+								<Value>
+									<Name>EnableConcatenatedCommands</Name>
+									<EnumText>TRUE</EnumText>
+								</Value>
+							</ParameterValues>
+							<InterfacePointerValues>
+								<Value>
+									<Name>CyclicCaller</Name>
+									<OTCID>#x02010050</OTCID>
+								</Value>
+								<Value>
+									<Name>GvcpProtocol</Name>
+									<OTCID>#x01010060</OTCID>
+								</Value>
+								<Value>
+									<Name>GvspProtocol</Name>
+									<OTCID>#x01010070</OTCID>
+								</Value>
+								<Value>
+									<Name>UdpProtocol</Name>
+									<OTCID>#x01010040</OTCID>
+								</Value>
+							</InterfacePointerValues>
+						</TmcDesc>
+						<Module Id="#x01010060" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcIoGigEVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+							<Name>Camera1 Gvcp Module (CGvcpProtocol)</Name>
+							<ImageId>1000</ImageId>
+							<TmcDesc GUID="{A2F12437-8A89-453B-BAFC-5E9934B8C8DC}" TcSmClass="CTComVisionObjDef">
+								<Name>CGvcpProtocol</Name>
+								<CLSID ClassFactory="TcIoGigEVision">{A2F12437-8A89-453B-BAFC-5E9934B8C8DC}</CLSID>
+								<InitSequence>PSO</InitSequence>
+								<Contexts>
+									<Context>
+										<Id>1</Id>
+									</Context>
+								</Contexts>
+								<Interfaces>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03010095-0000-0000-E000-000000000064}">ITcIoUdpProtocolRecv</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{36FC2D2A-D6F7-4BED-965E-BEBE542DF002}">ITcIoGvcpProtocol</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{08D29B88-1630-43C1-9A4D-7F336CDC6498}">ITcIoGvspResendProvider</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{ABF4254D-8A8C-4A66-81B8-946D5B4FD3CE}">ITcIoGvcpControlChannelInfo</Type>
+									</Interface>
+								</Interfaces>
+								<Parameters>
+									<Parameter>
+										<Name>GvcpLocalPort</Name>
+										<Comment><![CDATA[Local UDP port used for GVCP (0 = automatic selection) [Default: 0]]]></Comment>
+										<BitSize>16</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+										<PTCID>#x00000002</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>MaxTimeouts</Name>
+										<Comment><![CDATA[Maximal amount of Timeouts that can occur before a GVCP packet is discarded [Default: 3]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<PTCID>#x00000004</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>TransmissionTimeout</Name>
+										<Comment><![CDATA[The time to wait for a response to a GVCP command [Default: 600]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[ms]]></Unit>
+										<PTCID>#x00000003</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>HeartbeatRate</Name>
+										<Comment><![CDATA[Rate at which the Control Channel heartbeat signal is sent to the camera [Default: 1000]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[ms]]></Unit>
+										<PTCID>#x00000001</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>DiscoveryTimeout</Name>
+										<Comment><![CDATA[Time to wait for answers to the Discovery Command [Default: 1000]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[ms]]></Unit>
+										<PTCID>#x00000005</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter OnlineParameter="true" ReadOnly="true">
+										<Name>GvcpProtocolDiagnosis</Name>
+										<Comment><![CDATA[Contains statistics for GVCP protocol diagnosis.]]></Comment>
+										<BitSize>384</BitSize>
+										<BaseType GUID="{C662F9EF-32D9-40DA-AD52-6C3061A4FD62}">GVCP_PROTOCOL_DIAGNOSIS</BaseType>
+										<PTCID>#x00010001</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+								</Parameters>
+								<Properties>
+									<Property>
+										<Name>Category</Name>
+										<Value>TcVnOperateInConfigMode</Value>
+									</Property>
+								</Properties>
+								<ParentOTCID>#x01010050</ParentOTCID>
+								<ParameterValues>
+									<Value>
+										<Name>GvcpLocalPort</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>MaxTimeouts</Name>
+										<Value>3</Value>
+									</Value>
+									<Value>
+										<Name>TransmissionTimeout</Name>
+										<Value>600</Value>
+									</Value>
+									<Value>
+										<Name>HeartbeatRate</Name>
+										<Value>1000</Value>
+									</Value>
+									<Value>
+										<Name>DiscoveryTimeout</Name>
+										<Value>1000</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stSend.nSuccess</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stSend.nError</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stSend.nTimeout</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stRecv.nSuccess</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stRecv.nError</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvcpProtocolDiagnosis.stRecv.nIgnored</Name>
+										<Value>0</Value>
+									</Value>
+								</ParameterValues>
+							</TmcDesc>
+						</Module>
+						<Module Id="#x01010070" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcIoGigEVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+							<Name>Camera1 Gvsp Module (CGvspProtocol)</Name>
+							<ImageId>1000</ImageId>
+							<TmcDesc GUID="{9D2B8D47-8462-4251-80A0-5AA35A79EF48}" TcSmClass="CTComVisionObjDef">
+								<Name>CGvspProtocol</Name>
+								<CLSID ClassFactory="TcIoGigEVision">{9D2B8D47-8462-4251-80A0-5AA35A79EF48}</CLSID>
+								<InitSequence>PSO</InitSequence>
+								<Contexts>
+									<Context>
+										<Id>1</Id>
+									</Context>
+								</Contexts>
+								<Interfaces>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{03010095-0000-0000-E000-000000000064}">ITcIoUdpProtocolRecv</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{52F40B6C-EFC4-49DD-BAB5-CD2FB3FA5D47}">ITcIoGvspProtocol</Type>
+									</Interface>
+									<Interface DisableCodeGeneration="true">
+										<Type GUID="{7C53C9A1-5EBD-4DFF-B561-5213B6EBED4A}">ITcIoGvspStreamChannelInfo</Type>
+									</Interface>
+								</Interfaces>
+								<Parameters>
+									<Parameter>
+										<Name>GvspLocalPort</Name>
+										<Comment><![CDATA[Local UDP port used for GVSP (0 = automatic selection) [Default: 0]]]></Comment>
+										<BitSize>16</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+										<PTCID>#x00000002</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>GvspMaxPacketSize</Name>
+										<Comment><![CDATA[Maximum size of a GVSP packet, that can be received [Default: 1500]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[byte]]></Unit>
+										<PTCID>#x00000006</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>GvspMinPacketDelay</Name>
+										<Comment><![CDATA[Increase to reduce the required bandwidth and processing time [Default: 0]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[timestamp counter unit(s)]]></Unit>
+										<PTCID>#x00000005</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>GvspMaxResendRequests</Name>
+										<Comment><![CDATA[Maximum number of resend requests for a GVSP packet [Default: 3]]]></Comment>
+										<BitSize>16</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+										<PTCID>#x00000007</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>MaxBlockNumber</Name>
+										<Comment><![CDATA[Maximum number of blocks to be processed simultaneousely [Default: 5]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<PTCID>#x00000008</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>MaxPacketNumber</Name>
+										<Comment><![CDATA[Maximum number of packets allowed for one block [Default: 25000]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<PTCID>#x0000000a</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter>
+										<Name>BlockTimeout</Name>
+										<Comment><![CDATA[Timeout occurring if no packet is received for an incomplete block [Default: 5000]]]></Comment>
+										<BitSize>64</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-00000000000B}">ULINT</BaseType>
+										<Unit><![CDATA[us]]></Unit>
+										<PTCID>#x00000009</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter OnlineParameter="true" ReadOnly="true">
+										<Name>GvspCurPacketSize</Name>
+										<Comment><![CDATA[Current size of a GVSP packets [less than or equal to GvspMaxPacketSize]]]></Comment>
+										<BitSize>32</BitSize>
+										<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+										<Unit><![CDATA[byte]]></Unit>
+										<PTCID>#x00001006</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+									<Parameter OnlineParameter="true" ReadOnly="true">
+										<Name>GvspProtocolDiagnosis</Name>
+										<Comment><![CDATA[Contains statistics for GVSP protocol diagnosis.]]></Comment>
+										<BitSize>832</BitSize>
+										<BaseType GUID="{0A1261D6-25DE-41B0-93AE-B1561A06E163}">GVSP_PROTOCOL_DIAGNOSIS</BaseType>
+										<PTCID>#x00010001</PTCID>
+										<ContextId>1</ContextId>
+									</Parameter>
+								</Parameters>
+								<InterfacePointers>
+									<InterfacePointer>
+										<PTCID>#x00000001</PTCID>
+										<Name>GvspResendProvider</Name>
+										<Type GUID="{08D29B88-1630-43C1-9A4D-7F336CDC6498}">ITcIoGvspResendProvider</Type>
+										<ContextId>1</ContextId>
+									</InterfacePointer>
+								</InterfacePointers>
+								<Properties>
+									<Property>
+										<Name>Category</Name>
+										<Value>TcVnOperateInConfigMode</Value>
+									</Property>
+								</Properties>
+								<ParentOTCID>#x01010050</ParentOTCID>
+								<ParameterValues>
+									<Value>
+										<Name>GvspLocalPort</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspMaxPacketSize</Name>
+										<Value>1500</Value>
+									</Value>
+									<Value>
+										<Name>GvspMinPacketDelay</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspMaxResendRequests</Name>
+										<Value>1</Value>
+									</Value>
+									<Value>
+										<Name>MaxBlockNumber</Name>
+										<Value>5</Value>
+									</Value>
+									<Value>
+										<Name>MaxPacketNumber</Name>
+										<Value>25000</Value>
+									</Value>
+									<Value>
+										<Name>BlockTimeout</Name>
+										<Value>5000</Value>
+									</Value>
+									<Value>
+										<Name>GvspCurPacketSize</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.stRecv.nSuccess</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.stRecv.nError</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.stRecv.nIgnored</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nResendRequests</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nCompletedBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nAbortedBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nTimedOutBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nInvalidBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nFurtherErroneousBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nDuplicateBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nMissingBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nUnexpectedBlocks</Name>
+										<Value>0</Value>
+									</Value>
+									<Value>
+										<Name>GvspProtocolDiagnosis.nBlockIdOverflows</Name>
+										<Value>0</Value>
+									</Value>
+								</ParameterValues>
+								<InterfacePointerValues>
+									<Value>
+										<Name>GvspResendProvider</Name>
+										<OTCID>#x01010060</OTCID>
+									</Value>
+								</InterfacePointerValues>
+							</TmcDesc>
+						</Module>
+					</Module>
+					<Module Id="#x01010080" Disabled="true" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcIoGigEVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+						<Name>Camera1 Image Acquisition Simulation (CGevImageAcquisitionSimulation)</Name>
+						<ImageId>1000</ImageId>
+						<TmcDesc GUID="{F6C5A2D8-F17E-45DE-A68A-B78B3B54B4EC}" TcSmClass="CTComVisionObjDef">
+							<Name>CGevImageAcquisitionSimulation</Name>
+							<CLSID ClassFactory="TcIoGigEVision">{F6C5A2D8-F17E-45DE-A68A-B78B3B54B4EC}</CLSID>
+							<InitSequence>SO</InitSequence>
+							<Contexts>
+								<Context>
+									<Id>1</Id>
+									<ManualConfig>
+										<OTCID>#x02010050</OTCID>
+									</ManualConfig>
+									<Priority>6</Priority>
+									<CycleTime>1000000</CycleTime>
+								</Context>
+							</Contexts>
+							<Interfaces>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000010-0000-0000-E000-000000000064}">ITcCyclic</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Type>
+								</Interface>
+							</Interfaces>
+							<Parameters>
+								<Parameter HideParameter="true" DisableCodeGeneration="true">
+									<Name>SortOrder</Name>
+									<Comment TxtId=""><![CDATA[Sort order of task]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x030020b0</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>ActivateBlockIDCorrection</Name>
+									<Comment><![CDATA[Use artificial continuous block IDs instead the source's IDs. [Default: FALSE]]]></Comment>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x00000020</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>PlaybackMode</Name>
+									<Comment TxtId=""><![CDATA[0: Stream, 1: Trigger [Default: 0]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+									<PTCID>#x00000001</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>PlaybackStrategy</Name>
+									<Comment TxtId=""><![CDATA[0: SlowDown, 1: SkipMissed, 2: AbortOnLag [Default: 0]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+									<PTCID>#x00000002</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>PlaybackSpeed</Name>
+									<Comment TxtId=""><![CDATA[[Default: 1.0]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000D}">REAL</BaseType>
+									<PTCID>#x00000003</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>Loop</Name>
+									<Comment TxtId=""><![CDATA[If TRUE, the stream is restarted at the beginning when the end is reached [Default: FALSE]]]></Comment>
+									<BitSize>8</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+									<PTCID>#x00000004</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>FilePath</Name>
+									<Comment TxtId=""><![CDATA[The full path of the camera stream (.tcs)]]></Comment>
+									<BitSize>2080</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000100000103}">STRING(259)</BaseType>
+									<PTCID>#x00000005</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+							</Parameters>
+							<InterfacePointers>
+								<InterfacePointer>
+									<PTCID>#x03002060</PTCID>
+									<Name>CyclicCaller</Name>
+									<Type GUID="{0300001E-0000-0000-E000-000000000064}">ITcCyclicCaller</Type>
+								</InterfacePointer>
+							</InterfacePointers>
+							<ParentOTCID>#x06020010</ParentOTCID>
+							<ParameterValues>
+								<Value>
+									<Name>SortOrder</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>ActivateBlockIDCorrection</Name>
+									<EnumText>FALSE</EnumText>
+								</Value>
+								<Value>
+									<Name>PlaybackMode</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>PlaybackStrategy</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>PlaybackSpeed</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>Loop</Name>
+									<EnumText>FALSE</EnumText>
+								</Value>
+								<Value>
+									<Name>FilePath</Name>
+									<String></String>
+								</Value>
+							</ParameterValues>
+							<InterfacePointerValues>
+								<Value>
+									<Name>CyclicCaller</Name>
+									<OTCID>#x02010050</OTCID>
+								</Value>
+							</InterfacePointerValues>
+						</TmcDesc>
+					</Module>
+					<Module Id="#x01010090" Disabled="true" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcIoGigEVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+						<Name>Camera1 Ads Communicator (CGevAdsCommunicator)</Name>
+						<ImageId>1000</ImageId>
+						<TmcDesc GUID="{D3AC2B42-00B6-4F04-B20D-A1A9E3949D9B}" TcSmClass="CTComVisionObjDef">
+							<Name>CGevAdsCommunicator</Name>
+							<CLSID ClassFactory="TcIoGigEVision">{D3AC2B42-00B6-4F04-B20D-A1A9E3949D9B}</CLSID>
+							<InitSequence>PSO</InitSequence>
+							<Contexts>
+								<Context>
+									<Id>1</Id>
+									<ManualConfig>
+										<OTCID>#x02010060</OTCID>
+									</ManualConfig>
+									<Priority>7</Priority>
+									<CycleTime>10000000</CycleTime>
+								</Context>
+							</Contexts>
+							<Interfaces>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000010-0000-0000-E000-000000000064}">ITcCyclic</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{3404B97C-9B43-42E9-9D95-3DB0DA598A36}">ITcIoImageRecv</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{00000038-0000-0000-E000-000000000064}">ITComObjectCategory</Type>
+								</Interface>
+							</Interfaces>
+							<Parameters>
+								<Parameter HideParameter="true" DisableCodeGeneration="true">
+									<Name>SortOrder</Name>
+									<Comment TxtId=""><![CDATA[Sort order of task]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x030020b0</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>BitmapTimeout</Name>
+									<Comment><![CDATA[Timeout for re-sending bitmaps while no new image is received. Value 0 disables this feature. [Default: 1000]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<Unit><![CDATA[ms]]></Unit>
+									<PTCID>#x00000009</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>PublishImages</Name>
+									<Comment><![CDATA[Publish every n-th image to user-mode service [Default: 0]]]></Comment>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<PTCID>#x0000000a</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+							</Parameters>
+							<InterfacePointers>
+								<InterfacePointer>
+									<PTCID>#x03002060</PTCID>
+									<Name>CyclicCaller</Name>
+									<Type GUID="{0300001E-0000-0000-E000-000000000064}">ITcCyclicCaller</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+								<InterfacePointer>
+									<PTCID>#x00000003</PTCID>
+									<Name>GevImageAcquisition</Name>
+									<Type GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+							</InterfacePointers>
+							<ParentOTCID>#x06020010</ParentOTCID>
+							<ParameterValues>
+								<Value>
+									<Name>SortOrder</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>BitmapTimeout</Name>
+									<Value>1000</Value>
+								</Value>
+								<Value>
+									<Name>PublishImages</Name>
+									<Value>0</Value>
+								</Value>
+							</ParameterValues>
+							<InterfacePointerValues>
+								<Value>
+									<Name>CyclicCaller</Name>
+									<OTCID>#x02010060</OTCID>
+								</Value>
+								<Value>
+									<Name>GevImageAcquisition</Name>
+									<OTCID>#x01010050</OTCID>
+								</Value>
+							</InterfacePointerValues>
+						</TmcDesc>
+					</Module>
+					<Module Id="#x010100a0" KeepUnrestoredLinks="2" ClassFactoryId="Beckhoff Automation GmbH|TcVision|5.9.19.0" TcSmClass="CTComVisionObjDef">
+						<Name>Camera1 Image Provider (CGevImageProvider)</Name>
+						<ImageId>1000</ImageId>
+						<TmcDesc GUID="{F81ECC63-F412-4CF1-ABEC-DA193F5F64AE}" TcSmClass="CTComVisionObjDef">
+							<Name>CTcVnGevImageProvider</Name>
+							<CLSID ClassFactory="TcVision">{F81ECC63-F412-4CF1-ABEC-DA193F5F64AE}</CLSID>
+							<InitSequence>PSO</InitSequence>
+							<Contexts>
+								<Context>
+									<Id>1</Id>
+								</Context>
+							</Contexts>
+							<Interfaces>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{00000012-0000-0000-E000-000000000064}">ITComObject</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000012-0000-0000-E000-000000000064}">ITcADI</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{03000018-0000-0000-E000-000000000064}">ITcWatchSource</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{3404B97C-9B43-42E9-9D95-3DB0DA598A36}">ITcIoImageRecv</Type>
+								</Interface>
+								<Interface DisableCodeGeneration="true">
+									<Type GUID="{ED7659DB-95DC-4A4A-B62F-02C9870D5E81}">ITcVnGevImageProvider</Type>
+								</Interface>
+							</Interfaces>
+							<Parameters>
+								<Parameter HideParameter="true">
+									<Name>CameraMatrix</Name>
+									<BitSize>576</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>3</Elements>
+									</ArrayInfo>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>3</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000002</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>DistortionCoefficients</Name>
+									<BitSize>512</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>8</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000003</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>RotationMatrix</Name>
+									<BitSize>576</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>3</Elements>
+									</ArrayInfo>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>3</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000004</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>TranslationVector</Name>
+									<BitSize>192</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements>3</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000005</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter HideParameter="true">
+									<Name>CalibPatternRef</Name>
+									<BitSize>0</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-00000000000D}">REAL</BaseType>
+									<ArrayInfo>
+										<LBound>0</LBound>
+										<Elements Min="0" MaxUnbounded="true">0</Elements>
+									</ArrayInfo>
+									<PTCID>#x00000006</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+								<Parameter>
+									<Name>ImageQueueSize</Name>
+									<BitSize>32</BitSize>
+									<BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+									<Default>
+										<Min>1</Min>
+										<Value>1</Value>
+									</Default>
+									<PTCID>#x00000007</PTCID>
+									<ContextId>1</ContextId>
+								</Parameter>
+							</Parameters>
+							<InterfacePointers>
+								<InterfacePointer>
+									<PTCID>#x00000001</PTCID>
+									<Name>GevImageAcquisition</Name>
+									<Type GUID="{3CCE1940-FF2A-4594-9FB0-40033A186838}">ITcIoGevImageAcquisition</Type>
+									<ContextId>1</ContextId>
+								</InterfacePointer>
+							</InterfacePointers>
+							<Properties>
+								<Property>
+									<Name>Category</Name>
+									<Value>TcVnImageProvider</Value>
+								</Property>
+								<Property>
+									<Name>Category</Name>
+									<Value>TcVnGevImageProvider</Value>
+								</Property>
+							</Properties>
+							<ParentOTCID>#x06020010</ParentOTCID>
+							<ParameterValues>
+								<Value>
+									<Name>CameraMatrix[0][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[0][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[0][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[1][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[1][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[1][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[2][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[2][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>CameraMatrix[2][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[3]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[4]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[5]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[6]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>DistortionCoefficients[7]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[0][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[0][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[0][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[1][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[1][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[1][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[2][0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[2][1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>RotationMatrix[2][2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>TranslationVector[0]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>TranslationVector[1]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>TranslationVector[2]</Name>
+									<Value>0</Value>
+								</Value>
+								<Value>
+									<Name>ImageQueueSize</Name>
+									<Value>1</Value>
+								</Value>
+							</ParameterValues>
+							<InterfacePointerValues>
+								<Value>
+									<Name>GevImageAcquisition</Name>
+									<OTCID>#x01010050</OTCID>
+								</Value>
+							</InterfacePointerValues>
+						</TmcDesc>
+					</Module>
+				</Camera>
 				<FileSource Id="1" VisionObjectGUID="{1BE4FCD7-F7AD-4BEE-9B0F-D8A26D030EE5}">
 					<Name>FileSource1</Name>
 					<Xml>
@@ -2006,7 +4789,7 @@
 								</Value>
 								<Value>
 									<Name>BaseDir</Name>
-									<String></String>
+									<String>C:\Users\Public\TcVision\FileSources\8U1QA319</String>
 								</Value>
 								<Value>
 									<Name>ServiceTimeout</Name>
@@ -2103,298 +4886,5 @@
 				</FileSource>
 			</App>
 		</Vision>
-		<Io>
-			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.59.220.47.2.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="2">
-				<Name>Device 1 (EtherCAT)</Name>
-				<AddressInfo>
-					<Ccat>
-						<Address>-268435456</Address>
-						<Offset>131072</Offset>
-						<Size>8192</Size>
-						<BaseAddr>0</BaseAddr>
-						<BusNo>65535</BusNo>
-						<SlotNo>0</SlotNo>
-					</Ccat>
-				</AddressInfo>
-				<Image Id="1" AddrType="9" ImageType="3">
-					<Name>Image</Name>
-				</Image>
-				<Box Id="1" BoxType="9099">
-					<Name>Term 1 (EK1200)</Name>
-					<ImageId>1001</ImageId>
-					<EtherCAT PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04b02c52" RevisionNo="#x00001388" InfoDataState="false" PortPhys="49" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1200-5000 EtherCAT Power supply (2A E-Bus)" Desc="EK1200" PortABoxInfo="#x00ffffff"/>
-					<Box Id="2" BoxType="9099">
-						<Name>Term 2 (EL1008)</Name>
-						<ImageId>1002</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03f03052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1008 8Ch. Dig. Input 24V, 3ms" Desc="EL1008" PortABoxInfo="#x01000001">
-							<SyncMan>001001000000010004000000000000000100001000010000</SyncMan>
-							<Fmmu>0000000000000000001000010100000002000000000000000000000000000000</Fmmu>
-							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6000" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6010" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6020" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6030" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 5" Index="#x1a04" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6040" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 6" Index="#x1a05" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6050" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 7" Index="#x1a06" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6060" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 8" Index="#x1a07" Flags="#x0011" SyncMan="0">
-								<Entry Name="Input" Index="#x6070" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-						</EtherCAT>
-					</Box>
-					<Box Id="3" BoxType="9099">
-						<Name>Term 3 (EL2008)</Name>
-						<ImageId>1003</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000002">
-							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
-							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
-							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7000" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7010" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7020" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7030" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 5" Index="#x1604" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7040" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 6" Index="#x1605" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7050" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 7" Index="#x1606" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7060" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="Channel 8" Index="#x1607" InOut="1" Flags="#x0011" SyncMan="0">
-								<Entry Name="Output" Index="#x7070" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-							</Pdo>
-						</EtherCAT>
-					</Box>
-					<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 4 (EL3062)</Name>
-						<ImageId>1004</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0bf63052" RevisionNo="#x00140000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3062 2Ch. Ana. Input 0-10V" Desc="EL3062" PortABoxInfo="#x01000003">
-							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
-							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
-							<SyncMan>001100000400000003000000000000000000001104000000</SyncMan>
-							<SyncMan>801108002000010004000000000000000800801120010000</SyncMan>
-							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
-							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-							<BootStrapData>0010f400f410f400</BootStrapData>
-							<Pdo Name="AI Standard Channel 1" Index="#x1a00" Flags="#x0010" SyncMan="3">
-								<ExcludePdo>#x1a01</ExcludePdo>
-								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Underrange event active]]></Comment>
-								</Entry>
-								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Overrange event active]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]></Comment>
-								</Entry>
-								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000006}">ARRAY [0..5] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__TxPDO State" Index="#x6000" Sub="#x0f">
-									<Type>BIT</Type>
-									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
-								</Entry>
-								<Entry Name="Status__TxPDO Toggle" Index="#x6000" Sub="#x10">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
-								</Entry>
-								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="AI Compact Channel 1" Index="#x1a01" Flags="#x0010">
-								<ExcludePdo>#x1a00</ExcludePdo>
-								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="AI Standard Channel 2" Index="#x1a02" Flags="#x0010" SyncMan="3">
-								<ExcludePdo>#x1a03</ExcludePdo>
-								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Underrange event active]]></Comment>
-								</Entry>
-								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Overrange event active]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]></Comment>
-								</Entry>
-								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
-									<Type>BIT2</Type>
-									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]></Comment>
-								</Entry>
-								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__">
-									<Type GUID="{18071995-0000-0000-0000-002000000006}">ARRAY [0..5] OF BIT</Type>
-								</Entry>
-								<Entry Name="Status__TxPDO State" Index="#x6010" Sub="#x0f">
-									<Type>BIT</Type>
-									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
-								</Entry>
-								<Entry Name="Status__TxPDO Toggle" Index="#x6010" Sub="#x10">
-									<Type>BIT</Type>
-									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
-								</Entry>
-								<Entry Name="Value" Index="#x6010" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="AI Compact Channel 2" Index="#x1a03" Flags="#x0010">
-								<ExcludePdo>#x1a02</ExcludePdo>
-								<Entry Name="Value" Index="#x6010" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<CoeProfile ProfileNo="19665801"/>
-							<CoeProfile ProfileNo="19665801"/>
-						</EtherCAT>
-					</Box>
-					<Box Id="5" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 5 (EL4002)</Name>
-						<ImageId>1005</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x0fa23052" RevisionNo="#x00140000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL4002 2Ch. Ana. Output 0-10V, 12bit" Desc="EL4002" PortABoxInfo="#x01000004">
-							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
-							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
-							<SyncMan>001104002400010003000000000000000400001124010000</SyncMan>
-							<SyncMan>801100000000000004000000000000000000801100000000</SyncMan>
-							<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
-							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-							<BootStrapData>0010f400f410f400</BootStrapData>
-							<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</DcMode>
-							<DcMode>4443000000000000000000000000000044432d53796e6368726f6e0000000000000000000000000000000000000000000000000000000000a0860100000000070100000000000000000000000000000000000000000000000000000000000000</DcMode>
-							<Pdo Name="AO Outputs Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="2">
-								<Entry Name="Analog output" Index="#x7000" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="AO Outputs Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="2">
-								<Entry Name="Analog output" Index="#x7010" Sub="#x11" Flags="#x00020000">
-									<Type>INT</Type>
-								</Entry>
-							</Pdo>
-							<CoeProfile ProfileNo="26219401"/>
-							<CoeProfile ProfileNo="26219401"/>
-						</EtherCAT>
-					</Box>
-					<Box Id="6" BoxType="9099">
-						<Name>Term 6 (EK1110)</Name>
-						<ImageId>1006</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04562c52" RevisionNo="#x00110000" PortPhys="19" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1110 EtherCAT extension" Desc="EK1110" PortABoxInfo="#x01000005"/>
-					</Box>
-				</Box>
-				<EtherCAT/>
-			</Device>
-			<Device Id="2" Disabled="true" DevType="112" AmsPort="28674" AmsNetId="199.4.42.250.3.1" RemoteName="Device 2 (EtherCAT Automation Protocol)">
-				<Name>Device 2 (EtherCAT Automation Protocol)</Name>
-				<AddressInfo>
-					<Pnp>
-						<DeviceDesc>Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig</DeviceDesc>
-						<DeviceName>\DEVICE\{161703CB-E491-4398-9636-CDD415354290}</DeviceName>
-						<DeviceData>00010579eb39</DeviceData>
-					</Pnp>
-				</AddressInfo>
-				<Image Id="3" AddrType="1" ImageType="3">
-					<Name>Image</Name>
-				</Image>
-				<Ethernet DeviceDesc="Ethernet 2 (TwinCAT-Intel PCI Ethernet Adapter (Gig"/>
-				<Eap EapDeviceGuid="{4A6A72B8-FCBA-413B-A717-C0D5E687750C}"/>
-			</Device>
-			<Device Id="3" Disabled="true" DevType="112" AmsPort="28675" AmsNetId="199.4.42.250.4.1" RemoteName="Device 3 (EtherCAT Automation Protocol)">
-				<Name>Device 3 (EtherCAT Automation Protocol)</Name>
-				<AddressInfo>
-					<Pnp>
-						<DeviceDesc>Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{DD490084-6A5F-42E0-9B7E-729377A40730}</DeviceName>
-						<DeviceData>00010579eb38</DeviceData>
-					</Pnp>
-				</AddressInfo>
-				<Image Id="4" AddrType="1" ImageType="3">
-					<Name>Image</Name>
-				</Image>
-				<Ethernet DeviceDesc="Ethernet (TwinCAT-Intel PCI Ethernet Adapter (Gigab"/>
-				<Eap EapDeviceGuid="{C3B5A003-FC13-49B3-B063-D0CF44B607BE}"/>
-			</Device>
-		</Io>
 	</Project>
 </TcSmProject>
