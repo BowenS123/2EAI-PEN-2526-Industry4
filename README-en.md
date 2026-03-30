@@ -58,5 +58,8 @@ Nothing more frustrating than finding good code but not knowing how to run it.
 
 ## People
 
-- **Contri Butor1** – _Student_ – [GitHub](https://github.com/CONTRIBUTOR1)
-- **Dieter Vanrykel** – _Teacher_ – [GitHub](https://github.com/Vanrykel)
+- **Milan Posman** – _Student_
+- **Contri Butor1** – _Student_
+- **Contri Butor1** – _Student_
+- **Contri Butor1** – _Student_
+- **Dieter Vanrykel** – _Teacher_

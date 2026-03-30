@@ -3,31 +3,35 @@
 Dit project ontwikkelt van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
 ingrediënten met kwaliteitscontrole.
 
-![Overzicht](docs/images/status_tasks.png)
+![Overzicht](docs/images/HardwareDiagram.png)
 
 
 ## Hardware
 
-- Inductieve sensor
-- Servo-motor
-- DC-Motor
-- Weegschaal
+- Inductieve sensor (PLC)
+- Servo-motoren
+- DC-Motor voor Mixer & PLC Transportband
+- Weegschaal met RS232 connectie
 - Batch-reader
 - Robot-arm (IGUS SCARA-robot) via PSoC6
 - Transportband via PLC
-- Files transportband
+    - 3D print transportbandadapter
 - 3D-printer
 - pigtail connectors
+
+![Overzicht](docs/images/status_tasks.png)
 
 ## Software
 
 - Blender/Fusion => .stl => print
-- Modustoolbox(MTB) => PSoC
+- Modustoolbox (MTB) => PSoC
+- VSCode => ESP32
 - Twincat3 => Beckoff PLC
+- MQTT Mosquitto
 
 ## Programmeertalen
 
-- C/C++ => MTB
+- C/C++ => MTB, VSCode
 - Structure text => Twincat3
 
 ## Productieproces
@@ -47,25 +51,17 @@ ingrediënten met kwaliteitscontrole.
 7. Registratie </br>
     Registreren van productiegegevens in het systeem.
 
-
-
 ## Resultaten
 
-- Korte samenvatting van de belangrijkste bevindingen.
-- Eventuele grafieken, tabellen of afbeeldingen.
-- Reflectie op prestaties of betrouwbaarheid.
-
-
+- [Taken Progressie](/docs/TASKS.md)
+- [MQTT Demo & Documentatie](/docs/MOSQUITTO_SETUP.md)
+    - geeft ook weer hoe verschillende delen van project wordt opgestart (software)
 
 ## Aan de slag
 
-Niets zo frustrerend als goede code vinden zonder uitleg over hoe je het aan de praat krijgt.
-
-- [ ] Voeg hier een stapsgewijze handleiding toe.
-    1. start PSOC, PLC & ESP Mixer
-    2. Intitial MQTT start publish: 
-- [ ] Leg uit hoe je het programma start.
-
+1. Connecteer I/O
+2. Preparatie materiaal bakske vol met suiker,... op transportband
+3. Volg [MQTT Demo & Documentatie](/docs/MOSQUITTO_SETUP.md)
 
 
 ## Toekomstig werk en problemen
@@ -75,8 +71,10 @@ Niets zo frustrerend als goede code vinden zonder uitleg over hoe je het aan de 
 - Link eventueel naar een issue bv. #1
 
 
-
 ## Personen
 
-- **Contri Butor1** – _Student_ – [GitHub](https://github.com/CONTRIBUTOR1)
+- **Milan Posman** – _Student_ - MilanB
+- **Bowen** – _Student_ - Bowen
+- **Jonas Vanmarsenille** – JonasVanmarsenille
+- **Victor** – _Student_ - Goose
 - **Dieter Vanrykel** – _Docent_ – [GitHub](https://github.com/Vanrykel)

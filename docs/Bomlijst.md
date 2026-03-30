@@ -10,13 +10,13 @@ voor de automatisatie van de productielijn (transport → mengen → robotarm �
 
 | ID | Component | Specificatie | Aantal | Leverancier | Link | Artikelnummer | Prijs (€) | Hebben | Opmerking |
 |----|------------|--------------|--------|--------------|------|---------------|-----------|--------|------------|
-| M-01 | Weegschaal | Industriële platform weegschaal | 1 | https://www.amazon.com.be/ | https://www.amazon.com.be/-/en/U-S-Solid-Precision-Scales-RS232/dp/B09KBZT57J?language=nl_BE | TBD | TBD | Nee | Gewichtmeting |
-| M-02 | DC-Motor Transportband | RS PRO Geared DC Motor, 24 V DC, 20 Ncm, 75 rpm, 5 mm shaft | 1 | RS PRO | https://benl.rs-online.com/web/p/dc-motors/2588316 | 258-8316 | TBD | Nee | Conveyor aandrijving |
-| M-03 | DC-Motor Mixer | 24V DC | 1 | https://www.reichelt.com/ | https://www.reichelt.com/nl/nl/shop/product/aandrijfmotor_27_mm_90_1_12_v_dc-159631 | TBD | TBD | Nee | Basis mengmotor |
+| M-01 | Weegschaal | Industriële platform weegschaal | 1 |  | TBD | TBD | Nee | Gewichtmeting |
+| M-02 | DC-Motor Transportband | RS PRO Geared DC Motor, 24 V DC, 20 Ncm, 75 rpm, 5 mm shaft | 1 | RS PRO |  | 258-8316 | TBD | Nee | Conveyor aandrijving |
+| M-03 | DC-Motor Mixer | 24V DC | 1 |  | TBD | TBD | Nee | Basis mengmotor |
 | M-04 | Servo-Motor Mixer | Industriële servo | 1 | TBD | TBD | TBD | TBD | Nee | Precisie snelheidsregeling |
 | M-05 | Servo-Motor Robotarm | High torque servo | 1 | TBD | TBD | TBD | TBD | Ja | Hoofdaandrijving |
-| M-06 | Steppermotor Robotarm | drylin E stappenmotor, NEMA 17, gevlochten draad | 3 | igus | https://www.igus.be/product/MOT-AN-S-060-005-042-L-A-AAAA | MOT-AN-S-060-005-042-L-A-AAAA | TBD | Ja | Robotarm assen |
-| M-07 | Motor Drivers | drylin D7 stepper motor driver (NEMA11/17) | 3 | igus | https://www.igus.com/product/D7_control | D7_control | TBD | Ja | Driver voor steppermotoren |
+| M-06 | Steppermotor Robotarm | drylin E stappenmotor, NEMA 17, gevlochten draad | 3 | igus | | MOT-AN-S-060-005-042-L-A-AAAA | TBD | Ja | Robotarm assen |
+| M-07 | Motor Drivers | drylin D7 stepper motor driver (NEMA11/17) | 3 | igus |  | D7_control | TBD | Ja | Driver voor steppermotoren |
 
 ---
 
@@ -38,9 +38,9 @@ voor de automatisatie van de productielijn (transport → mengen → robotarm �
 | C-02 | PLC Klemmen | Terminal blocks | TBD | TBD | TBD | TBD | TBD | Nee | Bekabeling |
 | C-03 | ESP | ESP32 Dev Board | 1 | TBD | TBD | TBD | TBD | Nee | Communicatie |
 | C-04 | PSoC | Programmable SoC (robotarm) | 1 | TBD | TBD | TBD | TBD | Ja | Embedded controle |
-| C-05 | EL7332 | EtherCAT Terminal, 2-channel motion interface, DC motor, 24 V DC, 1 A | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed-elm7xxx-compact-drive-technology/el7332.html | EL7332 | TBD | Nee | DC motor aansturing |
-| C-06 | EL1008 | EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed1xxx-digital-input/el1008.html | EL1008 | TBD | Ja | Digitale ingangen |
-| C-07 | EL6001 | EtherCAT Terminal, 1-channel communication interface, serial, RS232 | 1 | Beckhoff | https://www.beckhoff.com/nl-be/products/i-o/ethercat-terminals/el-ed6xxx-communication/el6001.html | EL6001 | TBD | Ja | RS232 communicatie |
+| C-05 | EL7332 | EtherCAT Terminal, 2-channel motion interface, DC motor, 24 V DC, 1 A | 1 | Beckhoff |  | EL7332 | TBD | Nee | DC motor aansturing |
+| C-06 | EL1008 | EtherCAT Terminal, 8-channel digital input, 24 V DC, 3 ms | 1 | Beckhoff |  | EL1008 | TBD | Ja | Digitale ingangen |
+| C-07 | EL6001 | EtherCAT Terminal, 1-channel communication interface, serial, RS232 | 1 | Beckhoff |  | EL6001 | TBD | Ja | RS232 communicatie |
 
 ---
 
