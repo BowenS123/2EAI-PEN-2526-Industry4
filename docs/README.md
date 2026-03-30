@@ -11,6 +11,13 @@ docs/
 └── datasheets/          # Datasheets
 ```
 
+## Referentie documenten
+
+- `docs/Linear_actuator adapters 3D.docx`: [Linear_actuator adapters 3D.docx](./Linear_actuator%20adapters%203D.docx)
+- `docs/Stepmotor_lab.docx`: [Stepmotor_lab.docx](./Stepmotor_lab.docx)
+- `docs/datasheets/Linear_actuator adapters 3D.pdf`: [Linear_actuator adapters 3D.pdf](./datasheets/Linear_actuator%20adapters%203D.pdf)
+- `docs/datasheets/Stepmotor_lab.pdf`: [Stepmotor_lab.pdf](./datasheets/Stepmotor_lab.pdf)
+
 ## Afbeeldingen
 
 **Afbeeldingen in Markdown**
