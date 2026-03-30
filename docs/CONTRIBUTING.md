@@ -247,11 +247,8 @@ git reset --hard HEAD
 ## 🎓 Git leren
 
 **Basis tutorials:**
-- [GitHub Git Guide](https://github.com/git-guides)
-- [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
+- [Git Cheat Sheet](datasheets/t.pdf)
 
-**Interactieve tutorials:**
-- [Learn Git Branching](https://learngitbranching.js.org/)
 
 ---
 
