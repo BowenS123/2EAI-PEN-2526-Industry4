@@ -9,15 +9,15 @@
 
 # Hardwareoverzicht
 
-Dit document bevat een overzicht van de gebruikte hardwarecomponenten in dit project. Alle datasheets zijn lokaal opgeslagen in de map `/resources/datasheets/`.
+Dit document bevat een overzicht van de gebruikte hardwarecomponenten in dit project. Alle datasheets zijn lokaal opgeslagen in de map `../docs/datasheets/`.
 
 ## 🧩 Componentenlijst
 
 | Componentnaam  | Functie             | Fabrikant       | Datasheet                                  | More info                          | Supplier                          |
 |----------------|---------------------|------------------|---------------------------------------------|-----------------------------------|-----------------------------------|
-| VL53L0X        | Afstandssensor      | STMicroelectronics | [VL53L0X.pdf](/resources/datasheets)     | [wiki.st.com]| [mouser]( )                          |
-| NEMA 17        | Stappenmotor        | --               | [NEMA17.pdf](/resources/datasheets)       | --                                | [mouser]( )                          |
-| ESP32 DevKit   | Microcontroller     | Espressif        | [ESP32.pdf](/resources/datasheets)         | [docs.espressif.com]() | [mouser]( )                          |
+| VL53L0X        | Afstandssensor      | STMicroelectronics | [Datasheets](../docs/datasheets/)     | [wiki.st.com]| [mouser]( )                          |
+| NEMA 17        | Stappenmotor        | --               | [Datasheets](../docs/datasheets/)       | --                                | [mouser]( )                          |
+| ESP32 DevKit   | Microcontroller     | Espressif        | [Datasheets](../docs/datasheets/)         | [docs.espressif.com]() | [mouser]( )                          |
 
 ## 🔌 Aansluitschema
 
