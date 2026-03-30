@@ -3,3 +3,8 @@
 *.docx
 *.docx?
 .vscode
+
+# TwinCAT build artifacts
+**_Boot/**/*.app
+**_Boot/**/*.tpzip
+**_Boot/**/*.tszip
