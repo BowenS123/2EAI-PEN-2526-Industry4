@@ -20,7 +20,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-    <ST><![CDATA[rStartTrig(CLK := bStart);
+      <ST><![CDATA[rStartTrig(CLK := bStart);
 
 IF bStop THEN
   bCycleActive := FALSE;
@@ -54,6 +54,9 @@ END_IF
     <LineIds Name="FB_Transportband">
       <LineId Id="24" Count="9" />
       <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="9" />
+      <LineId Id="34" Count="7" />
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

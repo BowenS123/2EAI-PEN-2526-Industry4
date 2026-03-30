@@ -19,7 +19,6 @@ VAR
 	fbMqttClient			: FB_IotMqttClient;
 	fbMessageQueue			: FB_IotMqttMessageQueue;
 	fbMessage				: FB_IotMqttMessage;
-	fbPublishTimer			: TON := (PT := T#1S);
 
 	bMqttConfigured			: BOOL := FALSE;
 	bSubscribedRobotCmd		: BOOL := FALSE;
@@ -36,6 +35,12 @@ VAR
 	sPayloadPub			: STRING(255);
 	{attribute 'TcEncoding':='UTF-8'}
 	sTransportState			: STRING(64);
+	{attribute 'TcEncoding':='UTF-8'}
+	sLastStatePayload		: STRING(255);
+	{attribute 'TcEncoding':='UTF-8'}
+	sLastErrorPayload		: STRING(255);
+	bStatePublished			: BOOL := FALSE;
+	bErrorPublished			: BOOL := FALSE;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT bMqttConfigured THEN
@@ -99,23 +104,20 @@ IF fbMqttClient.bConnected THEN
 		);
 	END_IF
 
-	fbPublishTimer(IN := TRUE);
-	IF fbPublishTimer.Q THEN
-		fbPublishTimer(IN := FALSE);
+	IF bSystemError THEN
+		sTransportState := 'error';
+	ELSIF bTransportbandRunning THEN
+		sTransportState := 'running';
+	ELSIF bTransportbandDone THEN
+		sTransportState := 'done';
+	ELSE
+		sTransportState := 'idle';
+	END_IF
 
-		IF bSystemError THEN
-			sTransportState := 'error';
-		ELSIF bTransportbandRunning THEN
-			sTransportState := 'running';
-		ELSIF bTransportbandDone THEN
-			sTransportState := 'done';
-		ELSE
-			sTransportState := 'idle';
-		END_IF
+	sPayloadPub := CONCAT('{"state":"', sTransportState);
+	sPayloadPub := CONCAT(sPayloadPub, '"}');
 
-		sPayloadPub := CONCAT('{"state":"', sTransportState);
-		sPayloadPub := CONCAT(sPayloadPub, '"}');
-
+	IF (NOT bStatePublished) OR (sPayloadPub <> sLastStatePayload) THEN
 		fbMqttClient.Publish(
 			sTopic := GVL_MQTT.sTopicTransportbandState,
 			pPayload := ADR(sPayloadPub),
@@ -125,13 +127,18 @@ IF fbMqttClient.bConnected THEN
 			bQueue := FALSE
 		);
 
-		IF bSystemError THEN
-			sPayloadPub := CONCAT('{"state":"error","error":true,"message":"', sErrorMessage);
-			sPayloadPub := CONCAT(sPayloadPub, '"}');
-		ELSE
-			sPayloadPub := '{"state":"ok","error":false,"message":""}';
-		END_IF
+		sLastStatePayload := sPayloadPub;
+		bStatePublished := TRUE;
+	END_IF
 
+	IF bSystemError THEN
+		sPayloadPub := CONCAT('{"state":"error","error":true,"message":"', sErrorMessage);
+		sPayloadPub := CONCAT(sPayloadPub, '"}');
+	ELSE
+		sPayloadPub := '{"state":"ok","error":false,"message":""}';
+	END_IF
+
+	IF (NOT bErrorPublished) OR (sPayloadPub <> sLastErrorPayload) THEN
 		fbMqttClient.Publish(
 			sTopic := GVL_MQTT.sTopicTransportbandError,
 			pPayload := ADR(sPayloadPub),
@@ -140,6 +147,9 @@ IF fbMqttClient.bConnected THEN
 			bRetain := FALSE,
 			bQueue := FALSE
 		);
+
+		sLastErrorPayload := sPayloadPub;
+		bErrorPublished := TRUE;
 	END_IF
 ELSE
 	bSubscribedRobotCmd := FALSE;
@@ -149,7 +159,10 @@ ELSE
 	bSubscribedMixerState := FALSE;
 	bSubscribedMixerError := FALSE;
 	bSubscribedTransportCmd := FALSE;
-	fbPublishTimer(IN := FALSE);
+	bStatePublished := FALSE;
+	bErrorPublished := FALSE;
+	sLastStatePayload := '';
+	sLastErrorPayload := '';
 END_IF
 
 // Remote commando's als puls per PLC-cyclus

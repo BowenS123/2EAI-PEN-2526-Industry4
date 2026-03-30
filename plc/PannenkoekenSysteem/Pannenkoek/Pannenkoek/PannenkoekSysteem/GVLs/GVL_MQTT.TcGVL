@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	// MQTT Broker Configuratie - HiveMQ Public Broker
-	sMqttBroker			: STRING(255) := '192.168.0.197';	// HiveMQ Public Broker (free, geen auth nodig)
+	sMqttBroker			: STRING(255) := '192.168.1.240';	// HiveMQ Public Broker (free, geen auth nodig)
 	nMqttPort			: UINT := 1883;						// Standard MQTT port
 	sMqttClientID		: STRING(255) := 'Twincat_Test'; // Unieke client ID
 	bEnableMqtt			: BOOL := TRUE;						// VISU: MQTT connect aan/uit
