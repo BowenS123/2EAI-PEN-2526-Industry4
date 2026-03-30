@@ -15,9 +15,9 @@ Dit document bevat een overzicht van de gebruikte hardwarecomponenten in dit pro
 
 | Componentnaam  | Functie             | Fabrikant       | Datasheet                                  | More info                          | Supplier                          |
 |----------------|---------------------|------------------|---------------------------------------------|-----------------------------------|-----------------------------------|
-| VL53L0X        | Afstandssensor      | STMicroelectronics | [VL53L0X.pdf](/resources/datasheets)     | [wiki.st.com](https://www.st.com/VL53L0X) | [mouser](mouser.be)                          |
-| NEMA 17        | Stappenmotor        | --               | [NEMA17.pdf](/resources/datasheets)       | --                                | [mouser](mouser.be)                          |
-| ESP32 DevKit   | Microcontroller     | Espressif        | [ESP32.pdf](/resources/datasheets)         | [docs.espressif.com]() | [mouser](mouser.be)                          |
+| VL53L0X        | Afstandssensor      | STMicroelectronics | [VL53L0X.pdf](/resources/datasheets)     | [wiki.st.com](https://www.st.com/VL53L0X) | [mouser]( )                          |
+| NEMA 17        | Stappenmotor        | --               | [NEMA17.pdf](/resources/datasheets)       | --                                | [mouser]( )                          |
+| ESP32 DevKit   | Microcontroller     | Espressif        | [ESP32.pdf](/resources/datasheets)         | [docs.espressif.com]() | [mouser]( )                          |
 
 ## 🔌 Aansluitschema
 
