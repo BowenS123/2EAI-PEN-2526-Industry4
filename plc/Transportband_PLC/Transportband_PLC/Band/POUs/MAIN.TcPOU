@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="MAIN" Id="{7aead0eb-6942-4b8d-88aa-3112daaf8786}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	start : BOOL;
+	stop : BOOL;
+	run_lamp : BOOL;
+	state : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF start AND NOT state THEN
+    state := TRUE;        
+ELSIF stop AND state THEN
+    state := FALSE;       
+END_IF;
+
+run_lamp := state;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="14" Count="3" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="18" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
