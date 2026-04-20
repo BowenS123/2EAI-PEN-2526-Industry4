@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="MAIN" Id="{322adc8f-31f6-4121-9795-477df765531f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+  fbStateMachine    : FB_StateMachine;
+  fbTransportband   : FB_Transportband;
+  fbMqtt            : FB_MQTT;
+  rVisuStartTap     : R_TRIG;
+  rVisuStopTap      : R_TRIG;
+
+  bStartCmd         : BOOL := FALSE;
+  bStopCmd          : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// 1) Commands combineren (VISU tap + MQTT pulsen)
+rVisuStartTap(CLK := GVL_MQTT.bVisuStartTransportband);
+rVisuStopTap(CLK := GVL_MQTT.bVisuStopTransportband);
+
+// Start wordt gelatcht zodat een korte tap een volledige cyclus start
+IF rVisuStartTap.Q OR fbMqtt.bRemoteStart THEN
+  bStartCmd := TRUE;
+  bStopCmd := FALSE;
+ELSIF rVisuStopTap.Q OR fbMqtt.bRemoteStop THEN
+  bStartCmd := FALSE;
+  bStopCmd := TRUE;
+ELSIF fbTransportband.bDone THEN
+  bStartCmd := FALSE;
+  bStopCmd := FALSE;
+ELSE
+  // Stop als puls behandelen
+  bStopCmd := FALSE;
+END_IF
+
+// 2) State machine en transportband
+fbStateMachine(
+  bStart := bStartCmd,
+  bStop := bStopCmd,
+  bError := GVL_MQTT.bSystemError,
+  bTransportbandStart := bStartCmd
+);
+
+fbTransportband(
+  bStart := bStartCmd,
+  bStop := bStopCmd
+);
+
+GVL_MQTT.bTransportbandRunning := fbTransportband.bRunning;
+GVL_MQTT.bTransportbandDone := fbTransportband.bDone;
+GVL_MQTT.sCurrentState := TO_STRING(fbStateMachine.eStateOut);
+
+IF fbTransportband.bRunning THEN
+  GVL_MQTT.sTransportbandDisplay := 'Transportband AAN';
+ELSIF fbTransportband.bDone THEN
+  GVL_MQTT.sTransportbandDisplay := 'Transportband GEREED';
+ELSE
+  GVL_MQTT.sTransportbandDisplay := 'Transportband UIT';
+END_IF
+
+// 3) MQTT in aparte FB
+fbMqtt(
+  bTransportbandRunning := GVL_MQTT.bTransportbandRunning,
+  bTransportbandDone := GVL_MQTT.bTransportbandDone,
+  bSystemError := GVL_MQTT.bSystemError,
+  sErrorMessage := GVL_MQTT.sErrorMessage
+);]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="4" Count="44" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

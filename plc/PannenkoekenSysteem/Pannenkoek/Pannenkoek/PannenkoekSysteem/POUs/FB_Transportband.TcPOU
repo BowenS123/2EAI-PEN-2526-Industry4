@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Transportband" Id="{0e3417bb-6b26-4d45-9384-e25a7f165206}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Transportband
+
+VAR_INPUT
+    bStart   : BOOL;   // Signaal van state machine
+    bStop    : BOOL;   // Stop / noodstop
+END_VAR
+
+VAR_OUTPUT
+    bRunning : BOOL;   // Transportband aan/uit
+    bDone    : BOOL;   // Transportband klaar (sensor of timer)
+END_VAR
+
+VAR
+  tRun : TON;       // Timer om transportband te simuleren
+  rStartTrig : R_TRIG;
+  bCycleActive : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rStartTrig(CLK := bStart);
+
+IF bStop THEN
+  bCycleActive := FALSE;
+  bRunning := FALSE;
+  bDone := FALSE;
+  tRun(IN := FALSE);
+ELSE
+  // Nieuwe cyclus bij rising edge van start
+  IF rStartTrig.Q THEN
+    bDone := FALSE;
+    bCycleActive := TRUE;
+  END_IF
+
+  IF bCycleActive THEN
+    bRunning := TRUE;
+    tRun(IN := TRUE, PT := T#3S);
+
+    IF tRun.Q THEN
+      bCycleActive := FALSE;
+      bRunning := FALSE;
+      bDone := TRUE;
+      tRun(IN := FALSE);
+    END_IF
+  ELSE
+    bRunning := FALSE;
+    tRun(IN := FALSE);
+  END_IF
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Transportband">
+      <LineId Id="24" Count="9" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="9" />
+      <LineId Id="34" Count="7" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

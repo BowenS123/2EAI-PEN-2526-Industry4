@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="F_ParseStateDisplay" Id="{7b2b6f51-98d7-4cb7-9528-6f2457254673}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_ParseStateDisplay : STRING(255)
+VAR_INPUT
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayload		: STRING(255);
+END_VAR
+VAR
+	nStartPos	: INT;
+	nEndPos		: INT;
+	nPartLen	: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_ParseStateDisplay := sPayload;
+
+nStartPos := FIND(sPayload, '"state":"');
+IF nStartPos > 0 THEN
+	nStartPos := nStartPos + 9;
+	nEndPos := FIND(sPayload, '","');
+	IF nEndPos = 0 THEN
+		nEndPos := FIND(sPayload, '"}');
+	END_IF
+
+	nPartLen := nEndPos - nStartPos;
+	IF nPartLen > 0 THEN
+		F_ParseStateDisplay := MID(sPayload, nPartLen, nStartPos);
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="F_ParseStateDisplay">
+      <LineId Id="1" Count="0" />
+      <LineId Id="2" Count="15" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
