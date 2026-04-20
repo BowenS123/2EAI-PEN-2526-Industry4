@@ -1,2 +1,10 @@
 .metadata
+
+
+*/*/wifi_config.h
 mtb_shared
+*.log
+*/templates
+*/deps
+*log
+libs

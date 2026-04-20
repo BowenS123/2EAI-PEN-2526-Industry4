@@ -4,7 +4,9 @@ Deze weegschaal met RS232 interface stuurt het gemeten gewicht als ASCII-tekst v
 
 ## Verbinding (pinout) met PC
 
-Voor een **9-pins D-sub (DB9)** connector op de weegschaal naar een **9-pins** op PC/RS232-USB kabel:
+Voor een male **9-pins D-sub (DB9)** connector op de weegschaal naar een male **9-pins** op PC/RS232-USB kabel:
+
+Kabel nodig: female to female
 
 | Weegschaal (9p) | PC (9p) | Functie |
 |----------------|---------|---------|
