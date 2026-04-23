@@ -3,6 +3,10 @@
   <GVL Name="GVL_Config" Id="{a96d6ccf-375e-47d3-a696-dc0c1b7c2b56}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+    bQrReadEnable          : BOOL := TRUE;
+    bQrReadContinuous      : BOOL := TRUE;
+    tQrReadInterval        : TIME := T#300MS;
+    nQrWatchdogTimeUs      : DINT := 20000;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

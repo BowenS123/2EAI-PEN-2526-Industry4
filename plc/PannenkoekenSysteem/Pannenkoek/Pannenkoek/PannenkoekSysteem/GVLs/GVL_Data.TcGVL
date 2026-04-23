@@ -3,6 +3,13 @@
   <GVL Name="GVL_Data" Id="{e207c451-feb9-482c-923f-2b3efa1bd73d}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+    bQrValid               : BOOL := FALSE;
+    bQrNoCode              : BOOL := FALSE;
+    bQrError               : BOOL := FALSE;
+    {attribute 'TcEncoding':='UTF-8'}
+    sQrCode                : STRING(255) := '';
+    hrQrLast               : HRESULT := S_OK;
+    nQrExecTimeUs          : DINT := 0;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

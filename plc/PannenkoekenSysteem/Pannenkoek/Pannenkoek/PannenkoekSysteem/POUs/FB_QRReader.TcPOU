@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_QRReader" Id="{d3ea6095-23ef-44cb-9e91-a503760b983e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_QRReader
+VAR_INPUT
+    bEnable              : BOOL;
+    bTrigger             : BOOL;
+    ipImageIn            : ITcVnImage;
+    nWatchdogTimeUs      : DINT := 20000;
+END_VAR
+
+VAR_OUTPUT
+    bValid               : BOOL;
+    bNoCode              : BOOL;
+    bError               : BOOL;
+    {attribute 'TcEncoding':='UTF-8'}
+    sCode                : STRING(255);
+    hrLast               : HRESULT;
+    nExecTimeUs          : DINT;
+END_VAR
+
+VAR
+    rTrig                : R_TRIG;
+    hr                   : HRESULT := S_OK;
+    hrWD                 : HRESULT;
+    tRest                : DINT;
+    ipCodeDecodedList    : ITcVnContainer;
+    ipCodeContourList    : ITcVnContainer;
+    {attribute 'TcEncoding':='UTF-8'}
+    sCodeTemp            : STRING(255);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rTrig(CLK := bTrigger);
+
+IF NOT bEnable THEN
+    bValid := FALSE;
+    bNoCode := FALSE;
+    bError := FALSE;
+    sCode := '';
+    hrLast := S_OK;
+    nExecTimeUs := 0;
+ELSIF rTrig.Q THEN
+    bValid := FALSE;
+    bNoCode := FALSE;
+    bError := FALSE;
+    sCode := '';
+    sCodeTemp := '';
+
+    hr := S_OK;
+    hrWD := F_VN_StartRelWatchdog(nWatchdogTimeUs, S_OK);
+    hr := F_VN_ReadQRCodeExp(
+        ipSrcImage := ipImageIn,
+        ipDecodedData := ipCodeDecodedList,
+        ipContours := ipCodeContourList,
+        nCodeNumber := 1,
+        eSearchStrategy := TCVN_CSS_ONLY_NOT_INVERTED + TCVN_CSS_ONLY_NOT_FLIPPED,
+        hrPrev := hr
+    );
+    hrWD := F_VN_StopWatchdog(hrWD, tRest => tRest);
+    nExecTimeUs := nWatchdogTimeUs - tRest;
+
+    IF hr = S_OK THEN
+        hr := F_VN_ExportSubContainer_String(ipCodeDecodedList, 0, sCodeTemp, 255, hr);
+        IF hr = S_OK THEN
+            sCode := sCodeTemp;
+            bValid := LEN(sCode) > 0;
+            bNoCode := NOT bValid;
+        ELSE
+            bError := TRUE;
+        END_IF
+    ELSIF hr = S_FALSE THEN
+        bNoCode := TRUE;
+    ELSE
+        bError := TRUE;
+    END_IF
+
+    hrLast := hr;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_QRReader">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

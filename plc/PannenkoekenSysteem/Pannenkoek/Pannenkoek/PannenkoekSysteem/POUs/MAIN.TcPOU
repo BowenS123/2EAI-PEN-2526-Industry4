@@ -6,11 +6,15 @@ VAR
   fbStateMachine    : FB_StateMachine;
   fbTransportband   : FB_Transportband;
   fbMqtt            : FB_MQTT;
+  fbQrReader        : FB_QRReader;
   rVisuStartTap     : R_TRIG;
   rVisuStopTap      : R_TRIG;
+  rQrManualTap      : R_TRIG;
+  tonQrRead         : TON;
 
   bStartCmd         : BOOL := FALSE;
   bStopCmd          : BOOL := FALSE;
+  bQrTrigger        : BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -31,6 +35,21 @@ ELSIF fbTransportband.bDone THEN
 ELSE
   // Stop als puls behandelen
   bStopCmd := FALSE;
+END_IF
+
+// QR trigger: handmatige puls of periodiek volgens GVL_Config
+rQrManualTap(CLK := GVL_Inputs.bQrReadTriggerManual);
+tonQrRead(
+  IN := GVL_Config.bQrReadEnable AND GVL_Config.bQrReadContinuous,
+  PT := GVL_Config.tQrReadInterval
+);
+
+bQrTrigger := FALSE;
+IF rQrManualTap.Q THEN
+  bQrTrigger := TRUE;
+ELSIF tonQrRead.Q THEN
+  bQrTrigger := TRUE;
+  tonQrRead(IN := FALSE, PT := GVL_Config.tQrReadInterval);
 END_IF
 
 // 2) State machine en transportband
@@ -58,7 +77,22 @@ ELSE
   GVL_MQTT.sTransportbandDisplay := 'Transportband UIT';
 END_IF
 
-// 3) MQTT in aparte FB
+// 3) QR-code lezen uit het actuele camerabeeld
+fbQrReader(
+  bEnable := GVL_Config.bQrReadEnable,
+  bTrigger := bQrTrigger,
+  ipImageIn := GVL_Inputs.ipQrImage,
+  nWatchdogTimeUs := GVL_Config.nQrWatchdogTimeUs
+);
+
+GVL_Data.bQrValid := fbQrReader.bValid;
+GVL_Data.bQrNoCode := fbQrReader.bNoCode;
+GVL_Data.bQrError := fbQrReader.bError;
+GVL_Data.sQrCode := fbQrReader.sCode;
+GVL_Data.hrQrLast := fbQrReader.hrLast;
+GVL_Data.nQrExecTimeUs := fbQrReader.nExecTimeUs;
+
+// 4) MQTT in aparte FB
 fbMqtt(
   bTransportbandRunning := GVL_MQTT.bTransportbandRunning,
   bTransportbandDone := GVL_MQTT.bTransportbandDone,

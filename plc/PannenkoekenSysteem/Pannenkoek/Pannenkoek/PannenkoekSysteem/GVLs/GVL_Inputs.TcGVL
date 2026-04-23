@@ -2,7 +2,10 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <GVL Name="GVL_Inputs" Id="{61bea2d8-6613-4ba3-addb-3df0034b2c51}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
-VAR_GLOBAL
-END_VAR]]></Declaration>
+  VAR_GLOBAL
+    {attribute 'TcInitSymbol'}
+    ipQrImage              : ITcVnImage;
+    bQrReadTriggerManual   : BOOL := FALSE;
+  END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
