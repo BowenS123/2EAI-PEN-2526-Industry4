@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.19">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.20">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{DB6B59A0-4FB0-4B14-A83C-AC7A76AD688D}">JobTaskId</Name>
@@ -3971,7 +3971,7 @@
 		<ImageData Id="1000">424d360300000000000036000000280000001000000010000000010018000000000000000000c40e0000c40e00000000000000000000554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3be1d7d1e1d7d1e1d7d1e1d7d1e1d7d1e1d7d1e1d7d1dfd6cfdfd6cfdfd6cfdfd6cfdfd6cfdfd6cfdfd6cf554f3b554f3be3dbd4e3dbd4554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3bdfd6cfdfd6cf554f3b554f3be3dbd4e3dbd4554f3bc1b39ac1b399c0b299bfb097beae94bbac90b8a88cb7a488554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bc6b9a3c6b8a2c5b7a0c4b59fc2b49bbfb197bdae92baaa8d554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bcbbfaacbbeaac9bda9c9bba5c6b8a2c3b59ec0b298bdae93554f3bdfd6cfdfd6cf554f3b554f3bece4dfece4df554f3bcfc6b1d0c4b1cec3afcdc1adcabea8c7baa5c4b69ec0b298554f3be1d7d1dfd6cf554f3b554f3beee6e1eee6e1554f3bd4cabad4cabad2c9b6d1c6b3cec3afcabfa9c8baa4c4b59e554f3be1d7d1dfd6cf554f3b554f3bf2ebe7f2ebe7554f3b554f3b554f3bd7cfbed4cbbad2c7b4cec2af554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf2ebe7f2ebe7f5eeebf2ebe7554f3bdad4c4d8cfbfd4cabad0c6b3554f3be7ded9e3dbd4e3dbd4e1d7d1554f3b554f3bf5eeebf5eeebf5eeebf5eeeb554f3bded8cbdad3c4d7cdbdd2c8b6554f3bece4dfe3dbd4e3dbd4e1d7d1554f3b554f3bf5eeebf5eeeb554f3b554f3b554f3be1dbcfdcd6c7d8cfbfd3c9b8554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf5eeebf7f0ed554f3be8e3dbe5e1d7e1dbcfddd5c8d8cfbfd3cab7cec4b0c9bda8554f3be3dbd4e1d7d1554f3b554f3bf5eeebf5eeeb554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3be3dbd4e1d7d1554f3b554f3bf5eeebf5eeebf5eeebf5eeebf5eeebf2ebe7f2ebe7eee6e1ece4dfece4dfece4dfe3dbd4e3dbd4e1d7d1554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b554f3b</ImageData>
 		<ImageData Id="1001">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffffffff788833338887ffff78883bb38887ffffffff3bb3ffffffffffff8778fffffffffffffffffffffffffffffffff999ffff78f78fffffffffff78f78ffff999ffff78f7888fffffffff78f78f78f999ffff78f78f78ffffffff78f7888ff999ffffffffffffffffff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{9CA79363-712C-4A08-A83A-BF95048EC49E}" TargetNetId="172.18.237.156.1.1" Target64Bit="true" ShowHideConfigurations="#x6">
+	<Project ProjectGUID="{9CA79363-712C-4A08-A83A-BF95048EC49E}" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
 			<Settings MaxCpus="4" NonWinCpus="1" RouterMemory="268435456">
 				<Cpu/>
@@ -3996,7 +3996,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{17FD44B8-199A-4B80-8B23-793C2383B34C}" Name="PannenkoekSysteem" PrjFilePath="PannenkoekSysteem\PannenkoekSysteem.plcproj" TmcFilePath="PannenkoekSysteem\PannenkoekSysteem.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{3C6AA8FB-286D-B96D-8034-6826C98DF0C6}" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{EE9ABC6F-A904-0F95-1C20-E57CB971482C}" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc">
 					<Name>PannenkoekSysteem Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
