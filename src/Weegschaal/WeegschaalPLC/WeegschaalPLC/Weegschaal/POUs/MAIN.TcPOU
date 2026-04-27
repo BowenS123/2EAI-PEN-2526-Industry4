@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="MAIN" Id="{79f90f84-90da-4fcd-bd2d-e076899801fd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    // Serial communication blocks
+    fbSerialLineControl : SerialLineControl;
+    fbReceiveString     : ReceiveString;
+    
+    // Parsing & Logic variables
+    sRawData            : STRING(255);
+    sWeightTrimmed      : STRING(255);
+    sSign               : STRING(1);
+    bStringReceived     : BOOL;
+    bRxBusy             : BOOL;
+    bRxError            : BOOL;
+    nRxErrorID          : UDINT;
+    
+    // Final Extracted Results
+    fCurrentWeight      : LREAL;
+    sUnit               : STRING(3);
+    
+    // Stability logic
+    aReadings           : ARRAY[1..5] OF LREAL;
+    i                   : INT;
+    fMaxReading         : LREAL;
+    fMinReading         : LREAL;
+    fStabilityThreshold : LREAL := 0.001;
+    bStableReading      : BOOL;
+    fLastStableWeight   : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// ==========================================================
+// 1. BACKGROUND COMMUNICATION (Run this every cycle)
+// ==========================================================
+fbSerialLineControl(
+    Mode        := SERIALLINEMODE_EL6_22B, // Specific to EL6002
+    pComIn      := ADR(stEL6002_In),
+    pComOut     := ADR(stEL6002_Out),
+    SizeComIn   := SIZEOF(stEL6002_In),
+    TxBuffer    := TxBuffer,
+    RxBuffer    := RxBuffer
+);
+
+// ==========================================================
+// 2. RECEIVE CONTINUOUS STREAM DATA
+// ==========================================================
+fbReceiveString(
+    Prefix          := '',        // No specific prefix needed
+    Suffix          := '$R$N',    // Corresponds to Python's \r\n
+    Timeout         := T#1S,
+    ReceivedString  := sRawData,
+    RxBuffer        := RxBuffer,
+    StringReceived  => bStringReceived,
+    Busy            => bRxBusy,
+);
+
+// ==========================================================
+// 3. PARSE RAW SCALE DATA (Equivalent to parse_weight_data)
+// ==========================================================
+IF bStringReceived AND LEN(sRawData) >= 10 THEN
+    
+    // Extract Sign (Position 1)
+    sSign := MID(sRawData, 1, 1);
+    
+    // Extract Weight Value (Positions 3 to 9)
+    sWeightTrimmed := MID(sRawData, 7, 3);
+    
+    // Remove blank spaces in the string
+    sWeightTrimmed := REPLACE(sWeightTrimmed, '', 1, FIND(sWeightTrimmed, ' '));
+    
+    // Convert to floating point
+    fCurrentWeight := TO_LREAL(sWeightTrimmed);
+    
+    // Apply negative sign if necessary
+    IF sSign = '-' THEN
+        fCurrentWeight := fCurrentWeight * -1.0;
+    END_IF
+    
+    // Extract Unit (Positions 11 to 12)
+    sUnit := MID(sRawData, 2, 11);
+    
+    // ==========================================================
+    // 4. STABILITY CHECK (Replaces wait_for_stable_reading)
+    // ==========================================================
+    // Shift old readings left
+    FOR i := 1 TO 4 DO
+        aReadings[i] := aReadings[i+1];
+    END_FOR
+    aReadings[5] := fCurrentWeight; // Append new reading
+    
+    // Calculate Min and Max in the buffer
+    fMinReading := aReadings[1];
+    fMaxReading := aReadings[1];
+    FOR i := 2 TO 5 DO
+        IF aReadings[i] < fMinReading THEN fMinReading := aReadings[i]; END_IF;
+        IF aReadings[i] > fMaxReading THEN fMaxReading := aReadings[i]; END_IF;
+    END_FOR
+    
+    // Evaluate threshold
+    IF (fMaxReading - fMinReading) <= fStabilityThreshold THEN
+        bStableReading := TRUE;
+        fLastStableWeight := fCurrentWeight; // Use this variable in your HMI or state machine
+    ELSE
+        bStableReading := FALSE;
+    END_IF
+    
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="195" Count="22" />
+      <LineId Id="220" Count="52" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
