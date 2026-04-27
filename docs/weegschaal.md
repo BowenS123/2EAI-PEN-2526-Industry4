@@ -72,20 +72,12 @@ Zie: `\src\Weegschaal\testWeegschaal.py` voor weegschaal te testen met uw PC.
 - **Weegschaal**: Seriële digitale weegschaal
 - **Tc2_SerialCom**: Beckhoff Library voor seriële communicatie
 
-### Hardware Aansluiting
-```text
-EL6002 Pinout:
-
-TX+ / RX+ => Data A (RS-485)
-TX- / RX- => Data B (RS-485)  
-GND      => Ground
-```
-
 ### Installatie & Configuratie in TwinCAT project
   1. Importeer Beckhoff Serial Communication library
   2. Voeg FB_ParseWeight toe aan je project
   3. Implementeer de Function blocks in uw project zoals in `\src\Weegschaal\WeegschaalPLC\WeegschaalPLC\Weegschaal\POUs\MAIN.TcPOU`
   4. Configureer EL6002 in de I/O tree (link RX & TX)
+    ![IO Weegschaal](IO_Weegschaal.png)
   5. Licentie Vereisten ?
 
 ### Function Blocks
@@ -104,3 +96,4 @@ GND      => Ground
 - **Doel**: Parseert ruwe weegschaal String data (teken, gewicht, eenheid) & controleert meetstabiliteit
 - **Features**:
   - String parsing 
+
