@@ -42,7 +42,7 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 
 - Link: 
 - Prijs: 
-- Notities: Kies juiste voltage (bijv. 5V / 12V) en amperage
+- Notities: Kies juiste voltage (48V max, geschikte Ampere)
 
 ---
 
