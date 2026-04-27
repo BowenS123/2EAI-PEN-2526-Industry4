@@ -2,9 +2,9 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{5A10E8F5-7063-3F3F-AFF0-7FAE904A803A}</SystemId>
-		<IssueTime>2026-03-30T07:06:00</IssueTime>
-		<ExpireTime>2026-04-07T00:00:00</ExpireTime>
-		<LicenseKey>97f928326fc26024a49dfd6a5f205a5bbed11d83848d4b4d771505259d3a507b173cea65b4cc8a1ac2bc42e8d647baedaae68befb6dbd19d26bc8aab5927d89bf39825bab36cd16cdca55cbe87a6a179dd5c53290d37ef9583c58e4f2a8c74519c13ca8111d2ca71f847b6e56f0da8387106edb96ab39d97af5f778013dc996f30436a1502c2a46de8d0b0ba02c159abb73b88e36e76bea4a5bb2021c51268f11858202580508e80077a0b6b0bfde08c6d907e5107be4748f0200e4651103182699d988edff170456a380c3bd90419fb3a0168170d21db438b4b421b6f62c2d52c0bb3a649045aab47bb39006bc912f4c024795381324a4fedecceea13398ba0</LicenseKey>
+		<IssueTime>2026-04-26T09:59:00</IssueTime>
+		<ExpireTime>2026-05-04T00:00:00</ExpireTime>
+		<LicenseKey>11ff364353579485340e7ce6ff27fe40058547a51aadfff4d104d2ff58129193855698fb62d71d305b29d6a6734fa49449a37e9e61528fc33429b9ad99e1b5e424752052e927b8654d53b9c49e35d95bf5f422f90759a1e082b7a4d143ccb2da6844744bd02078ffa5886b37a90ccee822ad60b3d550f75d70f6c03d085e4616dbb9ca453d329156dae4c6f14238bab5bb953b50c75b4e2c9aff1fee3d1e4dbc7ccacfc2cde60c6fdab53ac73c13c8b662518a6ca584600d37f56b6a7ca6e7d4d1b3753c1e48bbe03a5a24c6c9acdc1ea7537df16362aa09372ce6826651bd08a36e2a45b8db93bbec87ea931af74087e8b5ab8740c096da5a55f65aeeee0f91</LicenseKey>
 		<License>
 			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
 			<Name>TC3 ADS</Name>
@@ -28,6 +28,21 @@
 			<LicenseId>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</LicenseId>
 			<Name>TC3 IoT Communication (MQTT)</Name>
 			<OrderNo>TF6701</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{5762C59F-F838-4092-B24F-4E469453D3E9}</LicenseId>
+			<Name>TC3 Vision Code Reading</Name>
+			<OrderNo>TF7250</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{2C358067-6E81-4F6A-B8D9-AC1F63FEB6FD}</LicenseId>
+			<Name>TC3 Vision Base</Name>
+			<OrderNo>TF7100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{26580A89-EBA6-4400-B416-C33E76066D57}</LicenseId>
+			<Name>TC3 Vision Matching 2D</Name>
+			<OrderNo>TF7200</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{2FF93140-10E2-4662-A464-31B8A4673F26}</LicenseId>

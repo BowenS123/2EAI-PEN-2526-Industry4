@@ -1,11 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <POU Name="MAIN" Id="{322adc8f-31f6-4121-9795-477df765531f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
   fbStateMachine    : FB_StateMachine;
   fbTransportband   : FB_Transportband;
   fbMqtt            : FB_MQTT;
+  fbQrVision        : FB_QrVision;
   rVisuStartTap     : R_TRIG;
   rVisuStopTap      : R_TRIG;
 
@@ -64,11 +65,17 @@ fbMqtt(
   bTransportbandDone := GVL_MQTT.bTransportbandDone,
   bSystemError := GVL_MQTT.bSystemError,
   sErrorMessage := GVL_MQTT.sErrorMessage
-);]]></ST>
+);
+
+// 4) QR vision
+fbQrVision(
+  bEnable := GVL_Data.bQrEnabled
+);
+
+GVL_Data.bQrCodeFound := fbQrVision.bCodeFound;
+GVL_Data.sQrCodeText := fbQrVision.sCodeAsString;
+GVL_Data.sQrDisplayText := fbQrVision.sDisplayText;
+GVL_Data.hrQrVision := fbQrVision.hrLast;]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
-      <LineId Id="4" Count="44" />
-    </LineIds>
   </POU>
 </TcPlcObject>
