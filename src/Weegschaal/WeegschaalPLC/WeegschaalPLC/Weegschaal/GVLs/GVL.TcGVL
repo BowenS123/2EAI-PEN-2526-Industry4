@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <GVL Name="GVL" Id="{4cac49aa-7fe2-4107-a79c-24a2c9761f7b}">
+    <Declaration><![CDATA[VAR_GLOBAL
+    // Correct Data Types for EL60xx Terminals in 22-byte mode
+    stEL6002_In  AT %I* : EL6inData22B;  // "i" is lowercase in the official type name
+    stEL6002_Out AT %Q* : EL6outData22B; // "o" is lowercase in the official type name
+    
+    RxBuffer : ComBuffer;
+    TxBuffer : ComBuffer;
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

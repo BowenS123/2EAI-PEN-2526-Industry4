@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="MAIN" Id="{79f90f84-90da-4fcd-bd2d-e076899801fd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    // Serial communication blocks
+    fbSerialLineControl : SerialLineControl;
+    fbReceiveString     : ReceiveString;
+    fbParseWeight       : FB_ParseWeight; 
+    
+    // Communication variables
+    sRawData            : STRING(255);
+    bStringReceived     : BOOL;
+    bRxBusy             : BOOL;
+    bRxError            : BOOL;
+    nRxErrorID          : UDINT;
+    
+    // Parsing results
+    fCurrentWeight      : LREAL;
+    sUnit               : STRING(3);
+    bDataValid          : BOOL;
+    
+    // Stability results
+    bStableReading      : BOOL;
+    fLastStableWeight   : LREAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// ==========================================================
+// 1. BACKGROUND COMMUNICATION (Run this every cycle)
+// ==========================================================
+fbSerialLineControl(
+    Mode        := SERIALLINEMODE_EL6_22B,
+    pComIn      := ADR(stEL6002_In),
+    pComOut     := ADR(stEL6002_Out),
+    SizeComIn   := SIZEOF(stEL6002_In),
+    TxBuffer    := TxBuffer,
+    RxBuffer    := RxBuffer
+);
+
+// ==========================================================
+// 2. RECEIVE CONTINUOUS STREAM DATA
+// ==========================================================
+fbReceiveString(
+    Prefix          := '',
+    Suffix          := '$R$N',
+    Timeout         := T#1S,
+    ReceivedString  := sRawData,
+    RxBuffer        := RxBuffer,
+    StringReceived  => bStringReceived,
+    Busy            => bRxBusy
+);
+
+// ==========================================================
+// 3. PARSE AND CHECK STABILITY (Alleen bij nieuwe data)
+// ==========================================================
+IF bStringReceived THEN
+    fbParseWeight(
+        sRawData            := sRawData,
+        fStabilityThreshold := 0.001,
+        fCurrentWeight      => fCurrentWeight,
+        sUnit               => sUnit,
+        bStableReading      => bStableReading,
+        fLastStableWeight   => fLastStableWeight,
+        bDataValid          => bDataValid
+    );
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="298" Count="37" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
