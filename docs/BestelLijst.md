@@ -29,9 +29,9 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** 4-pin header connectors (2.5mm pitch)  
 **Doel:** Verbinden van elektronische componenten  
 
-- Link: 
-- Prijs: 
-- Notities: Let op male/female type + aantal stuks
+- Link: https://www.kiwi-electronics.com/en/2-5mm-pitch-4-pin-cable-matching-pair-jst-xh-compatible-11018?country= 
+- Prijs: 1.15
+- Notities: Aantaal stuks bestellen: 3x
 
 ---
 
@@ -51,8 +51,8 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Schroeven (bijv. M2 / M3 set)  
 **Doel:** Onderdelen stevig bevestigen  
 
-- Link: 
-- Prijs: 
+- Link: (Van thuis zelf)
+- Prijs: ////
 - Notities: Handig om een assortiment doosje te nemen
 
 ---
