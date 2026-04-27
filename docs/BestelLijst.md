@@ -51,7 +51,7 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Schroeven (bijv. M2 / M3 set)  
 **Doel:** Onderdelen stevig bevestigen  
 
-- Link: (Van thuis zelf)
+- Link: (Van thuis zelf/ Victor)
 - Prijs: ////
 - Notities: Handig om een assortiment doosje te nemen
 
