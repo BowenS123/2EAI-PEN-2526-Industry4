@@ -9,8 +9,8 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Kabelrubs (kabeldoorvoeren / grommets)  
 **Doel:** Kabels netjes door een opening leiden en beschermen tegen slijtage  
 
-- Link: 
-- Prijs: 
+- Link: https://www.conrad.be/nl/p/igus-e-kette-e2-micro-serie-06-06-10-018-0-kabelrups-voor-kleine-buigradius-740611.html
+- Prijs: 23,96
 - Notities: Kies diameter passend bij je kabels (bijv. 20mm / 25mm)
 
 ---
@@ -40,8 +40,8 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Voedingsbron (Power Supply)  
 **Doel:** Stroom voorzien voor je project  
 
-- Link: 
-- Prijs: 
+- Link: https://www.conrad.be/nl/p/mean-well-sdr-240-48-din-rail-netvoeding-48-v-dc-5-a-240-w-aantal-uitgangen-1-x-inhoud-1-stuk-s-1293335.html?experience=b2c&utm_source=google&utm_medium=organic&utm_campaign=shopping-free&utm_term=1293335
+- Prijs: 109,99
 - Notities: Kies juiste voltage (48V max, geschikte Ampere)
 
 ---
