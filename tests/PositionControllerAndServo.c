@@ -1,0 +1,457 @@
+#include "cybsp.h"
+#include "cyhal.h"
+#include "cycfg.h"
+#include "cycfg_capsense.h"
+#include "cy_retarget_io.h"
+#include <stdio.h>
+
+#define CAPSENSE_INTR_PRIORITY (7u)
+
+// Motor 1
+#define STEP1_PIN   P9_0
+#define DIR1_PIN    P9_1
+#define EN1_PIN     P9_2
+
+// Motor 2
+#define STEP2_PIN   P10_0
+#define DIR2_PIN    P10_1
+#define EN2_PIN     P10_2
+
+// Motor 3
+#define STEP3_PIN   P10_3
+#define DIR3_PIN    P10_4
+#define EN3_PIN     P10_5
+
+// Servo
+#define SERVO_PIN   P10_6
+
+// Save knop
+#define SAVE_BUTTON_PIN P0_4
+
+volatile bool capsense_scan_complete = false;
+bool vorige_save_button = 1;
+
+cyhal_pwm_t pwm;
+
+int M1_Pos = 0;
+int M2_Pos = 0;
+int M3_Pos = 0;
+
+int startPos[3]  = {0, 0, 0};
+int actionPos[3] = {0, 0, 0};
+
+int mode = 0;              // 0 idle, 1 teach start, 2 teach actie
+int teach_motor_index = 0; // 0=M3, 1=M2, 2=M1
+
+static void capsense_isr(void);
+static void capsense_callback(cy_stc_active_scan_sns_t *ptrActiveScan);
+static uint32_t initialize_capsense(void);
+static void process_touch(void);
+void print_menu(void);
+
+// ---------- STEP ----------
+void step_pin(uint8_t pin)
+{
+    cyhal_gpio_write(pin, 1);
+    cyhal_system_delay_ms(2);
+    cyhal_gpio_write(pin, 0);
+    cyhal_system_delay_ms(2);
+}
+
+// ---------- MOTOR 1 ----------
+void Motor1_left(void)
+{
+    cyhal_gpio_write(DIR1_PIN, 1);
+    step_pin(STEP1_PIN);
+    if (M1_Pos > 0) M1_Pos--;
+}
+
+void Motor1_right(void)
+{
+    cyhal_gpio_write(DIR1_PIN, 0);
+    step_pin(STEP1_PIN);
+    M1_Pos++;
+}
+
+// ---------- MOTOR 2 ----------
+void Motor2_left(void)
+{
+    cyhal_gpio_write(DIR2_PIN, 0);
+    step_pin(STEP2_PIN);
+    if (M2_Pos > 0) M2_Pos--;
+}
+
+void Motor2_right(void)
+{
+    cyhal_gpio_write(DIR2_PIN, 1);
+    step_pin(STEP2_PIN);
+    M2_Pos++;
+}
+
+// ---------- MOTOR 3 ----------
+void Motor3_left(void)
+{
+    cyhal_gpio_write(DIR3_PIN, 1);
+    step_pin(STEP3_PIN);
+    if (M3_Pos > 0) M3_Pos--;
+}
+
+void Motor3_right(void)
+{
+    cyhal_gpio_write(DIR3_PIN, 0);
+    step_pin(STEP3_PIN);
+    M3_Pos++;
+}
+
+// ---------- SERVO ----------
+void Servo_startpositie(void)
+{
+    cyhal_pwm_set_duty_cycle(&pwm, 5.0, 50); // ongeveer 0 graden
+    cyhal_system_delay_ms(1000);
+}
+
+void Servo_kiep(void)
+{
+	cyhal_system_delay_ms(1000);
+    cyhal_pwm_set_duty_cycle(&pwm, 9.0, 50); // ongeveer 120 graden
+    cyhal_system_delay_ms(3000);
+
+    cyhal_pwm_set_duty_cycle(&pwm, 5.0, 50); // terug naar 0 graden
+    cyhal_system_delay_ms(3000);
+}
+
+// ---------- TEACH INDEX ----------
+void motor_left_by_index(int idx)
+{
+    if (idx == 0) Motor3_left();
+    else if (idx == 1) Motor2_left();
+    else if (idx == 2) Motor1_left();
+}
+
+void motor_right_by_index(int idx)
+{
+    if (idx == 0) Motor3_right();
+    else if (idx == 1) Motor2_right();
+    else if (idx == 2) Motor1_right();
+}
+
+int get_motor_pos(int idx)
+{
+    if (idx == 0) return M3_Pos;
+    if (idx == 1) return M2_Pos;
+    return M1_Pos;
+}
+
+void set_pose_value(int *pose, int idx, int value)
+{
+    if (idx == 0) pose[2] = value;      // M3
+    else if (idx == 1) pose[1] = value; // M2
+    else if (idx == 2) pose[0] = value; // M1
+}
+
+void print_pose(const char *name, int pose[3])
+{
+    printf("%s: M1=%d  M2=%d  M3=%d\r\n",
+           name, pose[0], pose[1], pose[2]);
+}
+
+// ---------- SAVE BUTTON ----------
+bool save_pressed(void)
+{
+    bool b = cyhal_gpio_read(SAVE_BUTTON_PIN);
+
+    if ((b == 0) && (vorige_save_button == 1))
+    {
+        cyhal_system_delay_ms(200);
+        vorige_save_button = b;
+        return true;
+    }
+
+    vorige_save_button = b;
+    return false;
+}
+
+// ---------- CAPSENSE ----------
+static void process_touch(void)
+{
+    uint32_t button0_status;
+    uint32_t button1_status;
+
+    button0_status = Cy_CapSense_IsSensorActive(
+        CY_CAPSENSE_BUTTON0_WDGT_ID,
+        CY_CAPSENSE_BUTTON0_SNS0_ID,
+        &cy_capsense_context);
+
+    button1_status = Cy_CapSense_IsSensorActive(
+        CY_CAPSENSE_BUTTON1_WDGT_ID,
+        CY_CAPSENSE_BUTTON1_SNS0_ID,
+        &cy_capsense_context);
+
+    if ((button0_status != 0u) && (button1_status == 0u))
+    {
+        motor_right_by_index(teach_motor_index);
+    }
+    else if ((button1_status != 0u) && (button0_status == 0u))
+    {
+        motor_left_by_index(teach_motor_index);
+    }
+}
+
+static void capsense_callback(cy_stc_active_scan_sns_t *ptrActiveScan)
+{
+    (void)ptrActiveScan;
+    capsense_scan_complete = true;
+}
+
+static void capsense_isr(void)
+{
+    Cy_CapSense_InterruptHandler(CYBSP_CSD_HW, &cy_capsense_context);
+}
+
+static uint32_t initialize_capsense(void)
+{
+    uint32_t status;
+
+    status = Cy_CapSense_Init(&cy_capsense_context);
+    if (status != CYRET_SUCCESS) return status;
+
+    cyhal_system_set_isr(csd_interrupt_IRQn, csd_interrupt_IRQn,
+                         CAPSENSE_INTR_PRIORITY, &capsense_isr);
+
+    NVIC_ClearPendingIRQ(csd_interrupt_IRQn);
+    NVIC_EnableIRQ(csd_interrupt_IRQn);
+
+    status = Cy_CapSense_Enable(&cy_capsense_context);
+    if (status != CYRET_SUCCESS) return status;
+
+    status = Cy_CapSense_RegisterCallback(
+        CY_CAPSENSE_END_OF_SCAN_E,
+        capsense_callback,
+        &cy_capsense_context);
+
+    return status;
+}
+
+// ---------- MOVE ----------
+void move_to_pose(int target[3])
+{
+    while ((M1_Pos != target[0]) ||
+           (M2_Pos != target[1]) ||
+           (M3_Pos != target[2]))
+    {
+        if (M1_Pos < target[0]) Motor1_right();
+        else if (M1_Pos > target[0]) Motor1_left();
+
+        if (M2_Pos < target[1]) Motor2_right();
+        else if (M2_Pos > target[1]) Motor2_left();
+
+        if (M3_Pos < target[2]) Motor3_right();
+        else if (M3_Pos > target[2]) Motor3_left();
+    }
+}
+
+// ---------- TEACH ----------
+void start_teach_mode(int new_mode)
+{
+    mode = new_mode;
+    teach_motor_index = 0;
+
+    if (mode == 1)
+        printf("\r\nTeach START positie\r\n");
+    else if (mode == 2)
+        printf("\r\nTeach ACTIE positie\r\n");
+
+    printf("Nu motor 3 instellen met CapSense.\r\n");
+    printf("Button0 = rechts, Button1 = links, P0_4 = opslaan/volgende\r\n");
+}
+
+void handle_save_for_teach(void)
+{
+    int *currentPose = (mode == 1) ? startPos : actionPos;
+
+    set_pose_value(currentPose, teach_motor_index, get_motor_pos(teach_motor_index));
+
+    if (teach_motor_index == 0)
+        printf("Motor 3 opgeslagen op %d\r\n", M3_Pos);
+    else if (teach_motor_index == 1)
+        printf("Motor 2 opgeslagen op %d\r\n", M2_Pos);
+    else if (teach_motor_index == 2)
+        printf("Motor 1 opgeslagen op %d\r\n", M1_Pos);
+
+    teach_motor_index++;
+
+    if (teach_motor_index == 1)
+    {
+        printf("Nu motor 2 instellen...\r\n");
+    }
+    else if (teach_motor_index == 2)
+    {
+        printf("Nu motor 1 instellen...\r\n");
+    }
+    else if (teach_motor_index >= 3)
+    {
+        if (mode == 1)
+            print_pose("START opgeslagen", startPos);
+        else
+            print_pose("ACTIE opgeslagen", actionPos);
+
+        mode = 0;
+        teach_motor_index = 0;
+
+        printf("\r\nTeach klaar. Kies nieuw commando in terminal.\r\n");
+        print_menu();
+    }
+}
+
+// ---------- TERMINAL MENU ----------
+void print_menu(void)
+{
+    printf("\r\n===== MENU =====\r\n");
+    printf("1 = Teach START positie\r\n");
+    printf("2 = Teach ACTIE positie (weegschaal-actie)\r\n");
+    printf("3 = Ga naar START positie\r\n");
+    printf("4 = Ga naar ACTIE positie + servo kiept\r\n");
+    printf("5 = Simuleer: weegschaal heeft waarde -> ga naar ACTIE + servo\r\n");
+    printf("p = Print opgeslagen posities\r\n");
+    printf("================\r\n");
+}
+
+void handle_terminal_command(char cmd)
+{
+    switch (cmd)
+    {
+        case '1':
+            start_teach_mode(1);
+            break;
+
+        case '2':
+            start_teach_mode(2);
+            break;
+
+        case '3':
+            printf("Ga naar START positie...\r\n");
+            move_to_pose(startPos);
+            Servo_startpositie();
+            printf("START bereikt.\r\n");
+            print_menu();
+            break;
+
+        case '4':
+            printf("Ga naar ACTIE positie...\r\n");
+            move_to_pose(actionPos);
+            printf("ACTIE positie bereikt. Servo kiept...\r\n");
+            Servo_kiep();
+            printf("ACTIE klaar.\r\n");
+            print_menu();
+            break;
+
+        case '5':
+            printf("Simulatie: weegschaal detecteert waarde.\r\n");
+            move_to_pose(actionPos);
+            printf("ACTIE positie bereikt. Servo kiept...\r\n");
+            Servo_kiep();
+            printf("ACTIE uitgevoerd.\r\n");
+            print_menu();
+            break;
+
+        case 'p':
+        case 'P':
+            print_pose("START", startPos);
+            print_pose("ACTIE", actionPos);
+            printf("Huidig : M1=%d  M2=%d  M3=%d\r\n", M1_Pos, M2_Pos, M3_Pos);
+            print_menu();
+            break;
+
+        default:
+            print_menu();
+            break;
+    }
+}
+
+// ---------- MAIN ----------
+int main(void)
+{
+    cy_rslt_t result;
+
+    result = cybsp_init();
+    if (result != CY_RSLT_SUCCESS)
+    {
+        CY_ASSERT(0);
+    }
+
+    __enable_irq();
+
+    result = cy_retarget_io_init(
+        CYBSP_DEBUG_UART_TX,
+        CYBSP_DEBUG_UART_RX,
+        CY_RETARGET_IO_BAUDRATE);
+
+    if (result != CY_RSLT_SUCCESS)
+    {
+        CY_ASSERT(0);
+    }
+
+    printf("\x1b[2J\x1b[;H");
+    printf("Robot teach mode + servo actie\r\n");
+
+    cyhal_gpio_init(STEP1_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(DIR1_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(EN1_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+
+    cyhal_gpio_init(STEP2_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(DIR2_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(EN2_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+
+    cyhal_gpio_init(STEP3_PIN, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(DIR3_PIN,  CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+    cyhal_gpio_init(EN3_PIN,   CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, 0);
+
+    cyhal_gpio_init(SAVE_BUTTON_PIN, CYHAL_GPIO_DIR_INPUT, CYHAL_GPIO_DRIVE_PULLUP, 1);
+
+    // Servo init
+    cyhal_pwm_init(&pwm, SERVO_PIN, NULL);
+    cyhal_pwm_start(&pwm);
+    Servo_startpositie();
+
+    // Drivers aan
+    cyhal_gpio_write(EN1_PIN, 1);
+    cyhal_gpio_write(EN2_PIN, 1);
+    cyhal_gpio_write(EN3_PIN, 1);
+
+    if (initialize_capsense() != CYRET_SUCCESS)
+    {
+        printf("CapSense init fout\r\n");
+        CY_ASSERT(0);
+    }
+
+    Cy_CapSense_ScanAllWidgets(&cy_capsense_context);
+
+    print_menu();
+
+    while (1)
+    {
+        if (mode == 0)
+        {
+            int ch = getchar();
+            handle_terminal_command((char)ch);
+        }
+
+        if ((mode == 1 || mode == 2) && save_pressed())
+        {
+            handle_save_for_teach();
+        }
+
+        if (capsense_scan_complete)
+        {
+            Cy_CapSense_ProcessAllWidgets(&cy_capsense_context);
+
+            if (mode == 1 || mode == 2)
+            {
+                process_touch();
+            }
+
+            Cy_CapSense_ScanAllWidgets(&cy_capsense_context);
+            capsense_scan_complete = false;
+        }
+    }
+}
