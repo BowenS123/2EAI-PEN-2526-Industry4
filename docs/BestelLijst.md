@@ -1,0 +1,58 @@
+# Bestellijst Project Onderdelen
+
+Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project.  
+
+---
+
+## Kabelmanagement
+
+**Product:** Kabelrubs (kabeldoorvoeren / grommets)  
+**Doel:** Kabels netjes door een opening leiden en beschermen tegen slijtage  
+
+- Link: 
+- Prijs: 
+- Notities: Kies diameter passend bij je kabels (bijv. 20mm / 25mm)
+
+---
+
+## Sensor Kabel (Inductieve sensor)
+
+**Product:** Aansluitkabel voor inductieve sensor (bijv. M8 / M12 sensor kabel, 3-pin of 4-pin)  
+**Doel:** Verbinden van inductieve sensor met voeding en controller  
+
+- Link: 
+- Prijs: 
+- Notities: 
+
+## Connectors
+
+**Product:** 4-pin header connectors (2.5mm pitch)  
+**Doel:** Verbinden van elektronische componenten  
+
+- Link: 
+- Prijs: 
+- Notities: Let op male/female type + aantal stuks
+
+---
+
+## Voedingsbron
+
+**Product:** Voedingsbron (Power Supply)  
+**Doel:** Stroom voorzien voor je project  
+
+- Link: 
+- Prijs: 
+- Notities: Kies juiste voltage (48V max, geschikte Ampere)
+
+---
+
+## Schroeven & Bevestiging
+
+**Product:** Schroeven (bijv. M2 / M3 set)  
+**Doel:** Onderdelen stevig bevestigen  
+
+- Link: 
+- Prijs: 
+- Notities: Handig om een assortiment doosje te nemen
+
+---
