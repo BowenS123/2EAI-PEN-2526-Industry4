@@ -127,7 +127,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{24432422-C258-4AE1-9944-0AC5B44A417B}" Name="Weegschaal" PrjFilePath="Weegschaal\Weegschaal.plcproj" TmcFilePath="Weegschaal\Weegschaal.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{FB3F314D-271C-19A8-4E39-636118F2EF93}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{A14F6672-C159-9F7B-C1EE-B332FBAB6255}">
 					<Name>Weegschaal Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2963,6 +2963,7 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^Weegschaal^Weegschaal Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 7 (EK1100)^Term 9 (EL6002)">
 				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 0"/>

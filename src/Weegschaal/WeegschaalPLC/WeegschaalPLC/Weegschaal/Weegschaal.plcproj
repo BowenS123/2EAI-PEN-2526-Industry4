@@ -17,6 +17,9 @@
     <LibraryReferences>{6d32419f-cb6a-4fd5-a4e0-ded1c5d4dd90}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\FB_ParseWeight.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>

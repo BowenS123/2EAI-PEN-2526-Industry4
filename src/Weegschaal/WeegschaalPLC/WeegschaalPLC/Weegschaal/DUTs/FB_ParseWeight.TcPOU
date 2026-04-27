@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
+  <POU Name="FB_ParseWeight" Id="{df8f5738-7df2-4dda-96cb-6aadff25ee96}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ParseWeight
+VAR_INPUT
+    sRawData            : STRING(255);
+    fStabilityThreshold : LREAL := 0.001;
+END_VAR
+VAR_OUTPUT
+    fCurrentWeight      : LREAL;
+    sUnit               : STRING(3);
+    bStableReading      : BOOL;
+    fLastStableWeight   : LREAL;
+    bDataValid          : BOOL;
+END_VAR
+VAR
+    sWeightTrimmed      : STRING(255);
+    sSign               : STRING(1);
+    aReadings           : ARRAY[1..5] OF LREAL;
+    i                   : INT;
+    fMaxReading         : LREAL;
+    fMinReading         : LREAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Initialisatie
+bDataValid := FALSE;
+
+// Controleer of er voldoende data is
+IF LEN(sRawData) >= 10 THEN
+    
+    // Extract Sign (Position 1)
+    sSign := MID(sRawData, 1, 1);
+    
+    // Extract Weight Value (Positions 3 to 9)
+    sWeightTrimmed := MID(sRawData, 7, 3);
+    
+    // Remove blank spaces in the string
+    sWeightTrimmed := REPLACE(sWeightTrimmed, '', 1, FIND(sWeightTrimmed, ' '));
+    
+    // Convert to floating point
+    fCurrentWeight := TO_LREAL(sWeightTrimmed);
+    
+    // Apply negative sign if necessary
+    IF sSign = '-' THEN
+        fCurrentWeight := fCurrentWeight * -1.0;
+    END_IF
+    
+    // Extract Unit (Positions 11 to 12)
+    sUnit := MID(sRawData, 2, 11);
+    
+    // ==========================================================
+    // STABILITY CHECK
+    // ==========================================================
+    // Shift old readings left
+    FOR i := 1 TO 4 DO
+        aReadings[i] := aReadings[i+1];
+    END_FOR
+    aReadings[5] := fCurrentWeight; // Append new reading
+    
+    // Calculate Min and Max in the buffer
+    fMinReading := aReadings[1];
+    fMaxReading := aReadings[1];
+    FOR i := 2 TO 5 DO
+        IF aReadings[i] < fMinReading THEN fMinReading := aReadings[i]; END_IF;
+        IF aReadings[i] > fMaxReading THEN fMaxReading := aReadings[i]; END_IF;
+    END_FOR
+    
+    // Evaluate threshold
+    IF (fMaxReading - fMinReading) <= fStabilityThreshold THEN
+        bStableReading := TRUE;
+        fLastStableWeight := fCurrentWeight;
+    ELSE
+        bStableReading := FALSE;
+    END_IF
+    
+    bDataValid := TRUE;
+    
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ParseWeight">
+      <LineId Id="29" Count="52" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

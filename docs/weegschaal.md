@@ -30,7 +30,7 @@ Kabel nodig: female to female
 
 | Positie | 8 | 9 | A | B | C | D | E |
 |---------|---|---|---|---|---|---|---|
-| Inhoud  | Data of `.` | Data of `.` | Unit 1 | Unit 2 | Unit 3 | End | Return |
+| Inhoud  | Data of `.` | Data of `.` | Data of `.` | Unit 1 | Unit 2 | End | Return |
 
 ## Data output settings
 
@@ -54,7 +54,7 @@ Kabel nodig: female to female
 
 123.45 g<CR>
 - Positie 1: `+` (positief)
-- Positie 2-9: `   123.45` (getal met decimale punt)
-- Positie A-C: `g` (eenheid)
+- Positie 2-A: `   123.45` (getal met decimale punt)
+- Positie B-C: `g` (eenheid)
 - Positie D: End
 - Positie E: Return (CR)

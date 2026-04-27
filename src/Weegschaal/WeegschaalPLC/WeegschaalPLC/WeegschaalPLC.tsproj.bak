@@ -2,6 +2,56 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.74">
 	<DataTypes>
 		<DataType>
+			<Name GUID="{0146173C-D895-D219-E209-CC005AC77636}" Namespace="Tc2_SerialCom" AutoDeleteType="true">EL6inData22B</Name>
+			<Comment><![CDATA[ This data type is corresponding to the
+   EL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (EL-6xxx version using 22 data bytes) 
+]]></Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Status</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{D6B0A42D-897A-4B90-95E8-3C741C3CE3EE}" Namespace="Tc2_SerialCom" AutoDeleteType="true">EL6outData22B</Name>
+			<Comment><![CDATA[ This data type is corresponding to the
+   EL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (EL-6xxx version using 22 data bytes) 
+]]></Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Ctrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
@@ -77,15 +127,39 @@
 		</System>
 		<Plc>
 			<Project GUID="{24432422-C258-4AE1-9944-0AC5B44A417B}" Name="Weegschaal" PrjFilePath="Weegschaal\Weegschaal.plcproj" TmcFilePath="Weegschaal\Weegschaal.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{A14F6672-C159-9F7B-C1EE-B332FBAB6255}">
 					<Name>Weegschaal Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.stEL6002_In</Name>
+							<Comment><![CDATA[ "i" is lowercase in the official type name]]></Comment>
+							<Type GUID="{0146173C-D895-D219-E209-CC005AC77636}" Namespace="Tc2_SerialCom">EL6inData22B</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.stEL6002_Out</Name>
+							<Comment><![CDATA[ "o" is lowercase in the official type name]]></Comment>
+							<Type GUID="{D6B0A42D-897A-4B90-95E8-3C741C3CE3EE}" Namespace="Tc2_SerialCom">EL6outData22B</Type>
+						</Var>
+					</Vars>
 					<Contexts>
 						<Context>
-							<Id>1</Id>
-							<Name>Default</Name>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
 						</Context>
 					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>
@@ -2888,4 +2962,57 @@ Bit1: Value bigger/equal Limit2]]></Comment>
 			</Device>
 		</Io>
 	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^Weegschaal^Weegschaal Instance">
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 7 (EK1100)^Term 9 (EL6002)">
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 0"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 1" Size="8" OffsA="8"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 10" Size="8" OffsA="80"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 11" Size="8" OffsA="88"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 12" Size="8" OffsA="96"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 13" Size="8" OffsA="104"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 14" Size="8" OffsA="112"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 15" Size="8" OffsA="120"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 16" Size="8" OffsA="128"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 17" Size="8" OffsA="136"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 18" Size="8" OffsA="144"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 19" Size="8" OffsA="152"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 2" Size="8" OffsA="16"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 20" Size="8" OffsA="160"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 21" Size="8" OffsA="168"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 3" Size="8" OffsA="24"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 4" Size="8" OffsA="32"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 5" Size="8" OffsA="40"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 6" Size="8" OffsA="48"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 7" Size="8" OffsA="56"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 8" Size="8" OffsA="64"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^D" VarB="COM TxPDO-Map Inputs Channel 2^Data In 9" Size="8" OffsA="72"/>
+				<Link VarA="PlcTask Inputs^GVL.stEL6002_In^Status" VarB="COM TxPDO-Map Inputs Channel 2^Status"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^Ctrl" VarB="COM RxPDO-Map Outputs Channel 2^Ctrl"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 0"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 1" Size="8" OffsA="8"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 10" Size="8" OffsA="80"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 11" Size="8" OffsA="88"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 12" Size="8" OffsA="96"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 13" Size="8" OffsA="104"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 14" Size="8" OffsA="112"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 15" Size="8" OffsA="120"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 16" Size="8" OffsA="128"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 17" Size="8" OffsA="136"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 18" Size="8" OffsA="144"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 19" Size="8" OffsA="152"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 2" Size="8" OffsA="16"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 20" Size="8" OffsA="160"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 21" Size="8" OffsA="168"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 3" Size="8" OffsA="24"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 4" Size="8" OffsA="32"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 5" Size="8" OffsA="40"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 6" Size="8" OffsA="48"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 7" Size="8" OffsA="56"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 8" Size="8" OffsA="64"/>
+				<Link VarA="PlcTask Outputs^GVL.stEL6002_Out^D" VarB="COM RxPDO-Map Outputs Channel 2^Data Out 9" Size="8" OffsA="72"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>
