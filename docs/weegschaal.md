@@ -52,9 +52,55 @@ Kabel nodig: female to female
 
 ### Voorbeeldoutput
 
-123.45 g<CR>
+```
++ 123.45 g<CR>
+```
 - Positie 1: `+` (positief)
 - Positie 2-A: `   123.45` (getal met decimale punt)
 - Positie B-C: `g` (eenheid)
 - Positie D: End
 - Positie E: Return (CR)
+
+Zie: `\src\Weegschaal\testWeegschaal.py` voor weegschaal te testen met uw PC.
+
+## PLC
+
+### Configuratie PLC
+- **PLC**: Beckhoff TwinCAT
+- **Communicatiemodule**: EL6002 (Seriële interface)
+- **Protocol**: RS-232 serieel
+- **Weegschaal**: Seriële digitale weegschaal
+- **Tc2_SerialCom**: Beckhoff Library voor seriële communicatie
+
+### Hardware Aansluiting
+```text
+EL6002 Pinout:
+
+TX+ / RX+ => Data A (RS-485)
+TX- / RX- => Data B (RS-485)  
+GND      => Ground
+```
+
+### Installatie & Configuratie in TwinCAT project
+  1. Importeer Beckhoff Serial Communication library
+  2. Voeg FB_ParseWeight toe aan je project
+  3. Implementeer de Function blocks in uw project zoals in `\src\Weegschaal\WeegschaalPLC\WeegschaalPLC\Weegschaal\POUs\MAIN.TcPOU`
+  4. Configureer EL6002 in de I/O tree (link RX & TX)
+  5. Licentie Vereisten ?
+
+### Function Blocks
+
+#### 1. `SerialLineControl` (Tc2_SerialCom Beckhoff Library)
+- **Doel**: Beheert de low-level seriële communicatie
+- **Configuratie**: `SERIALLINEMODE_EL6_22B` mode specifiek voor EL6002
+- **Cyclisch**: Elke PLC cyclus uitgevoerd
+
+#### 2. `ReceiveString` (Tc2_SerialCom Beckhoff Library)
+- **Doel**: Ontvangt en buffert string data van de seriële buffer
+- **Timeout**: 1 seconde
+- **Data Terminator**: `$R$N` (Carriage Return + Line Feed)
+
+#### 3. `FB_ParseWeight` (Custom)
+- **Doel**: Parseert ruwe weegschaal String data (teken, gewicht, eenheid) & controleert meetstabiliteit
+- **Features**:
+  - String parsing 
