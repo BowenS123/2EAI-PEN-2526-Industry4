@@ -41,7 +41,7 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Doel:** Stroom voorzien voor je project  
 
 - Link: https://www.conrad.be/nl/p/mean-well-sdr-240-48-din-rail-netvoeding-48-v-dc-5-a-240-w-aantal-uitgangen-1-x-inhoud-1-stuk-s-1293335.html?experience=b2c&utm_source=google&utm_medium=organic&utm_campaign=shopping-free&utm_term=1293335
-- Prijs: 109,99
+- Prijs: 109,99 euro
 - Notities: Kies juiste voltage (48V max, geschikte Ampere)
 
 ---
@@ -51,8 +51,8 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Schroeven (bijv. M2 / M3 set)  
 **Doel:** Onderdelen stevig bevestigen  
 
-- Link: M3 - 3.5cm/35mm
-- Prijs: ////
+-M3 - 3.5cm/35mm  : https://www.amazon.com.be/-/nl/sourcing-zeskantig-gelegeerd-staal-schroeven/dp/B017NBZC4M/ref=asc_df_B017NBZC4M?mcid=9c314b017a4438289f5ed9ab8fcbcfa7&tag=begogshpadd0d-  21&linkCode=df0&hvadid=774349693081&hvpos=&hvnetw=g&hvrand=15828217008649871091&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9196094&hvtargid=pla-1648178074015&psc=1&language=nl_BE&gad_source=1
+- Prijs: M3 - 3.5cm/35mm -> 8.19 euro
 - Notities: Handig om een assortiment doosje te nemen
 
 ---
