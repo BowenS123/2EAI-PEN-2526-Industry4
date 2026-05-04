@@ -3996,7 +3996,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{17FD44B8-199A-4B80-8B23-793C2383B34C}" Name="PannenkoekSysteem" PrjFilePath="PannenkoekSysteem\PannenkoekSysteem.plcproj" TmcFilePath="PannenkoekSysteem\PannenkoekSysteem.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{678963AB-DFD8-DEAB-EFC9-CE023F3DC052}" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{93E99414-37E6-40C5-7E98-5ADDCE70F079}" TmcPath="PannenkoekSysteem\PannenkoekSysteem.tmc">
 					<Name>PannenkoekSysteem Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
@@ -4256,7 +4256,7 @@
 											<RegisterValue>00-00-00-02</RegisterValue>
 										</Register>
 										<Register Address="0x00024108">
-											<RegisterValue>42-5F-3F-7D</RegisterValue>
+											<RegisterValue>42-6A-1F-BE</RegisterValue>
 										</Register>
 										<Register Address="0x00011144">
 											<RegisterValue>06-DA-C2-C0</RegisterValue>
@@ -4988,6 +4988,21 @@
 										</Register>
 										<Register Address="0x0000066C">
 											<RegisterValue>00-00-00-00</RegisterValue>
+										</Register>
+										<Register Address="0x00000000">
+											<RegisterValue>00-01-00-02</RegisterValue>
+										</Register>
+										<Register Address="0x00000008">
+											<RegisterValue>00-00-00-0F</RegisterValue>
+										</Register>
+										<Register Address="0x0000000C">
+											<RegisterValue>31-5C-E0-41</RegisterValue>
+										</Register>
+										<Register Address="0x00000014">
+											<RegisterValue>00-00-00-05</RegisterValue>
+										</Register>
+										<Register Address="0x0000092C">
+											<RegisterValue>80-00-00-00</RegisterValue>
 										</Register>
 									</RegisterValues>
 									<MetaData>
@@ -12765,7 +12780,36 @@
 		<Analytics ConfigVersion="1.4">
 			<Name>ANALYTICS</Name>
 			<ImageId>437</ImageId>
-			<XmlProps><![CDATA[<Address>Hauptstraße 5, 32567 Berlin</Address><Latitude>123.41</Latitude><Longitude>43.4555</Longitude><SystemIdAlias /><DeviceProps></DeviceProps><SelectedDriverVersion>3.3.211.0</SelectedDriverVersion><StreamTargets><StreamTargetItem Id="8b568695-df19-43e3-b383-76e0f4847af9"><Name>Stream Target 1</Name><Type>FILE</Type><Directory>%TC_BOOTPRJPATH%</Directory><MqttConnectionSettings><Broker>127.0.0.1</Broker><BrokerPort>1883</BrokerPort><UserID /><WithCertificates>false</WithCertificates><CA_Certificate /><Cert_Certificate /><Key_Certificate /><CommunicationTimeout>30000000</CommunicationTimeout><KeepAlivePeriod>600000000</KeepAlivePeriod><TcpBufferSize>32768</TcpBufferSize><SecurityType>NO_SECURITY</SecurityType><Insecure>false</Insecure><IgnoreExpiration>false</IgnoreExpiration><IsPskIdCaseSensitive>false</IsPskIdCaseSensitive><IgnoreCnMismatch>false</IgnoreCnMismatch><TargetPaths>false</TargetPaths><PskMode>HexKey</PskMode></MqttConnectionSettings><TimeType>None</TimeType></StreamTargetItem></StreamTargets><ActivateAlyLogger>false</ActivateAlyLogger>]]></XmlProps>
+			<Config>
+				<StreamTargets>
+					<StreamTargetItem Id="8b568695-df19-43e3-b383-76e0f4847af9">
+						<Name>Stream Target 1</Name>
+						<Type>FILE</Type>
+						<Directory>%TC_BOOTPRJPATH%</Directory>
+						<MqttConnectionSettings>
+							<Broker>127.0.0.1</Broker>
+							<BrokerPort>1883</BrokerPort>
+							<UserID/>
+							<WithCertificates>false</WithCertificates>
+							<CA_Certificate/>
+							<Cert_Certificate/>
+							<Key_Certificate/>
+							<CommunicationTimeout>30000000</CommunicationTimeout>
+							<KeepAlivePeriod>600000000</KeepAlivePeriod>
+							<TcpBufferSize>32768</TcpBufferSize>
+							<SecurityType>NO_SECURITY</SecurityType>
+							<Insecure>false</Insecure>
+							<IgnoreExpiration>false</IgnoreExpiration>
+							<IsPskIdCaseSensitive>false</IsPskIdCaseSensitive>
+							<IgnoreCnMismatch>false</IgnoreCnMismatch>
+							<TargetPaths>false</TargetPaths>
+							<PskMode>HexKey</PskMode>
+						</MqttConnectionSettings>
+						<TimeType>None</TimeType>
+					</StreamTargetItem>
+				</StreamTargets>
+				<ActivateAlyLogger>false</ActivateAlyLogger>
+			</Config>
 		</Analytics>
 		<Io>
 			<Device Id="1" DevType="109" DevFlags="#x0004">

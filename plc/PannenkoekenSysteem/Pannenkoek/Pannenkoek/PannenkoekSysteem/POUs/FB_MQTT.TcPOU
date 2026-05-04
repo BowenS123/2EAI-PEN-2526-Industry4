@@ -5,6 +5,12 @@
 VAR_INPUT
 	bTransportbandRunning	: BOOL;
 	bTransportbandDone		: BOOL;
+	bRobotTeachCmd			: BOOL;
+	bRobotGotoCmd			: BOOL;
+	bRobotSaveCmd			: BOOL;
+	bRobotStopCmd			: BOOL;
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotTargetPose		: STRING(32);
 	bSystemError			: BOOL;
 	{attribute 'TcEncoding':='UTF-8'}
 	sErrorMessage			: STRING(255);
@@ -13,6 +19,17 @@ END_VAR
 VAR_OUTPUT
 	bRemoteStart			: BOOL;
 	bRemoteStop			: BOOL;
+	bRemoteRobotTeach		: BOOL;
+	bRemoteRobotGoto		: BOOL;
+	bRemoteRobotSave		: BOOL;
+	bRemoteRobotStop		: BOOL;
+	bRobotArmRunning		: BOOL;
+	bRobotArmDone			: BOOL;
+	bRobotArmOnline			: BOOL;
+	bRobotArmBusy			: BOOL;
+	bRobotArmTeachMode		: BOOL;
+	bRobotArmAlarm			: BOOL;
+	bRobotArmAckOk			: BOOL;
 END_VAR
 
 VAR
@@ -24,6 +41,8 @@ VAR
 	bSubscribedRobotCmd		: BOOL := FALSE;
 	bSubscribedRobotState	: BOOL := FALSE;
 	bSubscribedRobotError	: BOOL := FALSE;
+	bSubscribedRobotHeartbeat	: BOOL := FALSE;
+	bSubscribedTransportState	: BOOL := FALSE;
 	bSubscribedMixerCmd		: BOOL := FALSE;
 	bSubscribedMixerState	: BOOL := FALSE;
 	bSubscribedMixerError	: BOOL := FALSE;
@@ -36,11 +55,22 @@ VAR
 	{attribute 'TcEncoding':='UTF-8'}
 	sTransportState			: STRING(64);
 	{attribute 'TcEncoding':='UTF-8'}
+	sRobotState				: STRING(64);
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotCommandPayload	: STRING(255);
+	{attribute 'TcEncoding':='UTF-8'}
 	sLastStatePayload		: STRING(255);
 	{attribute 'TcEncoding':='UTF-8'}
 	sLastErrorPayload		: STRING(255);
+	{attribute 'TcEncoding':='UTF-8'}
+	sLastRobotStatePayload	: STRING(255);
 	bStatePublished			: BOOL := FALSE;
 	bErrorPublished			: BOOL := FALSE;
+	bRobotStatePublished	: BOOL := FALSE;
+	bRobotHeartbeatPulse	: BOOL := FALSE;
+	bRobotStateReceived		: BOOL := FALSE;
+	bRobotErrorActive		: BOOL := FALSE;
+	fbRobotHeartbeatWatchdog	: TON;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT bMqttConfigured THEN
@@ -76,6 +106,20 @@ IF fbMqttClient.bConnected THEN
 		);
 	END_IF
 
+	IF NOT bSubscribedRobotHeartbeat THEN
+		bSubscribedRobotHeartbeat := fbMqttClient.Subscribe(
+			sTopic := GVL_MQTT.sTopicRobotHeartbeat,
+			eQoS := TcIotMqttQos.AtMostOnceDelivery
+		);
+	END_IF
+
+	IF NOT bSubscribedTransportState THEN
+		bSubscribedTransportState := fbMqttClient.Subscribe(
+			sTopic := GVL_MQTT.sTopicTransportbandState,
+			eQoS := TcIotMqttQos.AtMostOnceDelivery
+		);
+	END_IF
+
 	IF NOT bSubscribedMixerCmd THEN
 		bSubscribedMixerCmd := fbMqttClient.Subscribe(
 			sTopic := GVL_MQTT.sTopicMixerCmd,
@@ -102,6 +146,91 @@ IF fbMqttClient.bConnected THEN
 			sTopic := GVL_MQTT.sTopicTransportbandCmd,
 			eQoS := TcIotMqttQos.AtMostOnceDelivery
 		);
+	END_IF
+
+	// Robot arm command publishing vanuit PLC
+	IF bRobotTeachCmd THEN
+		sRobotCommandPayload := '{"cmd":"teach","pose":"';
+		sRobotCommandPayload := CONCAT(sRobotCommandPayload, sRobotTargetPose);
+		sRobotCommandPayload := CONCAT(sRobotCommandPayload, '"}');
+		fbMqttClient.Publish(
+			sTopic := GVL_MQTT.sTopicRobotCmd,
+			pPayload := ADR(sRobotCommandPayload),
+			nPayloadSize := TO_UDINT(LEN(sRobotCommandPayload) + 1),
+			eQoS := TcIotMqttQos.AtLeastOnceDelivery,
+			bRetain := FALSE,
+			bQueue := FALSE
+		);
+		GVL_MQTT.sRobotArmLastCommand := 'teach';
+		GVL_MQTT.sRobotArmLastPose := sRobotTargetPose;
+		GVL_MQTT.sRobotArmAck := CONCAT('Teach verzonden: ', sRobotTargetPose);
+		GVL_MQTT.bRobotArmAckOk := TRUE;
+		GVL_MQTT.bRobotArmBusy := TRUE;
+		GVL_MQTT.bRobotArmTeachMode := TRUE;
+		bRobotArmRunning := TRUE;
+		bRobotArmDone := FALSE;
+		bRobotArmAlarm := FALSE;
+	END_IF
+
+	IF bRobotGotoCmd THEN
+		sRobotCommandPayload := '{"cmd":"goto","pose":"';
+		sRobotCommandPayload := CONCAT(sRobotCommandPayload, sRobotTargetPose);
+		sRobotCommandPayload := CONCAT(sRobotCommandPayload, '"}');
+		fbMqttClient.Publish(
+			sTopic := GVL_MQTT.sTopicRobotCmd,
+			pPayload := ADR(sRobotCommandPayload),
+			nPayloadSize := TO_UDINT(LEN(sRobotCommandPayload) + 1),
+			eQoS := TcIotMqttQos.AtLeastOnceDelivery,
+			bRetain := FALSE,
+			bQueue := FALSE
+		);
+		GVL_MQTT.sRobotArmLastCommand := 'goto';
+		GVL_MQTT.sRobotArmLastPose := sRobotTargetPose;
+		GVL_MQTT.sRobotArmAck := CONCAT('Goto verzonden: ', sRobotTargetPose);
+		GVL_MQTT.bRobotArmAckOk := TRUE;
+		GVL_MQTT.bRobotArmBusy := TRUE;
+		GVL_MQTT.bRobotArmTeachMode := FALSE;
+		bRobotArmRunning := TRUE;
+		bRobotArmDone := FALSE;
+		bRobotArmAlarm := FALSE;
+	END_IF
+
+	IF bRobotSaveCmd THEN
+		sRobotCommandPayload := '{"cmd":"save"}';
+		fbMqttClient.Publish(
+			sTopic := GVL_MQTT.sTopicRobotCmd,
+			pPayload := ADR(sRobotCommandPayload),
+			nPayloadSize := TO_UDINT(LEN(sRobotCommandPayload) + 1),
+			eQoS := TcIotMqttQos.AtLeastOnceDelivery,
+			bRetain := FALSE,
+			bQueue := FALSE
+		);
+		GVL_MQTT.sRobotArmLastCommand := 'save';
+		GVL_MQTT.sRobotArmAck := 'Save verzonden';
+		GVL_MQTT.bRobotArmAckOk := TRUE;
+		GVL_MQTT.bRobotArmBusy := TRUE;
+		bRobotArmRunning := TRUE;
+		bRobotArmDone := FALSE;
+		bRobotArmAlarm := FALSE;
+	END_IF
+
+	IF bRobotStopCmd THEN
+		sRobotCommandPayload := '{"cmd":"stop"}';
+		fbMqttClient.Publish(
+			sTopic := GVL_MQTT.sTopicRobotCmd,
+			pPayload := ADR(sRobotCommandPayload),
+			nPayloadSize := TO_UDINT(LEN(sRobotCommandPayload) + 1),
+			eQoS := TcIotMqttQos.AtLeastOnceDelivery,
+			bRetain := FALSE,
+			bQueue := FALSE
+		);
+		GVL_MQTT.sRobotArmLastCommand := 'stop';
+		GVL_MQTT.sRobotArmAck := 'Stop verzonden';
+		GVL_MQTT.bRobotArmAckOk := TRUE;
+		GVL_MQTT.bRobotArmBusy := FALSE;
+		GVL_MQTT.bRobotArmTeachMode := FALSE;
+		bRobotArmRunning := FALSE;
+		bRobotArmDone := FALSE;
 	END_IF
 
 	IF bSystemError THEN
@@ -151,23 +280,46 @@ IF fbMqttClient.bConnected THEN
 		sLastErrorPayload := sPayloadPub;
 		bErrorPublished := TRUE;
 	END_IF
+
+	// Robot arm status wordt alleen uit ontvangen state/error/heartbeat opgebouwd.
+	// De PLC publiceert hier alleen commands, niet het robot-state topic.
 ELSE
 	bSubscribedRobotCmd := FALSE;
 	bSubscribedRobotState := FALSE;
 	bSubscribedRobotError := FALSE;
+	bSubscribedRobotHeartbeat := FALSE;
+	bSubscribedTransportState := FALSE;
 	bSubscribedMixerCmd := FALSE;
 	bSubscribedMixerState := FALSE;
 	bSubscribedMixerError := FALSE;
 	bSubscribedTransportCmd := FALSE;
 	bStatePublished := FALSE;
 	bErrorPublished := FALSE;
+	bRobotStatePublished := FALSE;
+	bRobotArmRunning := FALSE;
+	bRobotArmDone := FALSE;
+	bRobotArmOnline := FALSE;
+	bRobotArmBusy := FALSE;
+	bRobotArmTeachMode := FALSE;
+	bRobotArmAlarm := FALSE;
+	bRobotArmAckOk := FALSE;
 	sLastStatePayload := '';
 	sLastErrorPayload := '';
+	sLastRobotStatePayload := '';
+	GVL_MQTT.bRobotArmOnline := FALSE;
+	GVL_MQTT.bRobotArmBusy := FALSE;
+	GVL_MQTT.bRobotArmTeachMode := FALSE;
+	GVL_MQTT.bRobotArmAlarm := FALSE;
+	GVL_MQTT.bRobotArmAckOk := FALSE;
 END_IF
 
 // Remote commando's als puls per PLC-cyclus
 bRemoteStart := FALSE;
 bRemoteStop := FALSE;
+bRemoteRobotTeach := FALSE;
+bRemoteRobotGoto := FALSE;
+bRemoteRobotSave := FALSE;
+bRemoteRobotStop := FALSE;
 
 IF fbMessageQueue.nQueuedMessages > 0 THEN
 	IF fbMessageQueue.Dequeue(fbMessage := fbMessage) THEN
@@ -180,12 +332,81 @@ IF fbMessageQueue.nQueuedMessages > 0 THEN
 		IF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotCmd) THEN
 			GVL_MQTT.sRobotCmdRaw := sPayloadRcv;
 			GVL_MQTT.sRobotCmdDisplay := sPayloadRcv;
+
+			IF (FIND(sPayloadRcv, '"cmd":"teach"') > 0) OR (FIND(sPayloadRcv, '"cmd": "teach"') > 0) THEN
+				bRemoteRobotTeach := TRUE;
+			ELSIF (FIND(sPayloadRcv, '"cmd":"goto"') > 0) OR (FIND(sPayloadRcv, '"cmd": "goto"') > 0) THEN
+				bRemoteRobotGoto := TRUE;
+			ELSIF (FIND(sPayloadRcv, '"cmd":"save"') > 0) OR (FIND(sPayloadRcv, '"cmd": "save"') > 0) THEN
+				bRemoteRobotSave := TRUE;
+			ELSIF (FIND(sPayloadRcv, '"cmd":"stop"') > 0) OR (FIND(sPayloadRcv, '"cmd": "stop"') > 0) THEN
+				bRemoteRobotStop := TRUE;
+			END_IF
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotState) THEN
 			GVL_MQTT.sRobotStateRaw := sPayloadRcv;
 			GVL_MQTT.sRobotStateDisplay := F_ParseStateDisplay(sPayload := sPayloadRcv);
+			bRobotStateReceived := TRUE;
+			GVL_MQTT.bRobotArmAckOk := TRUE;
+			GVL_MQTT.sRobotArmAck := GVL_MQTT.sRobotStateDisplay;
+
+			// Robot verstuurt: teach_<pose>, teach_pose_changed, teach_<pose>_saved_motor*, teach_<pose>_complete, at_<pose>, idle
+			IF (FIND(sPayloadRcv, '"state":"teach_') > 0) THEN
+				// All teach states → busy in teach mode
+				GVL_MQTT.bRobotArmBusy := TRUE;
+				GVL_MQTT.bRobotArmTeachMode := TRUE;
+				IF (FIND(sPayloadRcv, '"state":"teach_') > 0) AND (FIND(sPayloadRcv, '_complete"') > 0) THEN
+					// teach_<pose>_complete → teach done
+					GVL_MQTT.bRobotArmDone := TRUE;
+					GVL_MQTT.bRobotArmBusy := FALSE;
+					bRobotArmRunning := FALSE;
+				ELSE
+					// teach_<pose>, teach_pose_changed, teach_<pose>_saved_motor* → still teaching
+					GVL_MQTT.bRobotArmDone := FALSE;
+					bRobotArmRunning := TRUE;
+				END_IF
+			ELSIF (FIND(sPayloadRcv, '"state":"at_') > 0) THEN
+				// at_<pose> → robot reached pose, done
+				GVL_MQTT.bRobotArmBusy := FALSE;
+				GVL_MQTT.bRobotArmDone := TRUE;
+				GVL_MQTT.bRobotArmTeachMode := FALSE;
+				bRobotArmRunning := FALSE;
+			ELSIF (FIND(sPayloadRcv, '"state":"idle"') > 0) THEN
+				// idle → robot at rest
+				GVL_MQTT.bRobotArmBusy := FALSE;
+				GVL_MQTT.bRobotArmDone := TRUE;
+				GVL_MQTT.bRobotArmTeachMode := FALSE;
+				bRobotArmRunning := FALSE;
+			ELSE
+				// Unknown state → stay in previous state to avoid false negatives
+				GVL_MQTT.bRobotArmDone := FALSE;
+				bRobotArmRunning := FALSE;
+			END_IF
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotError) THEN
 			GVL_MQTT.sRobotErrorRaw := sPayloadRcv;
 			GVL_MQTT.sRobotErrorDisplay := F_ParseErrorDisplay(sPayload := sPayloadRcv);
+			
+			// Robot verstuurt: {"state":"error","error":true,"message":"..."} of {"state":"ok","error":false,"message":""}
+			IF (FIND(sPayloadRcv, '"error":true') > 0) THEN
+				// Echte error
+				bRobotErrorActive := TRUE;
+				GVL_MQTT.bRobotArmAlarm := TRUE;
+				GVL_MQTT.bRobotArmAckOk := FALSE;
+				GVL_MQTT.sRobotArmAck := GVL_MQTT.sRobotErrorDisplay;
+			ELSE
+				// Ok response
+				bRobotErrorActive := FALSE;
+				GVL_MQTT.bRobotArmAlarm := FALSE;
+				GVL_MQTT.bRobotArmAckOk := TRUE;
+				GVL_MQTT.sRobotArmAck := 'Robot Error OK';
+			END_IF
+			bRobotArmRunning := FALSE;
+			GVL_MQTT.bRobotArmBusy := FALSE;
+		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicRobotHeartbeat) THEN
+			GVL_MQTT.sRobotHeartbeatRaw := sPayloadRcv;
+			GVL_MQTT.sRobotHeartbeatDisplay := 'Robot Heartbeat OK';
+			bRobotHeartbeatPulse := TRUE;
+			GVL_MQTT.bRobotArmOnline := TRUE;
+			GVL_MQTT.bRobotArmAckOk := TRUE;
 		ELSIF fbMessage.CompareTopic(sTopic := GVL_MQTT.sTopicMixerCmd) THEN
 			GVL_MQTT.sMixerCmdRaw := sPayloadRcv;
 			GVL_MQTT.sMixerCmdDisplay := sPayloadRcv;
@@ -207,13 +428,19 @@ IF fbMessageQueue.nQueuedMessages > 0 THEN
 			END_IF
 		END_IF
 	END_IF
-END_IF]]></ST>
+END_IF
+
+fbRobotHeartbeatWatchdog(IN := NOT bRobotHeartbeatPulse, PT := T#12S);
+IF fbRobotHeartbeatWatchdog.Q THEN
+	GVL_MQTT.bRobotArmOnline := FALSE;
+	GVL_MQTT.sRobotHeartbeatDisplay := 'Robot Heartbeat TIMEOUT';
+ELSE
+	GVL_MQTT.bRobotArmOnline := fbMqttClient.bConnected;
+END_IF
+bRobotHeartbeatPulse := FALSE;]]></ST>
     </Implementation>
     <LineIds Name="FB_MQTT">
-      <LineId Id="9" Count="0" />
-      <LineId Id="4" Count="4" />
-      <LineId Id="120" Count="0" />
-      <LineId Id="10" Count="109" />
+      <LineId Id="3" Count="363" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

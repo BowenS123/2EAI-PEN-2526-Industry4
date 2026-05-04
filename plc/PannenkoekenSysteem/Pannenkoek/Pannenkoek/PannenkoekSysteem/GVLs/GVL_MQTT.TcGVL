@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
   <GVL Name="GVL_MQTT" Id="{12345678-1234-1234-1234-123456789abc}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
@@ -10,9 +10,10 @@ VAR_GLOBAL
 	bEnableMqtt			: BOOL := TRUE;						// VISU: MQTT connect aan/uit
 	
 	// MQTT Topics - Robot
-	sTopicRobotCmd				: STRING(255) := 'pancake/robot/cmd';
-	sTopicRobotState			: STRING(255) := 'pancake/robot/state';
-	sTopicRobotError			: STRING(255) := 'pancake/robot/error';
+	sTopicRobotCmd			: STRING(255) := 'pancake/robot/cmd';
+	sTopicRobotState		: STRING(255) := 'pancake/robot/state';
+	sTopicRobotError		: STRING(255) := 'pancake/robot/error';
+	sTopicRobotHeartbeat	: STRING(255) := 'pancake/robot/heartbeat';
 
 	// MQTT Topics - Transportband
 	sTopicTransportbandCmd		: STRING(255) := 'pancake/transportband/cmd';
@@ -27,9 +28,30 @@ VAR_GLOBAL
 	bVisuStartTransportband : BOOL := FALSE;				// VISU testknop AAN
 	bVisuStopTransportband	: BOOL := FALSE;				// VISU testknop UIT
 	
+	bVisuStartRobotArm		: BOOL := FALSE;				// Legacy: go-to geselecteerde pose
+	bVisuStopRobotArm		: BOOL := FALSE;				// Legacy: robot stop
+	bVisuRobotTeach			: BOOL := FALSE;				// Teach geselecteerde pose
+	bVisuRobotGoto				: BOOL := FALSE;				// Go-to geselecteerde pose
+	bVisuRobotSave				: BOOL := FALSE;				// Save huidige teach-stap
+	bVisuRobotStop				: BOOL := FALSE;				// Stop/abort robot
+	sRobotTargetPose			: STRING(32) := 'camera';	// Target pose voor teach/goto
+	
 	// Status variabelen
 	bMqttConnected		: BOOL := FALSE;
 	sCurrentState		: STRING(255) := 'IDLE';
+	bRobotArmOnline		: BOOL := FALSE;
+	bRobotArmRunning		: BOOL := FALSE;
+	bRobotArmBusy			: BOOL := FALSE;
+	bRobotArmTeachMode		: BOOL := FALSE;
+	bRobotArmAlarm			: BOOL := FALSE;
+	bRobotArmAckOk			: BOOL := FALSE;
+	bRobotArmDone			: BOOL := FALSE;
+	sRobotArmDisplay		: STRING(255) := 'Robot Arm OFFLINE';
+	sRobotArmAck			: STRING(255) := '';
+	sRobotArmLastCommand	: STRING(255) := '';
+	sRobotArmLastPose		: STRING(32) := '';
+	sRobotHeartbeatRaw		: STRING(255) := '';
+	sRobotHeartbeatDisplay	: STRING(255) := '';
 	bTransportbandRunning : BOOL := FALSE;
 	bTransportbandDone	: BOOL := FALSE;
 	sTransportbandDisplay : STRING(255) := 'Transportband UIT';

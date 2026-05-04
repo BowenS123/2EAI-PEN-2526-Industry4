@@ -9,13 +9,21 @@ VAR
   fbQrVision        : FB_QrVision;
   rVisuStartTap     : R_TRIG;
   rVisuStopTap      : R_TRIG;
+  rRobotTeachTap    : R_TRIG;
+  rRobotGotoTap     : R_TRIG;
+  rRobotSaveTap     : R_TRIG;
+  rRobotStopTap     : R_TRIG;
 
   bStartCmd         : BOOL := FALSE;
   bStopCmd          : BOOL := FALSE;
+  bRobotTeachCmd    : BOOL := FALSE;
+  bRobotGotoCmd     : BOOL := FALSE;
+  bRobotSaveCmd     : BOOL := FALSE;
+  bRobotStopCmd     : BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// 1) Commands combineren (VISU tap + MQTT pulsen)
+      <ST><![CDATA[// 1) Commands combineren (VISU tap + MQTT pulsen) - Transportband
 rVisuStartTap(CLK := GVL_MQTT.bVisuStartTransportband);
 rVisuStopTap(CLK := GVL_MQTT.bVisuStopTransportband);
 
@@ -34,7 +42,63 @@ ELSE
   bStopCmd := FALSE;
 END_IF
 
-// 2) State machine en transportband
+// 2) Robot Arm Commands - teach / goto / save / stop
+rRobotTeachTap(CLK := GVL_MQTT.bVisuRobotTeach);
+rRobotGotoTap(CLK := GVL_MQTT.bVisuRobotGoto OR GVL_MQTT.bVisuStartRobotArm);
+rRobotSaveTap(CLK := GVL_MQTT.bVisuRobotSave);
+rRobotStopTap(CLK := GVL_MQTT.bVisuRobotStop OR GVL_MQTT.bVisuStopRobotArm);
+
+IF rRobotStopTap.Q THEN
+  bRobotTeachCmd := FALSE;
+  bRobotGotoCmd := FALSE;
+  bRobotSaveCmd := FALSE;
+  bRobotStopCmd := TRUE;
+ELSIF rRobotSaveTap.Q THEN
+  bRobotTeachCmd := FALSE;
+  bRobotGotoCmd := FALSE;
+  bRobotSaveCmd := TRUE;
+  bRobotStopCmd := FALSE;
+ELSIF rRobotTeachTap.Q THEN
+  bRobotTeachCmd := TRUE;
+  bRobotGotoCmd := FALSE;
+  bRobotSaveCmd := FALSE;
+  bRobotStopCmd := FALSE;
+ELSIF rRobotGotoTap.Q THEN
+  bRobotTeachCmd := FALSE;
+  bRobotGotoCmd := TRUE;
+  bRobotSaveCmd := FALSE;
+  bRobotStopCmd := FALSE;
+ELSE
+  bRobotTeachCmd := FALSE;
+  bRobotGotoCmd := FALSE;
+  bRobotSaveCmd := FALSE;
+  bRobotStopCmd := FALSE;
+END_IF
+
+// Update robot arm status display en statuslagen uit MQTT
+GVL_MQTT.bRobotArmOnline := fbMqtt.bRobotArmOnline;
+GVL_MQTT.bRobotArmRunning := fbMqtt.bRobotArmRunning;
+GVL_MQTT.bRobotArmBusy := fbMqtt.bRobotArmBusy;
+GVL_MQTT.bRobotArmTeachMode := fbMqtt.bRobotArmTeachMode;
+GVL_MQTT.bRobotArmAlarm := fbMqtt.bRobotArmAlarm;
+GVL_MQTT.bRobotArmDone := fbMqtt.bRobotArmDone;
+GVL_MQTT.bRobotArmAckOk := fbMqtt.bRobotArmAckOk;
+
+IF NOT GVL_MQTT.bRobotArmOnline THEN
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm OFFLINE';
+ELSIF GVL_MQTT.bRobotArmAlarm THEN
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm ALARM';
+ELSIF GVL_MQTT.bRobotArmTeachMode THEN
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm TEACH';
+ELSIF GVL_MQTT.bRobotArmBusy THEN
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm BEZIG';
+ELSIF GVL_MQTT.bRobotArmDone THEN
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm GEREED';
+ELSE
+  GVL_MQTT.sRobotArmDisplay := 'Robot Arm READY';
+END_IF
+
+// 3) State machine en transportband
 fbStateMachine(
   bStart := bStartCmd,
   bStop := bStopCmd,
@@ -59,15 +123,20 @@ ELSE
   GVL_MQTT.sTransportbandDisplay := 'Transportband UIT';
 END_IF
 
-// 3) MQTT in aparte FB
+// 4) MQTT in aparte FB
 fbMqtt(
   bTransportbandRunning := GVL_MQTT.bTransportbandRunning,
   bTransportbandDone := GVL_MQTT.bTransportbandDone,
+  bRobotTeachCmd := bRobotTeachCmd,
+  bRobotGotoCmd := bRobotGotoCmd,
+  bRobotSaveCmd := bRobotSaveCmd,
+  bRobotStopCmd := bRobotStopCmd,
+  sRobotTargetPose := GVL_MQTT.sRobotTargetPose,
   bSystemError := GVL_MQTT.bSystemError,
   sErrorMessage := GVL_MQTT.sErrorMessage
 );
 
-// 4) QR vision
+// 5) QR vision
 fbQrVision(
   bEnable := GVL_Data.bQrEnabled
 );

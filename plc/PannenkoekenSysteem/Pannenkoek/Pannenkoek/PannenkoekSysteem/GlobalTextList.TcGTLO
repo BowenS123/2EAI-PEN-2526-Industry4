@@ -41,6 +41,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"520"</v>
+              <v n="TextDefault">"Display: "</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"981"</v>
+              <v n="TextDefault">"Display: %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"309"</v>
               <v n="TextDefault">"Done"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -78,6 +88,16 @@
             <o>
               <v n="TextID">"705"</v>
               <v n="TextDefault">"Found"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"207"</v>
+              <v n="TextDefault">"Heartbeat status"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"443"</v>
+              <v n="TextDefault">"Heartbeat status: %s"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -133,6 +153,11 @@
             <o>
               <v n="TextID">"28"</v>
               <v n="TextDefault">"MQTT Monitor"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"831"</v>
+              <v n="TextDefault">"Online"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -208,6 +233,11 @@
             <o>
               <v n="TextID">"740"</v>
               <v n="TextDefault">"Start"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"742"</v>
+              <v n="TextDefault">"Start Robot"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
