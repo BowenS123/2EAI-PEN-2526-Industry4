@@ -40,9 +40,9 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Voedingsbron (Power Supply)  
 **Doel:** Stroom voorzien voor je project  
 
-- Link: https://www.conrad.be/nl/p/mean-well-sdr-240-48-din-rail-netvoeding-48-v-dc-5-a-240-w-aantal-uitgangen-1-x-inhoud-1-stuk-s-1293335.html?experience=b2c&utm_source=google&utm_medium=organic&utm_campaign=shopping-free&utm_term=1293335
-- Prijs: € 109,99 
-- Notities: Kies juiste voltage (48V max, geschikte Ampere)
+- Link https://www.amazon.com.be/-/en/NUOFUWEI-Transformer-Source-Controller-Electric/dp/B0CNT4PLTV/ref=asc_df_B0CNT4PLTV?mcid=d7bd4259d0f33380b32a72ebdfa78581&tag=begogshpadde- 21&linkCode=df0&hvadid=712659089443&hvpos=&hvnetw=g&hvrand=12831756161091265092&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9196094&hvtargid=pla-2292339289426&language=en_GB&gad_source=1&th=1
+- Prijs: € 34,99
+- Notities:(48V max, 10A)
 
 ---
 
@@ -51,11 +51,10 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** Schroeven (bijv. M2 / M3 set)  
 **Doel:** Onderdelen stevig bevestigen  
 
--M2.5 - 3.5cm/35mm lang : //link
--M3.5 - 1.5cm/15mm lang : //link
+-M3 - 3.5cm/35mm lang : //link
 
-- Prijs: - M2.5 - 3.5cm/35mm lang -> ////
-         - M3.5 - 1.5cm/15mm lang -> ////
+- Prijs: - M3 - 3.5cm/35mm lang -> ////
+- 
 - Notities: Handig om een assortiment doosje te nemen
 
 ---
