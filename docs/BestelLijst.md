@@ -29,7 +29,7 @@ Dit document bevat alle onderdelen die nog nodig zijn voor ons industry4 project
 **Product:** 4-pin header connectors (2.5mm pitch)  
 **Doel:** Verbinden van elektronische componenten  
 
-- Link: https://www.kiwi-electronics.com/en/2-5mm-pitch-4-pin-cable-matching-pair-jst-xh-compatible-11018?country= 
+- Link: https://www.mouser.be/ProductDetail/Wurth-Elektronik/61900411121?qs=W%252B2sBeLta1Z79%252BA04MeSCQ%3D%3D 
 - Prijs: € 1.15
 - Notities: Aantaal stuks bestellen: 3x
 
