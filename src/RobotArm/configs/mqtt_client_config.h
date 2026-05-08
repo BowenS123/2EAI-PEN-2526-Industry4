@@ -9,7 +9,7 @@
 
 /***************** MQTT CLIENT CONNECTION CONFIGURATION MACROS *****************/
 /* MQTT Broker/Server address and port used for the MQTT connection. */
-#define MQTT_BROKER_ADDRESS               "192.168.1.240" /* Set to your Mosquitto IP */
+#define MQTT_BROKER_ADDRESS               "192.168.0.198" /* Set to your Mosquitto IP */
 #define MQTT_PORT                         1883
 
 /* Set this macro to 1 if a secure (TLS) connection to the MQTT Broker is

@@ -25,10 +25,11 @@ typedef enum
 } publisher_cmd_t;
 
 /* Struct to be passed via the publisher task queue */
+/* FIXED: Use fixed-size buffers instead of pointers to avoid memory corruption */
 typedef struct{
     publisher_cmd_t cmd;
-    const char *state;
-    const char *detail;
+    char state[64];
+    char detail[128];
 } publisher_data_t;
 
 /*******************************************************************************

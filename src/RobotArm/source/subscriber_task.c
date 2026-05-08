@@ -18,6 +18,7 @@
 #include "cy_retarget_io.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 /******************************************************************************
 * Macros
@@ -350,6 +351,26 @@ static robot_cmd_t parse_robot_cmd(const char *payload, int payload_len)
     memcpy(buf, payload, copy_len);
     buf[copy_len] = '\0';
 
+    if (strstr(buf, "\"cmd\":\"start\"") != NULL)
+    {
+        return ROBOT_CMD_START;
+    }
+    if (strstr(buf, "\"cmd\":\"move\"") != NULL)
+    {
+        return ROBOT_CMD_MOVE;
+    }
+    if (strstr(buf, "\"cmd\":\"pick\"") != NULL)
+    {
+        return ROBOT_CMD_PICK;
+    }
+    if (strstr(buf, "\"cmd\":\"place\"") != NULL)
+    {
+        return ROBOT_CMD_PLACE;
+    }
+    if (strstr(buf, "\"cmd\":\"home\"") != NULL)
+    {
+        return ROBOT_CMD_HOME;
+    }
     if (strstr(buf, "\"cmd\":\"teach\"") != NULL)
     {
         return ROBOT_CMD_TEACH;
@@ -378,6 +399,60 @@ static device_pose_t parse_robot_pose(const char *payload, int payload_len)
     memcpy(buf, payload, copy_len);
     buf[copy_len] = '\0';
 
+    {
+        char *pose_key = strstr(buf, "\"pose\"");
+        if (pose_key != NULL)
+        {
+            char *colon = strchr(pose_key, ':');
+            if (colon != NULL)
+            {
+                char *value = colon + 1;
+                while ((*value != '\0') && isspace((unsigned char)*value))
+                {
+                    value++;
+                }
+
+                if ((*value >= '0' && *value <= '9') || (*value == '-'))
+                {
+                    long pose_num = strtol(value, NULL, 10);
+                    switch (pose_num)
+                    {
+                        case 0: return DEVICE_POSE_CAMERA;
+                        case 1: return DEVICE_POSE_INDUCTIVE;
+                        case 2: return DEVICE_POSE_SCALE;
+                        case 3: return DEVICE_POSE_MIXER;
+                        case 4: return DEVICE_POSE_DISCARD;
+                        default: break;
+                    }
+                }
+                else if (*value == '"')
+                {
+                    value++;
+                    if (strncmp(value, "camera", 6) == 0)
+                    {
+                        return DEVICE_POSE_CAMERA;
+                    }
+                    if (strncmp(value, "inductive", 9) == 0)
+                    {
+                        return DEVICE_POSE_INDUCTIVE;
+                    }
+                    if (strncmp(value, "scale", 5) == 0)
+                    {
+                        return DEVICE_POSE_SCALE;
+                    }
+                    if (strncmp(value, "mixer", 5) == 0)
+                    {
+                        return DEVICE_POSE_MIXER;
+                    }
+                    if (strncmp(value, "discard", 7) == 0)
+                    {
+                        return DEVICE_POSE_DISCARD;
+                    }
+                }
+            }
+        }
+    }
+
     if (strstr(buf, "\"pose\":\"camera\"") != NULL)
     {
         return DEVICE_POSE_CAMERA;
@@ -404,23 +479,16 @@ static device_pose_t parse_robot_pose(const char *payload, int payload_len)
 
 static bool is_transport_done_msg(const char *payload, int payload_len)
 {
-    /* Check if payload contains "done" as a state value */
-    if (payload_len >= 4)  /* at least "done" length */
-    {
-        /* Simple check for "state":"done" pattern */
-        if (strstr(payload, "\"state\":\"done\"") != NULL)
-        {
-            return true;
-        }
-        
-        /* Alternative if payload might have whitespace */
-        if (strstr(payload, "\"state\": \"done\"") != NULL)
-        {
-            return true;
-        }
-    }
-    
-    return false;
+    char buf[160];
+    int copy_len = (payload_len < (int)(sizeof(buf) - 1)) ? payload_len : (int)(sizeof(buf) - 1);
+
+    memcpy(buf, payload, copy_len);
+    buf[copy_len] = '\0';
+
+    return ((strstr(buf, "\"state\":\"done\"") != NULL)
+            || (strstr(buf, "\"state\": \"done\"") != NULL)
+            || (strstr(buf, "\"status\":\"done\"") != NULL)
+            || (strstr(buf, "\"done\":true") != NULL));
 }
 
 /******************************************************************************
@@ -445,6 +513,35 @@ static void handle_robot_cmd(const subscriber_data_t *subscriber_q_data)
 
     switch (cmd)
     {
+        case ROBOT_CMD_START:
+        case ROBOT_CMD_PICK:
+        case ROBOT_CMD_PLACE:
+        {
+            if (robot_arm_initialized)
+            {
+                DeviceFunction_execute(&robot_arm);
+            }
+            else
+            {
+                publish_error("device not initialized");
+            }
+            break;
+        }
+
+        case ROBOT_CMD_HOME:
+        {
+            if (robot_arm_initialized)
+            {
+                DeviceFunction_move_to_pose(&robot_arm, DEVICE_POSE_CAMERA);
+                publish_state("at_camera");
+            }
+            else
+            {
+                publish_error("device not initialized");
+            }
+            break;
+        }
+
 		case ROBOT_CMD_TEACH:
         {
             if (robot_arm_initialized)
@@ -484,6 +581,20 @@ static void handle_robot_cmd(const subscriber_data_t *subscriber_q_data)
                 DeviceFunction_move_to_pose(&robot_arm, subscriber_q_data->target_pose);
                 
                 /* Publish move completion state */
+                char state_msg[32];
+                snprintf(state_msg, sizeof(state_msg), "at_%s",
+                         DeviceFunction_get_pose_name(subscriber_q_data->target_pose));
+                publish_state(state_msg);
+            }
+            break;
+        }
+
+        case ROBOT_CMD_MOVE:
+        {
+            if (robot_arm_initialized)
+            {
+                DeviceFunction_move_to_pose(&robot_arm, subscriber_q_data->target_pose);
+
                 char state_msg[32];
                 snprintf(state_msg, sizeof(state_msg), "at_%s",
                          DeviceFunction_get_pose_name(subscriber_q_data->target_pose));
@@ -641,19 +752,18 @@ static void handle_subscriber_cmd(const subscriber_data_t *subscriber_q_data)
  ******************************************************************************/
 static void publish_state(const char *state)
 {
-    publisher_data_t pub_cmd =
-    {
-        .cmd = PUBLISH_STATE,
-        .state = state,
-        .detail = NULL
-    };
+    publisher_data_t pub_cmd;
+    publisher_data_t pub_error_clear_cmd;
 
-    publisher_data_t pub_error_clear_cmd =
-    {
-        .cmd = PUBLISH_ERROR,
-        .state = "ok",
-        .detail = ""
-    };
+    memset(&pub_cmd, 0, sizeof(pub_cmd));
+    pub_cmd.cmd = PUBLISH_STATE;
+    strncpy(pub_cmd.state, (state != NULL) ? state : "unknown", sizeof(pub_cmd.state) - 1);
+    pub_cmd.state[sizeof(pub_cmd.state) - 1] = '\0';
+
+    memset(&pub_error_clear_cmd, 0, sizeof(pub_error_clear_cmd));
+    pub_error_clear_cmd.cmd = PUBLISH_ERROR;
+    strncpy(pub_error_clear_cmd.state, "ok", sizeof(pub_error_clear_cmd.state) - 1);
+    pub_error_clear_cmd.state[sizeof(pub_error_clear_cmd.state) - 1] = '\0';
 
     if (publisher_task_q != NULL)
     {
@@ -666,27 +776,16 @@ static void publish_state(const char *state)
     }
 }
 
-/******************************************************************************
- * Function Name: publish_error
- ****************************************************************************
- * Summary:
- *  Enqueue an error JSON message for publishing.
- *
- * Parameters:
- *  const char *detail : Error detail string
- *
- * Return:
- *  void
- *
- ******************************************************************************/
 static void publish_error(const char *detail)
 {
-    publisher_data_t pub_cmd =
-    {
-        .cmd = PUBLISH_ERROR,
-        .state = "error",
-        .detail = detail
-    };
+    publisher_data_t pub_cmd;
+
+    memset(&pub_cmd, 0, sizeof(pub_cmd));
+    pub_cmd.cmd = PUBLISH_ERROR;
+    strncpy(pub_cmd.state, "error", sizeof(pub_cmd.state) - 1);
+    pub_cmd.state[sizeof(pub_cmd.state) - 1] = '\0';
+    strncpy(pub_cmd.detail, (detail != NULL) ? detail : "unknown error", sizeof(pub_cmd.detail) - 1);
+    pub_cmd.detail[sizeof(pub_cmd.detail) - 1] = '\0';
 
     if (publisher_task_q != NULL)
     {
@@ -697,5 +796,4 @@ static void publish_error(const char *detail)
         printf("Subscriber: publisher_task_q is NULL, error not sent yet.\n");
     }
 }
-
 /* [] END OF FILE */

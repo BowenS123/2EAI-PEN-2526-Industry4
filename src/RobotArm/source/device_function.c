@@ -453,11 +453,10 @@ void DeviceFunction_execute(DeviceFunction *dev)
     if (!dev->state_done)
     {
         dev->is_running = true;
-        publisher_data_t pub_cmd = {
-            .cmd = PUBLISH_STATE,
-            .state = "running",
-            .detail = NULL
-        };
+        publisher_data_t pub_cmd = {0};
+        pub_cmd.cmd = PUBLISH_STATE;
+        strncpy(pub_cmd.state, "running", sizeof(pub_cmd.state) - 1);
+        pub_cmd.state[sizeof(pub_cmd.state) - 1] = '\0';
         xQueueSend(publisher_task_q, &pub_cmd, portMAX_DELAY);
 
         cyhal_gpio_write(dev->motor_pin, 1);
@@ -467,11 +466,10 @@ void DeviceFunction_execute(DeviceFunction *dev)
         dev->is_running = false;
         dev->state_done = true;
 
-        publisher_data_t pub_cmd_done = {
-            .cmd = PUBLISH_STATE,
-            .state = "done",
-            .detail = NULL
-        };
+        publisher_data_t pub_cmd_done = {0};
+        pub_cmd_done.cmd = PUBLISH_STATE;
+        strncpy(pub_cmd_done.state, "done", sizeof(pub_cmd_done.state) - 1);
+        pub_cmd_done.state[sizeof(pub_cmd_done.state) - 1] = '\0';
         printf("Device is done\n");
         xQueueSend(publisher_task_q, &pub_cmd_done, portMAX_DELAY);
     }

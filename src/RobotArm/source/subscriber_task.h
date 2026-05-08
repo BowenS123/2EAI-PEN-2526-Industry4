@@ -62,6 +62,11 @@
 /* Robot commands carried over MQTT. */
 typedef enum
 {
+    ROBOT_CMD_START,
+    ROBOT_CMD_MOVE,
+    ROBOT_CMD_PICK,
+    ROBOT_CMD_PLACE,
+    ROBOT_CMD_HOME,
     ROBOT_CMD_TEACH,
     ROBOT_CMD_GOTO,
     ROBOT_CMD_SAVE,

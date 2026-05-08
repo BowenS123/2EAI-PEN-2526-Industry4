@@ -121,7 +121,7 @@ void publisher_task(void *pvParameters)
 
                 case PUBLISH_STATE:
                 {
-                    const char *state = (publisher_q_data.state != NULL) ? publisher_q_data.state : "unknown";
+                    const char *state = (publisher_q_data.state[0] != '\0') ? publisher_q_data.state : "unknown";
 
                     snprintf(json_payload, sizeof(json_payload), "{\"state\":\"%s\"}", state);
 
@@ -131,14 +131,22 @@ void publisher_task(void *pvParameters)
 
                 case PUBLISH_ERROR:
                 {
-                    const char *state = (publisher_q_data.state != NULL) ? publisher_q_data.state : "error";
-                    const char *detail = (publisher_q_data.detail != NULL) ? publisher_q_data.detail : "";
+                    const char *state = (publisher_q_data.state[0] != '\0') ? publisher_q_data.state : "error";
+                    const char *detail = (publisher_q_data.detail[0] != '\0') ? publisher_q_data.detail : "";
                     const char *error_flag = (strcmp(state, "ok") == 0) ? "false" : "true";
-                    snprintf(json_payload, sizeof(json_payload),
-                             "{\"state\":\"%s\",\"error\":%s,\"message\":\"%s\"}",
-                             state,
-                             error_flag,
-                             detail);
+                    int prefix_len = snprintf(json_payload, sizeof(json_payload),
+                                              "{\"state\":\"%s\",\"error\":%s,\"message\":\"",
+                                              state,
+                                              error_flag);
+                    if ((prefix_len >= 0) && (prefix_len < (int)sizeof(json_payload)))
+                    {
+                        size_t remaining = sizeof(json_payload) - (size_t)prefix_len;
+                        size_t detail_limit = (remaining > 3u) ? (remaining - 3u) : 0u;
+
+                        snprintf(&json_payload[prefix_len], remaining, "%.*s\"}",
+                                 (int)detail_limit,
+                                 detail);
+                    }
                     publish_json(&publish_error_info, json_payload, "error");
                     break;
                 }
@@ -152,8 +160,8 @@ void publisher_task(void *pvParameters)
              * and the mqtt_task will be notified as usual.
              */
             /* Publish heartbeat with timestamp (ms since scheduler start). */
-            uint32_t ts_ms = (uint32_t)(xTaskGetTickCount() * portTICK_PERIOD_MS);
-            snprintf(json_payload, sizeof(json_payload), "{\"ts\":%lu}", (unsigned long)ts_ms);
+            /* Publish heartbeat state to indicate the device is alive. */
+            snprintf(json_payload, sizeof(json_payload), "{\"state\":\"heartbeat_idle\"}");
             publish_json(&publish_heartbeat_info, json_payload, "heartbeat");
         }
     }

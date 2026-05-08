@@ -41,6 +41,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"798"</v>
+              <v n="TextDefault">"Current State : %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"156"</v>
+              <v n="TextDefault">"Current State: %s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"520"</v>
               <v n="TextDefault">"Display: "</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -58,6 +68,11 @@
             <o>
               <v n="TextID">"631"</v>
               <v n="TextDefault">"E-STOP"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"797"</v>
+              <v n="TextDefault">"EMERGENCY STOP"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -91,6 +106,36 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"9"</v>
+              <v n="TextDefault">"GOTO "</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"576"</v>
+              <v n="TextDefault">"GOTO Camera"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"299"</v>
+              <v n="TextDefault">"GOTO Discard"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"667"</v>
+              <v n="TextDefault">"GOTO Inductieve"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"837"</v>
+              <v n="TextDefault">"GOTO Mixer"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"584"</v>
+              <v n="TextDefault">"GOTO Scale"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"207"</v>
               <v n="TextDefault">"Heartbeat status"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -103,6 +148,11 @@
             <o>
               <v n="TextID">"523"</v>
               <v n="TextDefault">"Inductieve Sensor"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"638"</v>
+              <v n="TextDefault">"Last Acknowledgement : %s"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -158,6 +208,11 @@
             <o>
               <v n="TextID">"831"</v>
               <v n="TextDefault">"Online"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"66"</v>
+              <v n="TextDefault">"OTO Camera"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -231,6 +286,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"390"</v>
+              <v n="TextDefault">"Save"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"29"</v>
+              <v n="TextDefault">"SAVE POSITION"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"740"</v>
               <v n="TextDefault">"Start"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -268,6 +333,41 @@
             <o>
               <v n="TextID">"591"</v>
               <v n="TextDefault">"t"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"992"</v>
+              <v n="TextDefault">"Teach"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"982"</v>
+              <v n="TextDefault">"Teach Camera"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"10"</v>
+              <v n="TextDefault">"Teach Discard"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"480"</v>
+              <v n="TextDefault">"Teach Inductieve"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"2"</v>
+              <v n="TextDefault">"Teach Mixer"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"315"</v>
+              <v n="TextDefault">"TEACH MODE"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"948"</v>
+              <v n="TextDefault">"Teach Scale"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
