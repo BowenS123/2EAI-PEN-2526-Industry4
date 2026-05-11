@@ -6,6 +6,14 @@ Deze folder bevat alle documenten met bijhorende media en resource bestanden voo
 
 ```
 docs/
+├── Bomlijst.md
+├── Hardware_Diagram.drawio.xml
+├── InstallatieTCVision.md
+├── MOSQUITTO_SETUP.md
+├── PLC_Documentatie.md
+├── Report turning cilinder.pdf
+├── TASKS.md
+├──	weegschaal.md
 ├── images/              # Afbeeldingen
 ├── videos/              # Video bestanden
 └── datasheets/          # Datasheets
@@ -18,6 +26,8 @@ docs/
     ├── Linear_actuator adapters 3D.docx
     ├── Stepmotor_lab.docx
     ├── git-cheat-sheet-education.pdf
+	├── Mako G-040_Datasheet.pdf
+	├── C6015_Industrial_PC.pdf
 ```
 
 ## Referentie documenten
