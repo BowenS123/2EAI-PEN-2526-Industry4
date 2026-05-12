@@ -20,4 +20,4 @@
 
 ## Progressie tussenperiode 1 (23/03/2026)
 
-!["prograssie  deel 1"](images/status_tasks.png)
+ 

@@ -246,5 +246,5 @@ Controleer of de volgende punten correct zijn ingesteld:
 ## Referenties
 
 - [Beckhoff TF7000-TF7810 TwinCAT 3 Vision officiële documentatie](https://infosys.beckhoff.com/english.php?content=../content/1033/tf7xxx_tc3_vision/6797108491.html)
-- [C6105 Industrial PC informatie](https://www.beckhoff.com/de-en/products/ipc/embedded-pcs/cx5xxx/cx5xxx.html)
+- [C6105 Industrial PC informatie](https://www.beckhoff.com/)
 - Mako G-040C PoE Camera documentation van Allied Vision

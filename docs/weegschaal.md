@@ -77,7 +77,7 @@ Zie: `\src\Weegschaal\testWeegschaal.py` voor weegschaal te testen met uw PC.
   2. Voeg FB_ParseWeight toe aan je project
   3. Implementeer de Function blocks in uw project zoals in `\src\Weegschaal\WeegschaalPLC\WeegschaalPLC\Weegschaal\POUs\MAIN.TcPOU`
   4. Configureer EL6002 in de I/O tree (link RX & TX)
-    ![IO Weegschaal](IO_Weegschaal.png)
+    
   5. Licentie Vereisten ?
 
 ### Function Blocks

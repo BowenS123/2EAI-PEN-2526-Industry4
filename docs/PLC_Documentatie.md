@@ -20,10 +20,10 @@ Concrete I/O en EtherCAT mapping worden niet in de PLC code definities aangetrof
 
 ### I/O mapping
 In de huidige projectbestanden zijn geen fysieke I/O variabelen gedefinieerd:
-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL)
-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL)
+- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL)
+- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL)
 
-De transportband wordt functioneel gesimuleerd in [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU) via een timer. Daardoor is de transportband-actie volledig deterministisch binnen de PLC-cyclus en eenvoudig te vervangen door echte I/O.
+De transportband wordt functioneel gesimuleerd in [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU) via een timer. Daardoor is de transportband-actie volledig deterministisch binnen de PLC-cyclus en eenvoudig te vervangen door echte I/O.
 
 Logische I/O in dit project:
 - VISU inputs (knoppen) sturen procescommando's naar de PLC.
@@ -110,7 +110,7 @@ Timing en determinisme:
 
 ### 3.1 Broker & Topics
 
-Broker en topics staan in [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL):
+Broker en topics staan in [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL):
 
 ```
 sMqttBroker := '192.168.1.240'
@@ -182,7 +182,7 @@ Command prioriteit (waarom):
 - `save` wordt hoger geprioriteerd dan `teach`/`goto` om het teach-proces niet te onderbreken.
 - `teach` start de teach flow, `goto` voert een pose verplaatsing uit.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/MAIN.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/MAIN.TcPOU)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/MAIN.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/MAIN.TcPOU)
 
 ### 4.2 FB_StateMachine
 
@@ -198,7 +198,7 @@ Interpretatie:
 - `STOPPING` is een overgangsstaat die direct naar `IDLE` gaat.
 - `ERROR` is sticky totdat een stop actie plaatsvindt.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_StateMachine.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_StateMachine.TcPOU)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_StateMachine.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_StateMachine.TcPOU)
 
 ### 4.3 FB_Transportband
 
@@ -212,7 +212,7 @@ Waarom dit zo is opgezet:
 - Simulatie maakt het mogelijk om de rest van het systeem te testen zonder fysieke I/O.
 - De latch voorkomt dat een korte startpuls slechts een fractie van de cyclus activeert.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_Transportband.TcPOU)
 
 ### 4.4 FB_MQTT
 
@@ -236,7 +236,7 @@ Subscribe details:
 - Robot state strings zoals `teach_*`, `at_*`, `running`, `done`, `idle` bepalen de interne flags.
 - Heartbeat wordt gebruikt voor een watchdog (12s) om offline status te detecteren.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_MQTT.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_MQTT.TcPOU)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_MQTT.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_MQTT.TcPOU)
 
 ### 4.5 FB_QrVision
 
@@ -263,7 +263,7 @@ Belangrijkste outputs:
 Belangrijkste inputs:
 - `bEnable` schakelt de volledige QR pipeline aan/uit.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_QrVision.TcPOU](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_QrVision.TcPOU)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_QrVision.TcPOU](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/POUs/FB_QrVision.TcPOU)
 
 ---
 
@@ -281,7 +281,7 @@ Waarom hier zoveel in staat:
 - MQTT is de centrale integratiebus, dus configuratie en status moeten toegankelijk zijn.
 - Visualisatie leest rechtstreeks status en display strings uit GVL_MQTT.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_MQTT.TcGVL)
 
 ### 5.2 GVL_Data
 
@@ -292,22 +292,22 @@ Gebruik:
 - De VISU kan `sQrDisplayText` tonen.
 - `hrQrVision` helpt bij diagnose wanneer de camera of decode faalt.
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Data.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Data.TcGVL)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Data.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Data.TcGVL)
 
 ### 5.3 GVL_Inputs / GVL_Outputs
 
 Leeg in de huidige code. Fysieke I/O mapping gebeurt extern in TwinCAT System Manager.
 
 Bronnen:
-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL)
-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL)
+-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Inputs.TcGVL)
+-- [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/GVLs/GVL_Outputs.TcGVL)
 
 ### 5.4 DUTs
 
 `E_MainState` definieert de processtates:
 - INIT, IDLE, RUNNING, STOPPING, ERROR
 
-Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/DUTs/E_MainState.TcDUT](plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/DUTs/E_MainState.TcDUT)
+Bron: [plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/DUTs/E_MainState.TcDUT](../plc/PannenkoekenSysteem/Pannenkoek/Pannenkoek/PannenkoekSysteem/DUTs/E_MainState.TcDUT)
 
 ---
 
