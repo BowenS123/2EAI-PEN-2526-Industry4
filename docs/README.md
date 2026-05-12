@@ -15,6 +15,7 @@ docs/
 ├── TASKS.md
 ├──	weegschaal.md
 ├── images/              # Afbeeldingen
+		├── Ethernet2.png
 ├── videos/              # Video bestanden
 └── datasheets/          # Datasheets
 	├── DMXSl20.pdf
