@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"26"</v>
+          <v n="UniqueIdGenerator">"30"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -3510,7 +3510,7 @@
                     <v n="VisualElementIdentifier">"GenElemInst_82"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -3681,7 +3681,7 @@ GVL_MQTT.bVisuRobotTeach  := TRUE;"</v>
                     <v n="VisualElementIdentifier">"GenElemInst_88"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -3852,7 +3852,7 @@ GVL_MQTT.bVisuRobotTeach  := TRUE;"</v>
                     <v n="VisualElementIdentifier">"GenElemInst_89"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -4023,7 +4023,7 @@ GVL_MQTT.bVisuRobotTeach  := TRUE;"</v>
                     <v n="VisualElementIdentifier">"GenElemInst_90"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -4194,7 +4194,7 @@ GVL_MQTT.bVisuRobotTeach  := TRUE;"</v>
                     <v n="VisualElementIdentifier">"GenElemInst_91"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -4365,7 +4365,7 @@ GVL_MQTT.bVisuRobotTeach  := TRUE;"</v>
                     <v n="VisualElementIdentifier">"GenElemInst_92"</v>
                     <n n="VisualElementOfflinePaintCommands" />
                     <n n="VisualElementFrameInformation" />
-                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                    <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                       <v>OnMouseClick</v>
                       <a cet="STSnippetInputAction">
                         <o>
@@ -7290,7 +7290,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                         </o>
                         <o>
                           <v n="Id">1999528970L</v>
-                          <v n="Value">"GVL_Data.bQrEnabled"</v>
+                          <v n="Value">"GVL_Data.bQrActive"</v>
                         </o>
                         <o>
                           <v n="Id">3719097617L</v>
@@ -7347,7 +7347,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                         </o>
                         <o>
                           <v n="Id">390574330L</v>
-                          <v n="Value">"Enabled"</v>
+                          <v n="Value">"Active"</v>
                         </o>
                         <o>
                           <v n="Id">2597686782L</v>
@@ -7359,7 +7359,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                         </o>
                         <o>
                           <v n="Id">823443203L</v>
-                          <v n="Value">"904"</v>
+                          <v n="Value">"56"</v>
                         </o>
                       </l>
                     </o>
@@ -8019,7 +8019,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                 <v n="VisualElementIdentifier">"GenElemInst_93"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -8190,7 +8190,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                 <v n="VisualElementIdentifier">"GenElemInst_94"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -8361,7 +8361,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                 <v n="VisualElementIdentifier">"GenElemInst_95"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -8532,7 +8532,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                 <v n="VisualElementIdentifier">"GenElemInst_96"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -8546,6 +8546,184 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
                 <a n="LMGuids" et="Guid" />
                 <d n="SubElements" t="Hashtable" />
                 <v n="VisualElementId">121</v>
+                <l n="UserManagementAccessRights" t="ArrayList" />
+                <v n="AnimationDuration">"0"</v>
+                <v n="BringToForeground">""</v>
+                <v n="ElementVersion" t="Byte">0</v>
+                <n n="TabOrder" />
+              </o>
+              <o>
+                <a n="ConfiguredComplexInputs" cet="ComplexInput">
+                  <o>
+                    <n n="DescriptionTree" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1186196937L</v>
+                          <v n="Value">"GVL_MQTT.bVisuStartSequence"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="SignatureName">"Visu_TapInput"</v>
+                    <v n="Name">"Tap"</v>
+                    <v n="Description">"Configure the tapping of a Boolean variable"</v>
+                  </o>
+                </a>
+                <l n="Elements" t="ArrayList" />
+                <n n="VisualElementDescription" />
+                <o n="VisualElemMemberList" t="VisualElemMemberList">
+                  <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                    <o>
+                      <v n="Id">571893170L</v>
+                      <v n="Value">""</v>
+                    </o>
+                    <o>
+                      <v n="Id">2340015797L</v>
+                      <v n="Value">"HCENTER"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2565699834L</v>
+                      <v n="Value">"VCENTER"</v>
+                    </o>
+                    <o>
+                      <v n="Id">4134387352L</v>
+                      <v n="Value">"NONE"</v>
+                    </o>
+                    <o>
+                      <v n="Id">1603690730L</v>
+                      <v n="Value">"Arial"</v>
+                    </o>
+                    <o>
+                      <v n="Id">4253639993L</v>
+                      <v n="Value" t="Int16">12</v>
+                    </o>
+                    <o>
+                      <v n="Id">2729990903L</v>
+                      <v n="Value">0U</v>
+                    </o>
+                    <o>
+                      <v n="Id">1213979116L</v>
+                      <v n="Value">0U</v>
+                    </o>
+                    <o>
+                      <v n="Id">3488306084L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">1647042231L</v>
+                      <v n="Value">"&lt;toggle/tap variable&gt;"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2812299069L</v>
+                      <v n="Value">4294967295U</v>
+                    </o>
+                    <o>
+                      <v n="Id">494569607L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">3719097617L</v>
+                      <v n="Value">0</v>
+                    </o>
+                    <o>
+                      <v n="Id">1649127785L</v>
+                      <v n="Value">1342</v>
+                    </o>
+                    <o>
+                      <v n="Id">357335551L</v>
+                      <v n="Value">30</v>
+                    </o>
+                    <o>
+                      <v n="Id">2422045748L</v>
+                      <v n="Value">121</v>
+                    </o>
+                    <o>
+                      <v n="Id">2134141914L</v>
+                      <v n="Value">30</v>
+                    </o>
+                    <o>
+                      <v n="Id">1651471674L</v>
+                      <v n="Value">true</v>
+                    </o>
+                    <o>
+                      <v n="Id">2341735680L</v>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4292137160</v>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">438423234L</v>
+                      <l n="Value" t="ArrayList" cet="UInt32">
+                        <v>4292137160</v>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">3729828405L</v>
+                      <l n="Value" t="ArrayList" cet="NamedStyleFont">
+                        <o>
+                          <v n="FontStyle">0</v>
+                          <v n="AdditionalFontStyle" t="UInt16">0</v>
+                          <v n="ExplicitColor">-16777216</v>
+                          <v n="CanonicalName">"Font-Standard"</v>
+                          <v n="FontName">"Arial"</v>
+                          <v n="DisplayName">""</v>
+                          <v n="FontSize">12</v>
+                          <v n="ScriptIdentification">0</v>
+                          <v n="DoubleFontSize" t="Double">0</v>
+                          <n n="NamedColor" />
+                        </o>
+                      </l>
+                    </o>
+                    <o>
+                      <v n="Id">550940142L</v>
+                      <v n="Value">1402</v>
+                    </o>
+                    <o>
+                      <v n="Id">1473355128L</v>
+                      <v n="Value">45</v>
+                    </o>
+                    <o>
+                      <v n="Id">493260384L</v>
+                      <v n="Value">4294967295U</v>
+                    </o>
+                    <o>
+                      <v n="Id">135947015L</v>
+                      <v n="Value">4278190080U</v>
+                    </o>
+                    <o>
+                      <v n="Id">2678395525L</v>
+                      <v n="Value">1U</v>
+                    </o>
+                    <o>
+                      <v n="Id">2478807622L</v>
+                      <v n="Value">""</v>
+                    </o>
+                    <o>
+                      <v n="Id">390574330L</v>
+                      <v n="Value">"Start Auto"</v>
+                    </o>
+                    <o>
+                      <v n="Id">2597686782L</v>
+                      <v n="Value">false</v>
+                    </o>
+                    <o>
+                      <v n="Id">823443203L</v>
+                      <v n="Value">"619"</v>
+                    </o>
+                  </l>
+                </o>
+                <v n="VisualElementName">"Button"</v>
+                <v n="VisualElementTypeName">"VisuFbElemButton"</v>
+                <v n="VisualElementIsRectangle">true</v>
+                <v n="VisualElementIdentifier">"GenElemInst_104"</v>
+                <n n="VisualElementOfflinePaintCommands" />
+                <n n="VisualElementFrameInformation" />
+                <d n="VisualElementInputActions" t="Hashtable" />
+                <v n="VisualElementIdentification">{8497a36c-faba-4b07-80d3-ecb2a678f83c}</v>
+                <v n="VisualElementOwningObjectGuid">{747fc4aa-41f4-4f69-b086-b41493138125}</v>
+                <a n="LMGuids" et="Guid" />
+                <d n="SubElements" t="Hashtable" />
+                <v n="VisualElementId">134</v>
                 <l n="UserManagementAccessRights" t="ArrayList" />
                 <v n="AnimationDuration">"0"</v>
                 <v n="BringToForeground">""</v>
@@ -8722,7 +8900,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
             </o>
             <v n="DialogDut">{446d169a-c164-4e01-bd5f-743cc22c9e2e}</v>
           </o>
-          <v n="LastUsedIdForIdentifier">102</v>
+          <v n="LastUsedIdForIdentifier">104</v>
           <o n="TextDocument" t="TextDocument">
             <v n="TextBlobForSerialisation">""</v>
             <n n="LineInfoPersistence" />
@@ -8777,7 +8955,6 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
-        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=4.8.0.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>
         <Type n="Int32">System.Int32</Type>
         <Type n="Int64">System.Int64</Type>
@@ -8785,6 +8962,7 @@ GVL_MQTT.bVisuRobotGoto   := TRUE;"</v>
         <Type n="NamedStyleFont">{9e842eb2-1463-4af2-b605-4fbb17044f94}</Type>
         <Type n="String">System.String</Type>
         <Type n="STSnippetInputAction">{6302d3fe-6ea5-4c42-819a-a9734a133b3d}</Type>
+        <Type n="STSnippetInputAction[]">_3S.CoDeSys.VisualElem.STSnippetInputAction[], VisualElem.plugin, Version=4.8.0.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="TextDocument">{f3878285-8e4f-490b-bb1b-9acbb7eb04db}</Type>
         <Type n="UInt16">System.UInt16</Type>
         <Type n="UInt32">System.UInt32</Type>

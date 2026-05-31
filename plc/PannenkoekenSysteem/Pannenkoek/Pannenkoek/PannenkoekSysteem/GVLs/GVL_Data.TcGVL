@@ -5,8 +5,10 @@
 VAR_GLOBAL
   bQrEnabled     : BOOL := FALSE;
   bQrCodeFound   : BOOL := FALSE;
+  bQrCameraConnected : BOOL := FALSE; // Camera hardware connected
+  bQrActive      : BOOL := FALSE;    // Enabled OR camera connected (VISU lamp)
   sQrCodeText    : STRING(255) := '';
-  sQrDisplayText : STRING(512) := 'QR scanner UIT';
+  sQrDisplayText : STRING(512) := 'QR scanner OFF';
   hrQrVision     : HRESULT := 0;
 END_VAR]]></Declaration>
   </GVL>

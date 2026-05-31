@@ -10,6 +10,7 @@ VAR_OUTPUT
   sCodeAsString : STRING(255) := '';
   sDisplayText  : STRING(512) := '';
   hrLast        : HRESULT := 0;
+  bCameraConnected : BOOL := FALSE;
 END_VAR
 VAR
   fbCameraControl   : FB_VN_GevCameraControl;
@@ -31,6 +32,13 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[eState := fbCameraControl.GetState();
+
+// Camera connected when opened or acquiring
+IF (eState = TCVN_CS_OPENED) OR (eState = TCVN_CS_STARTACQUISITION) OR (eState = TCVN_CS_ACQUIRING) THEN
+  bCameraConnected := TRUE;
+ELSE
+  bCameraConnected := FALSE;
+END_IF
 
 CASE eState OF
   TCVN_CS_ERROR:
@@ -112,7 +120,7 @@ CASE eState OF
     ELSE
       bCodeFound := FALSE;
       sCodeAsString := '';
-      sDisplayText := 'QR scanner UIT';
+        sDisplayText := 'QR scanner OFF';
     END_IF
 
   TCVN_CS_STOPACQUISITION:

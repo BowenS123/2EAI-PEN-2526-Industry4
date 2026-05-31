@@ -148,7 +148,7 @@ IF fbMqttClient.bConnected THEN
 		);
 	END_IF
 
-	// Robot arm command publishing vanuit PLC
+	// Robot arm command publishing from PLC
 	IF bRobotTeachCmd THEN
 		sRobotCommandPayload := '{"cmd":"teach","pose":"';
 		sRobotCommandPayload := CONCAT(sRobotCommandPayload, sRobotTargetPose);
@@ -163,7 +163,7 @@ IF fbMqttClient.bConnected THEN
 		);
 		GVL_MQTT.sRobotArmLastCommand := 'teach';
 		GVL_MQTT.sRobotArmLastPose := sRobotTargetPose;
-		GVL_MQTT.sRobotArmAck := CONCAT('Teach verzonden: ', sRobotTargetPose);
+		GVL_MQTT.sRobotArmAck := CONCAT('Teach sent: ', sRobotTargetPose);
 		GVL_MQTT.bRobotArmAckOk := TRUE;
 		bRobotArmBusy := TRUE;
 		bRobotArmTeachMode := TRUE;
@@ -186,7 +186,7 @@ IF fbMqttClient.bConnected THEN
 		);
 		GVL_MQTT.sRobotArmLastCommand := 'goto';
 		GVL_MQTT.sRobotArmLastPose := sRobotTargetPose;
-		GVL_MQTT.sRobotArmAck := CONCAT('Goto verzonden: ', sRobotTargetPose);
+		GVL_MQTT.sRobotArmAck := CONCAT('Goto sent: ', sRobotTargetPose);
 		GVL_MQTT.bRobotArmAckOk := TRUE;
 		bRobotArmBusy := TRUE;
 		bRobotArmTeachMode := FALSE;
@@ -206,7 +206,7 @@ IF fbMqttClient.bConnected THEN
 			bQueue := FALSE
 		);
 		GVL_MQTT.sRobotArmLastCommand := 'save';
-		GVL_MQTT.sRobotArmAck := 'Save verzonden';
+		GVL_MQTT.sRobotArmAck := 'Save sent';
 		GVL_MQTT.bRobotArmAckOk := TRUE;
 		bRobotArmBusy := TRUE;
 		bRobotArmRunning := TRUE;
@@ -225,7 +225,7 @@ IF fbMqttClient.bConnected THEN
 			bQueue := FALSE
 		);
 		GVL_MQTT.sRobotArmLastCommand := 'stop';
-		GVL_MQTT.sRobotArmAck := 'Stop verzonden';
+		GVL_MQTT.sRobotArmAck := 'Stop sent';
 		GVL_MQTT.bRobotArmAckOk := TRUE;
 		bRobotArmBusy := FALSE;
 		bRobotArmTeachMode := FALSE;
@@ -281,8 +281,8 @@ IF fbMqttClient.bConnected THEN
 		bErrorPublished := TRUE;
 	END_IF
 
-	// Robot arm status wordt alleen uit ontvangen state/error/heartbeat opgebouwd.
-	// De PLC publiceert hier alleen commands, niet het robot-state topic.
+	// Robot arm status is built only from received state/error/heartbeat messages.
+	// The PLC only publishes commands here, not the robot-state topic.
 ELSE
 	bSubscribedRobotCmd := FALSE;
 	bSubscribedRobotState := FALSE;
@@ -344,7 +344,7 @@ IF fbMessageQueue.nQueuedMessages > 0 THEN
 			GVL_MQTT.bRobotArmAckOk := TRUE;
 			GVL_MQTT.sRobotArmAck := GVL_MQTT.sRobotStateDisplay;
 
-			// Robot verstuurt: teach_<pose>, teach_pose_changed, teach_<pose>_saved_motor*, teach_<pose>_complete, at_<pose>, idle
+			// Robot sends: teach_<pose>, teach_pose_changed, teach_<pose>_saved_motor*, teach_<pose>_complete, at_<pose>, idle
 			IF (FIND(sPayloadRcv, '"state":"teach_') > 0) THEN
 				// All teach states → busy in teach mode
 				bRobotArmBusy := TRUE;
@@ -392,9 +392,9 @@ IF fbMessageQueue.nQueuedMessages > 0 THEN
 			GVL_MQTT.sRobotErrorRaw := sPayloadRcv;
 			GVL_MQTT.sRobotErrorDisplay := F_ParseErrorDisplay(sPayload := sPayloadRcv);
 			
-			// Robot verstuurt: {"state":"error","error":true,"message":"..."} of {"state":"ok","error":false,"message":""}
+			// Robot sends: {"state":"error","error":true,"message":"..."} or {"state":"ok","error":false,"message":""}
 			IF (FIND(sPayloadRcv, '"error":true') > 0) THEN
-				// Echte error
+				// Real error
 				bRobotErrorActive := TRUE;
 				bRobotArmAlarm := TRUE;
 				GVL_MQTT.bRobotArmAckOk := FALSE;
@@ -442,9 +442,14 @@ IF fbRobotHeartbeatWatchdog.Q THEN
 	GVL_MQTT.bRobotArmOnline := FALSE;
 	GVL_MQTT.sRobotHeartbeatDisplay := 'Robot Heartbeat TIMEOUT';
 ELSE
-	GVL_MQTT.bRobotArmOnline := fbMqttClient.bConnected;
+	GVL_MQTT.bRobotArmOnline := FALSE;
 END_IF
-bRobotHeartbeatPulse := FALSE;]]></ST>
+bRobotHeartbeatPulse := FALSE;
+
+IF GVL_MQTT.bVisuForceDisableTeachIndicator THEN
+	bRobotArmTeachMode := FALSE;
+END_IF
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

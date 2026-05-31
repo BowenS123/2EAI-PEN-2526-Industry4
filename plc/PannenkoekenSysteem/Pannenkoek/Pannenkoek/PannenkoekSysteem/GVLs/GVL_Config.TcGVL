@@ -3,6 +3,17 @@
   <GVL Name="GVL_Config" Id="{a96d6ccf-375e-47d3-a696-dc0c1b7c2b56}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+  bAutoSequenceEnable : BOOL := TRUE;      // Master switch for the automated line sequence
+  tFeedDuration       : TIME := T#3S;      // Conveyor run time before the robot starts
+  tRobotTimeout       : TIME := T#20S;     // Max time to wait for a robot move
+  tQrScanDuration     : TIME := T#5S;      // Max time to scan the block at the camera
+  tSensorWaitDuration : TIME := T#5S;      // Max time to wait for the inductive sensor
+
+  sPoseCamera    : STRING(32) := 'camera';
+  sPoseScale     : STRING(32) := 'scale';
+  sPoseMixer     : STRING(32) := 'mixer';
+  sPoseInductive : STRING(32) := 'inductive';
+  sPoseDiscard   : STRING(32) := 'discard';
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

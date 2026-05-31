@@ -3,11 +3,11 @@
   <GVL Name="GVL_MQTT" Id="{12345678-1234-1234-1234-123456789abc}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	// MQTT Broker Configuratie - HiveMQ Public Broker
-	sMqttBroker			: STRING(255) := '192.168.0.198';	// HiveMQ Public Broker (free, geen auth nodig)
+	// MQTT Broker Configuration - HiveMQ Public Broker
+	sMqttBroker			: STRING(255) := '192.168.0.198';	// MQTT broker address
 	nMqttPort			: UINT := 1883;						// Standard MQTT port
-	sMqttClientID		: STRING(255) := 'Twincat_Test'; // Unieke client ID
-	bEnableMqtt			: BOOL := TRUE;						// VISU: MQTT connect aan/uit
+	sMqttClientID		: STRING(255) := 'Twincat_Test'; // Unique client ID
+	bEnableMqtt			: BOOL := TRUE;						// Enable/disable MQTT connection
 	
 	// MQTT Topics - Robot
 	sTopicRobotCmd			: STRING(255) := 'pancake/robot/cmd';
@@ -25,18 +25,22 @@ VAR_GLOBAL
 	sTopicMixerState			: STRING(255) := 'pancake/mixer/state';
 	sTopicMixerError			: STRING(255) := 'pancake/mixer/error';
 	
-	bVisuStartTransportband : BOOL := FALSE;				// VISU testknop AAN
-	bVisuStopTransportband	: BOOL := FALSE;				// VISU testknop UIT
+	bVisuStartTransportband : BOOL := FALSE;				// VISU button - Start transportband
+	bVisuStopTransportband	: BOOL := FALSE;				// VISU button - Stop transportband
+	bVisuStartSequence		: BOOL := FALSE;				// VISU button - Start automated sequence
+	bVisuAutoSequenceEnable	: BOOL := TRUE;				// VISU toggle - Automatic line sequence
 	
-	bVisuStartRobotArm		: BOOL := FALSE;				// Legacy: go-to geselecteerde pose
+	bVisuStartRobotArm		: BOOL := FALSE;				// Legacy: go-to selected pose
 	bVisuStopRobotArm		: BOOL := FALSE;				// Legacy: robot stop
-	bVisuRobotTeach			: BOOL := FALSE;				// Teach geselecteerde pose
-	bVisuRobotGoto				: BOOL := FALSE;				// Go-to geselecteerde pose
-	bVisuRobotSave				: BOOL := FALSE;				// Save huidige teach-stap
+	bVisuRobotTeach			: BOOL := FALSE;				// Teach selected pose
+	bVisuRobotGoto				: BOOL := FALSE;				// Go-to selected pose
+	bVisuRobotSave				: BOOL := FALSE;				// Save current teach step
 	bVisuRobotStop				: BOOL := FALSE;				// Stop/abort robot
-	sRobotTargetPose			: STRING(32) := 'camera';	// Target pose voor teach/goto
+	sRobotTargetPose			: STRING(32) := 'camera';	// Target pose for teach/goto
+
+	bVisuForceDisableTeachIndicator : BOOL := FALSE;
 	
-	// Status variabelen
+	// Status variables
 	bMqttConnected		: BOOL := FALSE;
 	sCurrentState		: STRING(255) := 'IDLE';
 	bRobotArmOnline		: BOOL := FALSE;
@@ -54,11 +58,11 @@ VAR_GLOBAL
 	sRobotHeartbeatDisplay	: STRING(255) := '';
 	bTransportbandRunning : BOOL := FALSE;
 	bTransportbandDone	: BOOL := FALSE;
-	sTransportbandDisplay : STRING(255) := 'Transportband UIT';
+	sTransportbandDisplay : STRING(255) := 'Transportband OFF';
 	bSystemError		: BOOL := FALSE;
 	sErrorMessage		: STRING(255) := '';
 
-	// Robot data (ALLEEN LEZEN via Subscribe)
+	// Robot data (READ ONLY via Subscribe)
 	{attribute 'TcEncoding':='UTF-8'}
 	sRobotCmdRaw		: STRING(255) := '';
 	{attribute 'TcEncoding':='UTF-8'}

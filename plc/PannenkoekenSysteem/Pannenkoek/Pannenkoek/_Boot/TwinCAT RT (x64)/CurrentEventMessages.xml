@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<TcEventSources Version="2">
+	<Translations>
+		<Text TxtId="Bootmode not activated">
+			<Text LcId="1031">Bootmode nicht aktiviert</Text>
+		</Text>
+		<Text TxtId="Command rejected: {0}, {1}">
+			<Text LcId="1031">Kommando abgewiesen: {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Communication aborted">
+			<Text LcId="1031">Kommunikation abgebrochen</Text>
+		</Text>
+		<Text TxtId="Communication established">
+			<Text LcId="1031">Kommunikation aufgebaut</Text>
+		</Text>
+		<Text TxtId="Configuration error: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Konfigurationsfehler: 0x{0,X}, 0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Cycle time o.k.: {0}">
+			<Text LcId="1031">Zykluszeit o.k.: {0}</Text>
+		</Text>
+		<Text TxtId="Debug: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Debug: 0x{0,X}, 0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Detection of operation mode completed: 0x{0,X}, {1}">
+			<Text LcId="1031">Erkennung der Betriebsart beendet: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Drive is calibrated:  {0}, {1}">
+			<Text LcId="1031">Antrieb ist kalibriert:  {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Drive is not calibrated:  {0}, {1}">
+			<Text LcId="1031">Antrieb ist nicht kalibriert:  {0}, {1}</Text>
+		</Text>
+		<Text TxtId="EL7332 2Ch. DC motor output stage (24V, 1.5A)">
+			<Text LcId="1031">EL7332 2K. DC-Motor-Endstufe (24V, 1.5A)</Text>
+		</Text>
+		<Text TxtId="Emergency stop activated: 0x{0,X}, {1}">
+			<Text LcId="1031">Emergency-Stop aktiviert: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Encoder increments not configured: 0x{0,X}, {1}">
+			<Text LcId="1031">Enkoderinkremente nicht konfiguriert: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Error: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Fehler: 0x{0,X}, 0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Incorrect drive configuration: 0x{0,X}, {1}">
+			<Text LcId="1031">Antrieb fehlerhaft konfiguriert: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Information: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Information: 0x{0,X}, 0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Initialization: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Initialisierung: 0x{0,X},  0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Invalid modulo factor: {0}">
+			<Text LcId="1031">Modulo-Faktor ungültig: {0}</Text>
+		</Text>
+		<Text TxtId="Invalid modulo position: {0}">
+			<Text LcId="1031">Modulo-Position ungültig: {0}</Text>
+		</Text>
+		<Text TxtId="Invalid modulo subtype: {0}, {1}">
+			<Text LcId="1031">Modulo-Subtyp ungültig: {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Large cycle time: {0}">
+			<Text LcId="1031">Zykluszeit zu gross: {0}</Text>
+		</Text>
+		<Text TxtId="Limiting of calibration velocity: {0}, {1}">
+			<Text LcId="1031">Begrenzung der Kalibrier-Geschwindigkeit: {0}, {1}</Text>
+		</Text>
+		<Text TxtId="No error">
+			<Text LcId="1031">kein Fehler</Text>
+		</Text>
+		<Text TxtId="Operation mode incompatible to PDO interface: 0x{0,X}, {1}">
+			<Text LcId="1031">Betriebsart inkompatibel zum PDO-Interface: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Position set: {0}, {1}">
+			<Text LcId="1031">Position gesetzt: {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Set position error: 0x{0,X}, {1}">
+			<Text LcId="1031">Fehler beim Setzen der Position: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Starttype not supported: 0x{0,X}, {1}">
+			<Text LcId="1031">Starttyp wird nicht unterstützt: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Status word set: 0x{0,X}, {1}">
+			<Text LcId="1031">Statuswort gesetzt: 0x{0,X}, {1}</Text>
+		</Text>
+		<Text TxtId="Subincrements deactivated:  {0}, {1}">
+			<Text LcId="1031">Subinkremente deaktiviert:  {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Target overrun: {0}, {1}">
+			<Text LcId="1031">Zielposition wird überfahren: {0}, {1}</Text>
+		</Text>
+		<Text TxtId="Warning: 0x{0,X}, 0x{1,X}, 0x{2,X}">
+			<Text LcId="1031">Warnung: 0x{0,X}, 0x{1,X}, 0x{2,X}</Text>
+		</Text>
+		<Text TxtId="Write access error: {0}, {1}">
+			<Text LcId="1031">Fehler beim Schreiben: {0}, {1}</Text>
+		</Text>
+	</Translations>
+	<Source>
+		<GUID>{28111931-0002-0000-5230-A41C00001800}</GUID>
+		<Name>EL7332 2Ch. DC motor output stage (24V, 1.5A)</Name>
+		<Event>
+			<Id>1</Id>
+			<Message>No error</Message>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message>Communication established</Message>
+		</Event>
+		<Event>
+			<Id>3</Id>
+			<Message>Initialization: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Event>
+			<Id>4096</Id>
+			<Message>Information: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Event>
+			<Id>4352</Id>
+			<Message>Detection of operation mode completed: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>4405</Id>
+			<Message>Cycle time o.k.: {0}</Message>
+		</Event>
+		<Event>
+			<Id>4864</Id>
+			<Message>Position set: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>5120</Id>
+			<Message>Drive is calibrated:  {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>16384</Id>
+			<Message>Warning: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Event>
+			<Id>17152</Id>
+			<Message>Subincrements deactivated:  {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>17408</Id>
+			<Message>Drive is not calibrated:  {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>17409</Id>
+			<Message>Starttype not supported: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>17410</Id>
+			<Message>Command rejected: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>17413</Id>
+			<Message>Invalid modulo subtype: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>17424</Id>
+			<Message>Target overrun: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>32769</Id>
+			<Message>Error: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Event>
+			<Id>32770</Id>
+			<Message>Communication aborted</Message>
+		</Event>
+		<Event>
+			<Id>32771</Id>
+			<Message>Configuration error: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Event>
+			<Id>33024</Id>
+			<Message>Status word set: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33025</Id>
+			<Message>Operation mode incompatible to PDO interface: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33077</Id>
+			<Message>Large cycle time: {0}</Message>
+		</Event>
+		<Event>
+			<Id>33280</Id>
+			<Message>Write access error: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33535</Id>
+			<Message>Bootmode not activated</Message>
+		</Event>
+		<Event>
+			<Id>33536</Id>
+			<Message>Set position error: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33537</Id>
+			<Message>Encoder increments not configured: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33792</Id>
+			<Message>Incorrect drive configuration: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33793</Id>
+			<Message>Limiting of calibration velocity: {0}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33794</Id>
+			<Message>Emergency stop activated: 0x{0,X}, {1}</Message>
+		</Event>
+		<Event>
+			<Id>33797</Id>
+			<Message>Invalid modulo position: {0}</Message>
+		</Event>
+		<Event>
+			<Id>33813</Id>
+			<Message>Invalid modulo factor: {0}</Message>
+		</Event>
+		<Event>
+			<Id>65535</Id>
+			<Message>Debug: 0x{0,X}, 0x{1,X}, 0x{2,X}</Message>
+		</Event>
+		<Property>
+			<Name>DisplayTxtId</Name>
+			<Value>true</Value>
+		</Property>
+	</Source>
+</TcEventSources>

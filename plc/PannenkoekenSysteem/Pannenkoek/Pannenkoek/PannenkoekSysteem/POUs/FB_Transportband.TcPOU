@@ -4,17 +4,19 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Transportband
 
 VAR_INPUT
-    bStart   : BOOL;   // Signaal van state machine
-    bStop    : BOOL;   // Stop / noodstop
+    bStart   : BOOL;   // Signal from state machine - start motor
+    bStop    : BOOL;   // Stop / emergency stop
+    tDuration : TIME;  // Motor run duration
 END_VAR
 
 VAR_OUTPUT
-    bRunning : BOOL;   // Transportband aan/uit
-    bDone    : BOOL;   // Transportband klaar (sensor of timer)
+    bRunning : BOOL;   // Transportband running
+    bDone    : BOOL;   // Transportband cycle complete
+    nMotorControl : INT;  // Output for EL7332 DC motor (0-32767 = 0-10V)
 END_VAR
 
 VAR
-  tRun : TON;       // Timer om transportband te simuleren
+  tRun : TON;       // Timer for motor duration
   rStartTrig : R_TRIG;
   bCycleActive : BOOL := FALSE;
 END_VAR
@@ -23,29 +25,35 @@ END_VAR
       <ST><![CDATA[rStartTrig(CLK := bStart);
 
 IF bStop THEN
+  // Emergency stop - shut down everything
   bCycleActive := FALSE;
   bRunning := FALSE;
   bDone := FALSE;
+  nMotorControl := 0;
   tRun(IN := FALSE);
 ELSE
-  // Nieuwe cyclus bij rising edge van start
+  // New cycle on rising edge of start
   IF rStartTrig.Q THEN
     bDone := FALSE;
     bCycleActive := TRUE;
+    nMotorControl := 32767;  // Motor at max speed (10V on EL7332)
   END_IF
 
   IF bCycleActive THEN
     bRunning := TRUE;
-    tRun(IN := TRUE, PT := T#3S);
+    tRun(IN := TRUE, PT := tDuration);
 
+    // Cycle completes when timer expires
     IF tRun.Q THEN
       bCycleActive := FALSE;
       bRunning := FALSE;
       bDone := TRUE;
+      nMotorControl := 0;  // Motor stopped
       tRun(IN := FALSE);
     END_IF
   ELSE
     bRunning := FALSE;
+    nMotorControl := 0;  // Motor stopped when no cycle active
     tRun(IN := FALSE);
   END_IF
 END_IF
