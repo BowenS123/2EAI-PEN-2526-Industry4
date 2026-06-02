@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <GVL Name="GVL_Data" Id="{e207c451-feb9-482c-923f-2b3efa1bd73d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+  bQrEnabled     : BOOL := FALSE;
+  bQrCodeFound   : BOOL := FALSE;
+  bQrCameraConnected : BOOL := FALSE; // Camera hardware connected
+  bQrActive      : BOOL := FALSE;    // Enabled OR camera connected (VISU lamp)
+  sQrCodeText    : STRING(255) := '';
+  sQrDisplayText : STRING(512) := 'QR scanner OFF';
+  hrQrVision     : HRESULT := 0;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{9b7fa13d-a8f2-4afa-ae7e-15336af159fa}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+ 
+fbCameraControl     :    FB_VN_GevCameraControl;
+eState              :    ETcVnCameraState;
+hr                  :    HRESULT;
+
+// Raw Image (Mono8 from camera)
+ipImageIn           :    ITcVnImage;
+ipImageInDisp       :    ITcVnDisplayableImage;
+
+// Processed display image (RGB for colored overlays)
+ipImageRGB          :    ITcVnImage;
+ipImageResDisp      :    ITcVnDisplayableImage;
+
+// QR Code
+ipCodeDecodedList   :    ITcVnContainer; 
+ipCodeContourList   :    ITcVnContainer;
+sCodeAsString       :    STRING(255);
+bCodeFound          :    BOOL := FALSE;
+hrQr                :    HRESULT;
+nQrAttempt          :    USINT;
+
+// Color - RGBA format: Red
+aColorRed           :    TcVnVector4_LREAL := [255, 0, 0, 255];
+sDisplayText        :    STRING(512);
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[eState := fbCameraControl.GetState();
+
+CASE eState OF
+      TCVN_CS_ERROR:
+        fbCameraControl.Reset();
+ 
+      TCVN_CS_INITIAL,
+      TCVN_CS_OPENING,
+      TCVN_CS_OPENED,
+      TCVN_CS_STARTACQUISITION:
+        // Start acquisition when camera is ready.
+        hr := fbCameraControl.StartAcquisition();
+  
+      TCVN_CS_ACQUIRING:
+        // Get current Mono8 image from camera.
+        hr := fbCameraControl.GetCurrentImage(ipImageIn);
+  
+        IF SUCCEEDED(hr) AND ipImageIn <> 0 THEN
+          // Raw display image.
+          hr := F_VN_CopyIntoDisplayableImage(ipImageIn, ipImageInDisp, hr);
+      
+          // Adaptive multi-pass QR reading.
+          bCodeFound := FALSE;
+          sCodeAsString := '';
+          sDisplayText := '';
+          ipCodeDecodedList := 0;
+          ipCodeContourList := 0;
+
+          FOR nQrAttempt := 1 TO 3 DO
+            hrQr := 0;
+
+            CASE nQrAttempt OF
+              1:
+                // Normal polarity and orientation.
+                hrQr := F_VN_ReadQRCodeExp(
+                  ipSrcImage      :=  ipImageIn,
+                  ipDecodedData   :=  ipCodeDecodedList,
+                  ipContours      :=  ipCodeContourList,
+                  nCodeNumber     :=  1,
+                  eSearchStrategy :=  TCVN_CSS_ONLY_NOT_INVERTED + TCVN_CSS_ONLY_NOT_FLIPPED,
+                  hrPrev          :=  hrQr
+                );
+              2:
+                // Allow inverted polarity.
+                hrQr := F_VN_ReadQRCodeExp(
+                  ipSrcImage      :=  ipImageIn,
+                  ipDecodedData   :=  ipCodeDecodedList,
+                  ipContours      :=  ipCodeContourList,
+                  nCodeNumber     :=  1,
+                  eSearchStrategy :=  TCVN_CSS_ONLY_NOT_FLIPPED,
+                  hrPrev          :=  hrQr
+                );
+              3:
+                // Allow flipped orientation.
+                hrQr := F_VN_ReadQRCodeExp(
+                  ipSrcImage      :=  ipImageIn,
+                  ipDecodedData   :=  ipCodeDecodedList,
+                  ipContours      :=  ipCodeContourList,
+                  nCodeNumber     :=  1,
+                  eSearchStrategy :=  TCVN_CSS_ONLY_NOT_INVERTED,
+                  hrPrev          :=  hrQr
+                );
+            END_CASE
+
+            IF SUCCEEDED(hrQr) AND ipCodeDecodedList <> 0 THEN
+              bCodeFound := TRUE;
+              hr := F_VN_ExportSubContainer_String(ipCodeDecodedList, 0, sCodeAsString, 255, hr);
+              EXIT;
+            END_IF
+          END_FOR
+          
+          // Convert Mono8 to RGB for colored overlays.
+          hr := F_VN_ConvertColorSpace(ipImageIn, ipImageRGB, TCVN_CST_GRAY_TO_RGB, hr);
+
+          // Draw overlays on RGB image.
+          IF bCodeFound AND ipCodeContourList <> 0 THEN
+            hr := F_VN_DrawContours(ipCodeContourList, 0, ipImageRGB, aColorRed, 3, hr);
+            sDisplayText := CONCAT('QR: ', sCodeAsString);
+          ELSE
+            sDisplayText := 'No QR Code Found';
+          END_IF
+          
+          // Text overlay.
+          hr := F_VN_PutTextExp(sDisplayText, ipImageRGB, 50, 100, ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX, 1.0, aColorRed, 2, TCVN_LT_8_CONNECTED, FALSE, hr);
+          
+          // Processed display image.
+          hr := F_VN_CopyIntoDisplayableImage(ipImageRGB, ipImageResDisp, hr);
+        END_IF
+  
+      TCVN_CS_STOPACQUISITION:
+        ;
+      TCVN_CS_TRIGGERING:
+        ;
+      TCVN_CS_CLOSING:
+        ;  
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

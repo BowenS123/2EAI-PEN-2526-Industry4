@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="MAIN" Id="{322adc8f-31f6-4121-9795-477df765531f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+  fbStateMachine    : FB_StateMachine;
+  fbTransportband   : FB_Transportband;
+  fbMqtt            : FB_MQTT;
+  fbQrVision        : FB_QrVision;
+  rVisuStartTap     : R_TRIG;
+  rVisuStopTap      : R_TRIG;
+  rRobotTeachTap    : R_TRIG;
+  rRobotGotoTap     : R_TRIG;
+  rRobotSaveTap     : R_TRIG;
+  rRobotStopTap     : R_TRIG;
+
+  bStartRequest     : BOOL := FALSE;
+  bStopRequest      : BOOL := FALSE;
+  bStartCmd         : BOOL := FALSE;
+  bStopCmd          : BOOL := FALSE;
+  bRobotTeachCmd    : BOOL := FALSE;
+  bRobotGotoCmd     : BOOL := FALSE;
+  bRobotSaveCmd     : BOOL := FALSE;
+  bRobotStopCmd     : BOOL := FALSE;
+  
+  // Transportband - Inductive sensor and DC motor control (EL7332)
+  bInductiveSensor  : BOOL := FALSE;   // Inductive sensor input (digital input terminal)
+  nMotorOutput      : INT := 0;        // Motor output for DC motor via EL7332 (0-32767 = 0-10V)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// 1) Start/stop requests for the line
+rVisuStartTap(CLK := GVL_MQTT.bVisuStartTransportband OR GVL_MQTT.bVisuStartSequence);
+rVisuStopTap(CLK := GVL_MQTT.bVisuStopTransportband);
+
+// If the user presses the Start Sequence button, enable AUTO and start immediately
+IF rVisuStartTap.Q THEN
+  GVL_MQTT.bVisuAutoSequenceEnable := TRUE;
+  GVL_Config.bAutoSequenceEnable := TRUE;
+END_IF
+
+// Config follows VISU toggle
+GVL_Config.bAutoSequenceEnable := GVL_MQTT.bVisuAutoSequenceEnable;
+
+bStartRequest := rVisuStartTap.Q OR fbMqtt.bRemoteStart;
+bStopRequest := rVisuStopTap.Q OR fbMqtt.bRemoteStop;
+
+// 2) State machine owns the automation sequence
+fbStateMachine(
+  bAutoEnable := GVL_Config.bAutoSequenceEnable,
+  bStartRequest := bStartRequest,
+  bStopRequest := bStopRequest,
+  bError := GVL_MQTT.bSystemError,
+  bTransportbandDone := fbTransportband.bDone,
+  bRobotBusy := fbMqtt.bRobotArmBusy,
+  bRobotDone := fbMqtt.bRobotArmDone,
+  bQrCodeFound := GVL_Data.bQrCodeFound,
+  bInductiveSensor := bInductiveSensor,
+  tRobotTimeout := GVL_Config.tRobotTimeout,
+  tQrScanDuration := GVL_Config.tQrScanDuration,
+  tSensorWaitDuration := GVL_Config.tSensorWaitDuration,
+  sPoseCamera := GVL_Config.sPoseCamera,
+  sPoseScale := GVL_Config.sPoseScale,
+  sPoseMixer := GVL_Config.sPoseMixer,
+  sPoseInductive := GVL_Config.sPoseInductive,
+  sPoseDiscard := GVL_Config.sPoseDiscard
+);
+
+  bStartCmd := fbStateMachine.bStartCmd;
+  bStopCmd := fbStateMachine.bStopCmd;
+  bRobotGotoCmd := fbStateMachine.bRobotGotoCmd;
+  bRobotStopCmd := fbStateMachine.bRobotStopCmd;
+  bRobotTeachCmd := FALSE;
+  bRobotSaveCmd := FALSE;
+
+  IF NOT GVL_Config.bAutoSequenceEnable THEN
+    // Manual robot controls remain available when automation is disabled
+    rRobotTeachTap(CLK := GVL_MQTT.bVisuRobotTeach);
+    rRobotGotoTap(CLK := GVL_MQTT.bVisuRobotGoto OR GVL_MQTT.bVisuStartRobotArm);
+    rRobotSaveTap(CLK := GVL_MQTT.bVisuRobotSave);
+    rRobotStopTap(CLK := GVL_MQTT.bVisuRobotStop OR GVL_MQTT.bVisuStopRobotArm);
+
+    IF rRobotStopTap.Q THEN
+      bRobotStopCmd := TRUE;
+    ELSIF rRobotSaveTap.Q THEN
+      bRobotSaveCmd := TRUE;
+    ELSIF rRobotTeachTap.Q THEN
+      bRobotTeachCmd := TRUE;
+    ELSIF rRobotGotoTap.Q THEN
+      bRobotGotoCmd := TRUE;
+    END_IF
+
+    bStartCmd := bStartRequest;
+    bStopCmd := bStopRequest;
+  END_IF
+
+  // Clear VISU request flags so each button click becomes a fresh rising edge
+  GVL_MQTT.bVisuRobotTeach := FALSE;
+  GVL_MQTT.bVisuRobotGoto  := FALSE;
+  GVL_MQTT.bVisuRobotSave  := FALSE;
+  GVL_MQTT.bVisuRobotStop  := FALSE;
+  GVL_MQTT.bVisuStartRobotArm := FALSE;
+  GVL_MQTT.bVisuStopRobotArm  := FALSE;
+  GVL_MQTT.bVisuStartSequence := FALSE;
+
+  // Update robot arm status display from MQTT feedback
+  GVL_MQTT.bRobotArmOnline := fbMqtt.bRobotArmOnline;
+  GVL_MQTT.bRobotArmRunning := fbMqtt.bRobotArmRunning;
+  GVL_MQTT.bRobotArmBusy := fbMqtt.bRobotArmBusy;
+  GVL_MQTT.bRobotArmTeachMode := fbMqtt.bRobotArmTeachMode;
+  GVL_MQTT.bRobotArmAlarm := fbMqtt.bRobotArmAlarm;
+  GVL_MQTT.bRobotArmDone := fbMqtt.bRobotArmDone;
+  GVL_MQTT.bRobotArmAckOk := fbMqtt.bRobotArmAckOk;
+
+  IF NOT GVL_MQTT.bRobotArmOnline THEN
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm OFFLINE';
+  ELSIF GVL_MQTT.bRobotArmAlarm THEN
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm ALARM';
+  ELSIF GVL_MQTT.bRobotArmTeachMode THEN
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm TEACH';
+  ELSIF GVL_MQTT.bRobotArmBusy THEN
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm BUSY';
+  ELSIF GVL_MQTT.bRobotArmDone THEN
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm READY';
+  ELSE
+    GVL_MQTT.sRobotArmDisplay := 'Robot Arm READY';
+  END_IF
+
+  GVL_MQTT.sCurrentState := TO_STRING(fbStateMachine.eStateOut);
+
+  // 3) Transportband
+  fbTransportband(
+    bStart := bStartCmd,
+    bStop := bStopCmd,
+    tDuration := GVL_Config.tFeedDuration
+  );
+
+  GVL_MQTT.bTransportbandRunning := fbTransportband.bRunning;
+  GVL_MQTT.bTransportbandDone := fbTransportband.bDone;
+  nMotorOutput := fbTransportband.nMotorControl;
+
+  IF fbTransportband.bRunning THEN
+    GVL_MQTT.sTransportbandDisplay := 'Transportband ON';
+  ELSIF fbTransportband.bDone THEN
+    GVL_MQTT.sTransportbandDisplay := 'Transportband READY';
+  ELSE
+    GVL_MQTT.sTransportbandDisplay := 'Transportband OFF';
+  END_IF
+
+  // 4) MQTT in separate function block
+  fbMqtt(
+    bTransportbandRunning := GVL_MQTT.bTransportbandRunning,
+    bTransportbandDone := GVL_MQTT.bTransportbandDone,
+    bRobotTeachCmd := bRobotTeachCmd,
+    bRobotGotoCmd := bRobotGotoCmd,
+    bRobotSaveCmd := bRobotSaveCmd,
+    bRobotStopCmd := bRobotStopCmd,
+    sRobotTargetPose := GVL_MQTT.sRobotTargetPose,
+    bSystemError := GVL_MQTT.bSystemError,
+    sErrorMessage := GVL_MQTT.sErrorMessage
+  );
+
+  // 5) QR vision
+  fbQrVision(
+    bEnable := GVL_Data.bQrEnabled OR fbStateMachine.bQrAutoEnable
+  );
+
+  GVL_Data.bQrCodeFound := fbQrVision.bCodeFound;
+  GVL_Data.sQrCodeText := fbQrVision.sCodeAsString;
+  GVL_Data.sQrDisplayText := fbQrVision.sDisplayText;
+  GVL_Data.hrQrVision := fbQrVision.hrLast;
+
+  // Expose camera connected state and combined active flag for VISU
+  GVL_Data.bQrCameraConnected := fbQrVision.bCameraConnected;
+  GVL_Data.bQrActive := GVL_Data.bQrEnabled OR fbQrVision.bCameraConnected;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

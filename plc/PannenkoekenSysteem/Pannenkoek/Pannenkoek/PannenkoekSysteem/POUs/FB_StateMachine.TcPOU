@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_StateMachine" Id="{734d8fb6-0da9-4e7f-80a6-9c9e670df0f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_StateMachine
+
+VAR_INPUT
+    bAutoEnable         : BOOL := TRUE;
+    bStartRequest       : BOOL;
+    bStopRequest        : BOOL;
+    bError              : BOOL;
+    bTransportbandDone  : BOOL;
+    bRobotBusy          : BOOL;
+    bRobotDone          : BOOL;
+    bQrCodeFound        : BOOL;
+    bInductiveSensor    : BOOL;
+    tRobotTimeout       : TIME;
+    tQrScanDuration     : TIME;
+    tSensorWaitDuration : TIME;
+    sPoseCamera         : STRING(32);
+    sPoseScale          : STRING(32);
+    sPoseMixer          : STRING(32);
+    sPoseInductive      : STRING(32);
+    sPoseDiscard        : STRING(32);
+END_VAR
+
+VAR_OUTPUT
+    eStateOut         : E_MainState; // Current state visible outside
+    bStartCmd         : BOOL;
+    bStopCmd          : BOOL;
+    bRobotGotoCmd     : BOOL;
+    bRobotStopCmd     : BOOL;
+    bQrAutoEnable     : BOOL;
+    sRobotTargetPose  : STRING(32);
+END_VAR
+
+VAR
+	eState : E_MainState := E_MainState.INIT;
+	bRobotBusySeen : BOOL := FALSE;
+	tRobotTimeoutFb : TON;
+	tQrScanTimerFb : TON;
+	tSensorWaitTimerFb : TON;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Default outputs
+bStartCmd := FALSE;
+bStopCmd := FALSE;
+bRobotGotoCmd := FALSE;
+bRobotStopCmd := FALSE;
+bQrAutoEnable := FALSE;
+sRobotTargetPose := '';
+
+// Reset timers unless the active state enables them below
+tRobotTimeoutFb(IN := FALSE, PT := tRobotTimeout);
+tQrScanTimerFb(IN := FALSE, PT := tQrScanDuration);
+tSensorWaitTimerFb(IN := FALSE, PT := tSensorWaitDuration);
+
+CASE eState OF
+  E_MainState.INIT:
+    eState := E_MainState.IDLE;
+
+  E_MainState.IDLE:
+    IF bError THEN
+      eState := E_MainState.ERROR;
+    ELSIF bAutoEnable AND bStartRequest THEN
+      eState := E_MainState.SEQ_FEED_BLOCK;
+      bRobotBusySeen := FALSE;
+    END_IF
+
+  E_MainState.SEQ_FEED_BLOCK:
+    bStartCmd := TRUE;
+    IF bStopRequest OR bError THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSIF bTransportbandDone THEN
+      eState := E_MainState.SEQ_MOVE_CAMERA;
+    END_IF
+
+  E_MainState.SEQ_MOVE_CAMERA:
+    bRobotGotoCmd := TRUE;
+    sRobotTargetPose := sPoseCamera;
+    eState := E_MainState.SEQ_WAIT_CAMERA;
+
+  E_MainState.SEQ_WAIT_CAMERA:
+    tRobotTimeoutFb(IN := TRUE, PT := tRobotTimeout);
+    IF bError OR bStopRequest THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSE
+      IF bRobotBusy THEN
+        bRobotBusySeen := TRUE;
+      END_IF
+
+      IF bRobotBusySeen AND bRobotDone AND NOT bRobotBusy THEN
+        bRobotBusySeen := FALSE;
+        eState := E_MainState.SEQ_SCAN_CAMERA;
+      ELSIF tRobotTimeoutFb.Q THEN
+        eState := E_MainState.SEQ_ERROR;
+      END_IF
+    END_IF
+
+  E_MainState.SEQ_SCAN_CAMERA:
+    bQrAutoEnable := TRUE;
+    tQrScanTimerFb(IN := TRUE, PT := tQrScanDuration);
+    IF bQrCodeFound OR tQrScanTimerFb.Q THEN
+      eState := E_MainState.SEQ_MOVE_SCALE;
+    END_IF
+
+  E_MainState.SEQ_MOVE_SCALE:
+    bRobotGotoCmd := TRUE;
+    sRobotTargetPose := sPoseScale;
+    eState := E_MainState.SEQ_WAIT_SCALE;
+
+  E_MainState.SEQ_WAIT_SCALE:
+    tRobotTimeoutFb(IN := TRUE, PT := tRobotTimeout);
+    IF bError OR bStopRequest THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSE
+      IF bRobotBusy THEN
+        bRobotBusySeen := TRUE;
+      END_IF
+
+      IF bRobotBusySeen AND bRobotDone AND NOT bRobotBusy THEN
+        bRobotBusySeen := FALSE;
+        eState := E_MainState.SEQ_MOVE_MIXER;
+      ELSIF tRobotTimeoutFb.Q THEN
+        eState := E_MainState.SEQ_ERROR;
+      END_IF
+    END_IF
+
+  E_MainState.SEQ_MOVE_MIXER:
+    bRobotGotoCmd := TRUE;
+    sRobotTargetPose := sPoseMixer;
+    eState := E_MainState.SEQ_WAIT_MIXER;
+
+  E_MainState.SEQ_WAIT_MIXER:
+    tRobotTimeoutFb(IN := TRUE, PT := tRobotTimeout);
+    IF bError OR bStopRequest THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSE
+      IF bRobotBusy THEN
+        bRobotBusySeen := TRUE;
+      END_IF
+
+      IF bRobotBusySeen AND bRobotDone AND NOT bRobotBusy THEN
+        bRobotBusySeen := FALSE;
+        eState := E_MainState.SEQ_MOVE_INDUCTIVE;
+      ELSIF tRobotTimeoutFb.Q THEN
+        eState := E_MainState.SEQ_ERROR;
+      END_IF
+    END_IF
+
+  E_MainState.SEQ_MOVE_INDUCTIVE:
+    bRobotGotoCmd := TRUE;
+    sRobotTargetPose := sPoseInductive;
+    eState := E_MainState.SEQ_WAIT_INDUCTIVE;
+
+  E_MainState.SEQ_WAIT_INDUCTIVE:
+    tRobotTimeoutFb(IN := TRUE, PT := tRobotTimeout);
+    IF bError OR bStopRequest THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSE
+      IF bRobotBusy THEN
+        bRobotBusySeen := TRUE;
+      END_IF
+
+      IF bRobotBusySeen AND bRobotDone AND NOT bRobotBusy THEN
+        bRobotBusySeen := FALSE;
+        IF bInductiveSensor THEN
+          eState := E_MainState.SEQ_MOVE_DISCARD;
+        ELSE
+          tSensorWaitTimerFb(IN := TRUE, PT := tSensorWaitDuration);
+          IF tSensorWaitTimerFb.Q THEN
+            eState := E_MainState.SEQ_MOVE_DISCARD;
+          END_IF
+        END_IF
+      ELSIF tRobotTimeoutFb.Q THEN
+        eState := E_MainState.SEQ_ERROR;
+      END_IF
+    END_IF
+
+  E_MainState.SEQ_MOVE_DISCARD:
+    bRobotGotoCmd := TRUE;
+    sRobotTargetPose := sPoseDiscard;
+    eState := E_MainState.SEQ_WAIT_DISCARD;
+
+  E_MainState.SEQ_WAIT_DISCARD:
+    tRobotTimeoutFb(IN := TRUE, PT := tRobotTimeout);
+    IF bError OR bStopRequest THEN
+      eState := E_MainState.SEQ_ERROR;
+    ELSE
+      IF bRobotBusy THEN
+        bRobotBusySeen := TRUE;
+      END_IF
+
+      IF bRobotBusySeen AND bRobotDone AND NOT bRobotBusy THEN
+        bRobotBusySeen := FALSE;
+        eState := E_MainState.SEQ_COMPLETE;
+      ELSIF tRobotTimeoutFb.Q THEN
+        eState := E_MainState.SEQ_ERROR;
+      END_IF
+    END_IF
+
+  E_MainState.SEQ_COMPLETE:
+    eState := E_MainState.IDLE;
+
+  E_MainState.ERROR:
+    bStopCmd := TRUE;
+    bRobotStopCmd := TRUE;
+    IF bStopRequest THEN
+      eState := E_MainState.IDLE;
+    END_IF
+
+  E_MainState.SEQ_ERROR:
+    bStopCmd := TRUE;
+    bRobotStopCmd := TRUE;
+    IF bStopRequest THEN
+      eState := E_MainState.IDLE;
+    END_IF
+END_CASE
+
+eStateOut := eState;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_StateMachine">
+      <LineId Id="9" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="10" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

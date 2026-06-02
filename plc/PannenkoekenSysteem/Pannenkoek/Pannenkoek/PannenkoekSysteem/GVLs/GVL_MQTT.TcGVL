@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.17">
+  <GVL Name="GVL_MQTT" Id="{12345678-1234-1234-1234-123456789abc}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// MQTT Broker Configuration - HiveMQ Public Broker
+	sMqttBroker			: STRING(255) := '192.168.0.198';	// MQTT broker address
+	nMqttPort			: UINT := 1883;						// Standard MQTT port
+	sMqttClientID		: STRING(255) := 'Twincat_Test'; // Unique client ID
+	bEnableMqtt			: BOOL := TRUE;						// Enable/disable MQTT connection
+	
+	// MQTT Topics - Robot
+	sTopicRobotCmd			: STRING(255) := 'pancake/robot/cmd';
+	sTopicRobotState		: STRING(255) := 'pancake/robot/state';
+	sTopicRobotError		: STRING(255) := 'pancake/robot/error';
+	sTopicRobotHeartbeat	: STRING(255) := 'pancake/robot/heartbeat';
+
+	// MQTT Topics - Transportband
+	sTopicTransportbandCmd		: STRING(255) := 'pancake/transportband/cmd';
+	sTopicTransportbandState	: STRING(255) := 'pancake/transportband/state';
+	sTopicTransportbandError	: STRING(255) := 'pancake/transportband/error';
+
+	// MQTT Topics - Mixer
+	sTopicMixerCmd				: STRING(255) := 'pancake/mixer/cmd';
+	sTopicMixerState			: STRING(255) := 'pancake/mixer/state';
+	sTopicMixerError			: STRING(255) := 'pancake/mixer/error';
+	
+	bVisuStartTransportband : BOOL := FALSE;				// VISU button - Start transportband
+	bVisuStopTransportband	: BOOL := FALSE;				// VISU button - Stop transportband
+	bVisuStartSequence		: BOOL := FALSE;				// VISU button - Start automated sequence
+	bVisuAutoSequenceEnable	: BOOL := TRUE;				// VISU toggle - Automatic line sequence
+	
+	bVisuStartRobotArm		: BOOL := FALSE;				// Legacy: go-to selected pose
+	bVisuStopRobotArm		: BOOL := FALSE;				// Legacy: robot stop
+	bVisuRobotTeach			: BOOL := FALSE;				// Teach selected pose
+	bVisuRobotGoto				: BOOL := FALSE;				// Go-to selected pose
+	bVisuRobotSave				: BOOL := FALSE;				// Save current teach step
+	bVisuRobotStop				: BOOL := FALSE;				// Stop/abort robot
+	sRobotTargetPose			: STRING(32) := 'camera';	// Target pose for teach/goto
+
+	bVisuForceDisableTeachIndicator : BOOL := FALSE;
+	
+	// Status variables
+	bMqttConnected		: BOOL := FALSE;
+	sCurrentState		: STRING(255) := 'IDLE';
+	bRobotArmOnline		: BOOL := FALSE;
+	bRobotArmRunning		: BOOL := FALSE;
+	bRobotArmBusy			: BOOL := FALSE;
+	bRobotArmTeachMode		: BOOL := FALSE;
+	bRobotArmAlarm			: BOOL := FALSE;
+	bRobotArmAckOk			: BOOL := FALSE;
+	bRobotArmDone			: BOOL := FALSE;
+	sRobotArmDisplay		: STRING(255) := 'Robot Arm OFFLINE';
+	sRobotArmAck			: STRING(255) := '';
+	sRobotArmLastCommand	: STRING(255) := '';
+	sRobotArmLastPose		: STRING(32) := '';
+	sRobotHeartbeatRaw		: STRING(255) := '';
+	sRobotHeartbeatDisplay	: STRING(255) := '';
+	bTransportbandRunning : BOOL := FALSE;
+	bTransportbandDone	: BOOL := FALSE;
+	sTransportbandDisplay : STRING(255) := 'Transportband OFF';
+	bSystemError		: BOOL := FALSE;
+	sErrorMessage		: STRING(255) := '';
+
+	// Robot data (READ ONLY via Subscribe)
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotCmdRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotStateRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotErrorRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotCmdDisplay	: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotStateDisplay	: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sRobotErrorDisplay	: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sTransportbandCmdRaw : STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerCmdRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerStateRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerErrorRaw		: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerCmdDisplay	: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerStateDisplay	: STRING(255) := '';
+	{attribute 'TcEncoding':='UTF-8'}
+	sMixerErrorDisplay	: STRING(255) := '';
+	
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Transportband" Id="{0e3417bb-6b26-4d45-9384-e25a7f165206}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Transportband
+
+VAR_INPUT
+    bStart   : BOOL;   // Signal from state machine - start motor
+    bStop    : BOOL;   // Stop / emergency stop
+    tDuration : TIME;  // Motor run duration
+END_VAR
+
+VAR_OUTPUT
+    bRunning : BOOL;   // Transportband running
+    bDone    : BOOL;   // Transportband cycle complete
+    nMotorControl : INT;  // Output for EL7332 DC motor (0-32767 = 0-10V)
+END_VAR
+
+VAR
+  tRun : TON;       // Timer for motor duration
+  rStartTrig : R_TRIG;
+  bCycleActive : BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rStartTrig(CLK := bStart);
+
+IF bStop THEN
+  // Emergency stop - shut down everything
+  bCycleActive := FALSE;
+  bRunning := FALSE;
+  bDone := FALSE;
+  nMotorControl := 0;
+  tRun(IN := FALSE);
+ELSE
+  // New cycle on rising edge of start
+  IF rStartTrig.Q THEN
+    bDone := FALSE;
+    bCycleActive := TRUE;
+    nMotorControl := 32767;  // Motor at max speed (10V on EL7332)
+  END_IF
+
+  IF bCycleActive THEN
+    bRunning := TRUE;
+    tRun(IN := TRUE, PT := tDuration);
+
+    // Cycle completes when timer expires
+    IF tRun.Q THEN
+      bCycleActive := FALSE;
+      bRunning := FALSE;
+      bDone := TRUE;
+      nMotorControl := 0;  // Motor stopped
+      tRun(IN := FALSE);
+    END_IF
+  ELSE
+    bRunning := FALSE;
+    nMotorControl := 0;  // Motor stopped when no cycle active
+    tRun(IN := FALSE);
+  END_IF
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Transportband">
+      <LineId Id="24" Count="9" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="9" />
+      <LineId Id="34" Count="7" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

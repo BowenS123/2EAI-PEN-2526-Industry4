@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="GVL_Mqtt" Id="{4d8c4f2e-605a-4f39-ae1f-2f4f2d3bbd0c}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+    c_sMqttHost           : STRING(63) := '192.168.0.197';
+    c_nMqttPort           : UINT := 1883;
+
+    c_sTopicRobotCmd      : STRING(127) := 'pancake/robot/cmd';
+    c_sTopicRobotState    : STRING(127) := 'pancake/robot/state';
+    c_sTopicRobotError    : STRING(127) := 'pancake/robot/error';
+    c_sTopicConveyorCmd   : STRING(127) := 'pancake/conveyor/cmd';
+    c_sTopicConveyorState : STRING(127) := 'pancake/conveyor/state';
+    c_sTopicConveyorError : STRING(127) := 'pancake/conveyor/error';
+END_VAR
+
+VAR_GLOBAL
+    bMqttEnable                : BOOL := TRUE;
+    bMqttConnected             : BOOL;
+    bMqttError                 : BOOL;
+    sMqttStatus                : STRING(127);
+
+    sRobotState                : STRING(31) := 'unknown';
+    bRobotStateUpdated         : BOOL;
+    bRobotStateParseError      : BOOL;
+
+    sConveyorCmdRx             : STRING(31);
+    bConveyorCmdUpdated        : BOOL;
+    sConveyorState             : STRING(31) := 'stopped';
+    sConveyorStatePublished    : STRING(31);
+    bConveyorStateSentPulse    : BOOL;
+    sConveyorErrorText         : STRING(127);
+    bConveyorErrorSentPulse    : BOOL;
+    sConveyorItem              : STRING(31);
+    bConveyorItemPresent       : BOOL;
+    bConveyorItemUpdated       : BOOL;
+
+    sRobotErrorRx              : STRING(127);
+    bRobotErrorUpdated         : BOOL;
+
+    sRobotCmdRequest           : STRING(31);
+    bRobotCmdRequestPulse      : BOOL;
+    sRobotCmdPending           : STRING(31);
+    sRobotCmdSent              : STRING(31);
+    bRobotCmdSentPulse         : BOOL;
+
+    sCoordinatorState          : STRING(31);
+    sLastRxTopic               : STRING(127);
+    sLastRxPayload             : STRING(255);
+
+    bCmdPick                   : BOOL;
+    bCmdPlace                  : BOOL;
+    bCmdHome                   : BOOL;
+    bCmdStop                   : BOOL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

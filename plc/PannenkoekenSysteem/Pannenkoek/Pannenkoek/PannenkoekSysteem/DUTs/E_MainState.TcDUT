@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="E_MainState" Id="{42f481ab-fa81-443b-9d61-64bbb4241ea5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_MainState :
+(
+    INIT,
+    IDLE,
+    ERROR,
+    SEQ_WAIT_START,
+    SEQ_FEED_BLOCK,
+    SEQ_MOVE_CAMERA,
+    SEQ_WAIT_CAMERA,
+    SEQ_SCAN_CAMERA,
+    SEQ_MOVE_SCALE,
+    SEQ_WAIT_SCALE,
+    SEQ_MOVE_MIXER,
+    SEQ_WAIT_MIXER,
+    SEQ_MOVE_INDUCTIVE,
+    SEQ_WAIT_INDUCTIVE,
+    SEQ_MOVE_DISCARD,
+    SEQ_WAIT_DISCARD,
+    SEQ_COMPLETE,
+    SEQ_ERROR
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

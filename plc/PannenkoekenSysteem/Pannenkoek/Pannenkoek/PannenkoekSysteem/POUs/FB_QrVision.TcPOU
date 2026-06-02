@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.13">
+  <POU Name="FB_QrVision" Id="{1e89e523-d31d-4917-b98c-87f5fd6bcf47}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_QrVision
+VAR_INPUT
+  bEnable : BOOL := TRUE;
+END_VAR
+VAR_OUTPUT
+  bCodeFound    : BOOL := FALSE;
+  sCodeAsString : STRING(255) := '';
+  sDisplayText  : STRING(512) := '';
+  hrLast        : HRESULT := 0;
+  bCameraConnected : BOOL := FALSE;
+END_VAR
+VAR
+  fbCameraControl   : FB_VN_GevCameraControl;
+  eState            : ETcVnCameraState;
+  hr                : HRESULT;
+
+  ipImageIn         : ITcVnImage;
+  ipImageInDisp     : ITcVnDisplayableImage;
+  ipImageRGB        : ITcVnImage;
+  ipImageResDisp    : ITcVnDisplayableImage;
+
+  ipCodeDecodedList : ITcVnContainer;
+  ipCodeContourList : ITcVnContainer;
+  hrQr              : HRESULT;
+  nQrAttempt        : USINT;
+
+  aColorRed         : TcVnVector4_LREAL := [255, 0, 0, 255];
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[eState := fbCameraControl.GetState();
+
+// Camera connected when opened or acquiring
+IF (eState = TCVN_CS_OPENED) OR (eState = TCVN_CS_STARTACQUISITION) OR (eState = TCVN_CS_ACQUIRING) THEN
+  bCameraConnected := TRUE;
+ELSE
+  bCameraConnected := FALSE;
+END_IF
+
+CASE eState OF
+  TCVN_CS_ERROR:
+    fbCameraControl.Reset();
+
+  TCVN_CS_INITIAL,
+  TCVN_CS_OPENING,
+  TCVN_CS_OPENED,
+  TCVN_CS_STARTACQUISITION:
+    IF bEnable THEN
+      hr := fbCameraControl.StartAcquisition();
+    END_IF
+
+  TCVN_CS_ACQUIRING:
+    IF bEnable THEN
+      hr := fbCameraControl.GetCurrentImage(ipImageIn);
+
+      IF SUCCEEDED(hr) AND ipImageIn <> 0 THEN
+        hr := F_VN_CopyIntoDisplayableImage(ipImageIn, ipImageInDisp, hr);
+
+        bCodeFound := FALSE;
+        sCodeAsString := '';
+        sDisplayText := '';
+        ipCodeDecodedList := 0;
+        ipCodeContourList := 0;
+
+        FOR nQrAttempt := 1 TO 3 DO
+          hrQr := 0;
+
+          CASE nQrAttempt OF
+            1:
+              hrQr := F_VN_ReadQRCodeExp(
+                ipSrcImage      := ipImageIn,
+                ipDecodedData   := ipCodeDecodedList,
+                ipContours      := ipCodeContourList,
+                nCodeNumber     := 1,
+                eSearchStrategy := TCVN_CSS_ONLY_NOT_INVERTED + TCVN_CSS_ONLY_NOT_FLIPPED,
+                hrPrev          := hrQr
+              );
+            2:
+              hrQr := F_VN_ReadQRCodeExp(
+                ipSrcImage      := ipImageIn,
+                ipDecodedData   := ipCodeDecodedList,
+                ipContours      := ipCodeContourList,
+                nCodeNumber     := 1,
+                eSearchStrategy := TCVN_CSS_ONLY_NOT_FLIPPED,
+                hrPrev          := hrQr
+              );
+            3:
+              hrQr := F_VN_ReadQRCodeExp(
+                ipSrcImage      := ipImageIn,
+                ipDecodedData   := ipCodeDecodedList,
+                ipContours      := ipCodeContourList,
+                nCodeNumber     := 1,
+                eSearchStrategy := TCVN_CSS_ONLY_NOT_INVERTED,
+                hrPrev          := hrQr
+              );
+          END_CASE
+
+          IF SUCCEEDED(hrQr) AND ipCodeDecodedList <> 0 THEN
+            bCodeFound := TRUE;
+            hr := F_VN_ExportSubContainer_String(ipCodeDecodedList, 0, sCodeAsString, 255, hr);
+            EXIT;
+          END_IF
+        END_FOR
+
+        hr := F_VN_ConvertColorSpace(ipImageIn, ipImageRGB, TCVN_CST_GRAY_TO_RGB, hr);
+
+        IF bCodeFound AND ipCodeContourList <> 0 THEN
+          hr := F_VN_DrawContours(ipCodeContourList, 0, ipImageRGB, aColorRed, 3, hr);
+          sDisplayText := CONCAT('QR: ', sCodeAsString);
+        ELSE
+          sDisplayText := 'No QR Code Found';
+        END_IF
+
+        hr := F_VN_PutTextExp(sDisplayText, ipImageRGB, 50, 100, ETcVnFontType.TCVN_FT_HERSHEY_SIMPLEX, 1.0, aColorRed, 2, TCVN_LT_8_CONNECTED, FALSE, hr);
+        hr := F_VN_CopyIntoDisplayableImage(ipImageRGB, ipImageResDisp, hr);
+      END_IF
+    ELSE
+      bCodeFound := FALSE;
+      sCodeAsString := '';
+        sDisplayText := 'QR scanner OFF';
+    END_IF
+
+  TCVN_CS_STOPACQUISITION:
+    ;
+  TCVN_CS_TRIGGERING:
+    ;
+  TCVN_CS_CLOSING:
+    ;
+END_CASE
+
+hrLast := hr;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
