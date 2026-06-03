@@ -21,12 +21,11 @@ ingrediënten met kwaliteitscontrole.
     - 3D print transportbandadapter
 - 3D-printer
     - [Report turning servo adapter](docs/Report%20turning%20cilinder.pdf)
-    - [Voorbeeld linear adapter](docs/Linear_actuator%20adapters%203D.pdf)
 - pigtail connectors
 </br></br>
 zie ook: [Bomlijst](docs/Bomlijst.md)
 
-![Overzicht](docs/images/status_tasks.png)
+![Overzicht](docs/images/0_Final_Result.drawio.png)
 
 ## Software
 
