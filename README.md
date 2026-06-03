@@ -1,32 +1,42 @@
 # 2EAI-PEN-2526-Industry4 (pannekoek)
 
-## Over het project
-
-Ontwikkelen van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
+Dit project ontwikkelt van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
 ingrediënten met kwaliteitscontrole.
+
+![Overzicht](docs/images/0_HardwareDiagram.png)
+
 
 ## Hardware
 
-- Inductieve sensor
-- Servo-motor
-- DC-Motor
-- Weegschaal
+- Inductieve sensor (PLC)
+- Servo-motoren voor Mixer & Robotarm
+- NEMA17
+    - [Stepmotor_lab jaar 1](docs/Stepmotor_lab.pdf)
+- DC-Motor voor Mixer & PLC Transportband
+- Weegschaal met RS232 connectie
 - Batch-reader
 - Robot-arm (IGUS SCARA-robot) via PSoC6
 - Transportband via PLC
-- Files transportband
+    - 3D print transportbandadapter
 - 3D-printer
+    - [Report turning servo adapter](docs/Report%20turning%20cilinder.pdf)
 - pigtail connectors
+</br></br>
+zie ook: [Bomlijst](docs/Bomlijst.md)
+
+![Overzicht](docs/images/0_Final_Result.drawio.png)
 
 ## Software
 
-- Blender/Fusion => .stl => print
-- Modustoolbox(MTB) => PSoC
+- [Blender/Fusion => .stl => print](hardware/3Dprint/)
+- Modustoolbox (MTB) => PSoC
+- VSCode => ESP32
 - Twincat3 => Beckoff PLC
+- MQTT Mosquitto
 
-## Programmeertaal
+## Programmeertalen
 
-- C/C++ => MTB
+- C/C++ => MTB, VSCode
 - Structure text => Twincat3
 
 ## Productieproces
@@ -46,23 +56,17 @@ ingrediënten met kwaliteitscontrole.
 7. Registratie </br>
     Registreren van productiegegevens in het systeem.
 
-
-
 ## Resultaten
 
-- Korte samenvatting van de belangrijkste bevindingen.
-- Eventuele grafieken, tabellen of afbeeldingen.
-- Reflectie op prestaties of betrouwbaarheid.
-
-
+- [Taken Progressie](/docs/TASKS.md)
+- [MQTT Demo & Documentatie](/docs/MOSQUITTO_SETUP.md)
+    - geeft ook weer hoe verschillende delen van project wordt opgestart (software)
 
 ## Aan de slag
 
-Niets zo frustrerend als goede code vinden zonder uitleg over hoe je het aan de praat krijgt.
-
-- [ ] Voeg hier een stapsgewijze handleiding toe.
-- [ ] Leg uit hoe je het programma start.
-
+1. Connecteer I/O
+2. Preparatie materiaal bakske vol met suiker,... op transportband
+3. Volg [MQTT Demo & Documentatie](/docs/MOSQUITTO_SETUP.md)
 
 
 ## Toekomstig werk en problemen
@@ -72,8 +76,10 @@ Niets zo frustrerend als goede code vinden zonder uitleg over hoe je het aan de 
 - Link eventueel naar een issue bv. #1
 
 
-
 ## Personen
 
-- **Contri Butor1** – _Student_ – [GitHub](https://github.com/CONTRIBUTOR1)
+- **Milan Posman** – _Student_ - MilanB
+- **Bowen** – _Student_ - Bowen
+- **Jonas Vanmarsenille** – JonasVanmarsenille
+- **Victor** – _Student_ - Goose
 - **Dieter Vanrykel** – _Docent_ – [GitHub](https://github.com/Vanrykel)
