@@ -25,7 +25,7 @@ ingrediënten met kwaliteitscontrole.
 </br></br>
 zie ook: [Bomlijst](docs/Bomlijst.md)
 
-![Overzicht](docs/images/0_Final_Result.drawio.png)
+![Overzicht](docs/images/0_Final Result.drawio.png)
 
 ## Software
 
