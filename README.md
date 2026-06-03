@@ -13,7 +13,6 @@ ingrediënten met kwaliteitscontrole.
 - NEMA17
     - [Stepmotor_lab jaar 1](docs/Stepmotor_lab.pdf)
 - DC-Motor voor Mixer & PLC Transportband
-    - [DC Motor PLC: EL7332](docs/datasheets/DC_Motor_EL7332.pdf)
 - Weegschaal met RS232 connectie
 - Batch-reader
 - Robot-arm (IGUS SCARA-robot) via PSoC6
