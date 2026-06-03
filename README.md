@@ -3,7 +3,7 @@
 Dit project ontwikkelt van een geautomatiseerd productiesysteem voor het scannen, mengen en verpakken van
 ingrediënten met kwaliteitscontrole.
 
-![Overzicht](docs/images/HardwareDiagram.png)
+![Overzicht](docs/images/0_HardwareDiagram.png)
 
 
 ## Hardware
