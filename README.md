@@ -26,9 +26,9 @@ Het Beckhoff-dashboard bundelt bediening, statusfeedback en diagnose van de
 subsystemen. TwinCAT Vision toont de gevonden QR-code met een rode contour en
 geeft de scanstatus door aan de PLC.
 
-![Beckhoff-dashboard](docs/images/BeckhoffDashboard.png)
+![Beckhoff-dashboard](docs/images/Overview.jpg)
 
-![QR-code gedetecteerd door TwinCAT Vision](docs/images/QrVisionScan.png)
+![QR-code gedetecteerd door TwinCAT Vision](docs/images/Testcamera.png)
 
 ## Architectuur
 
