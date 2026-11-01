@@ -1,2 +1,14 @@
 hardware/3Dprint/Untitled_wheel.blend1
 *.blend1
+
+# Local credentials and generated development files
+config.h
+**/config.h
+*.log
+.pio/
+.vs/
+*.suo
+*.bak
+*.compileinfo
+_CompileInfo/
+.ninja_log

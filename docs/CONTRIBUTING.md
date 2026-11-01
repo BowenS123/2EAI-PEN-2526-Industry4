@@ -1,6 +1,6 @@
-# Hoe werken met dit project?
+# Bijdragen aan Industry 4.0
 
-> **Voor studenten die nieuw zijn met Git/GitHub**
+Deze workflow houdt `main` stabiel en maakt wijzigingen traceerbaar.
 
 ---
 
@@ -21,7 +21,7 @@ cd [project-name]
 
 ### 2. Nieuwe feature/wijziging maken
 
-**Maak ALTIJD een nieuwe branch aan:**
+**Maak altijd een tijdelijke branch vanaf `main`:**
 
 ```bash
 # Zorg dat je op main staat

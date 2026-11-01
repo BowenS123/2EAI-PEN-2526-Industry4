@@ -1,29 +1,14 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
-#include <MQTTManager.h>
-#include <DeviceFunction.h>
+#include "MQTTManager.h"
+#include "DeviceFunction.h"
 #include "config.h"
 
-// dont forget to make config.h with char* WIFI_SSID & WIFI_PASSWORD
-/*
-    #ifndef CONFIG_H
-    #define CONFIG_H
-        // WiFi Credentials - EDIT THESE VALUES
-        const char* WIFI_SSID="***";
-        const char* WIFI_PASSWORD="***";
-    #endif
-    
-*/
-
-// MQTT instellingen
-const char* mqtt_server = "192.168.1.240";
-const int mqtt_port = 1883;
-
-DeviceFunction mixer("Mixer", 26,5);        // Motor op pin 26, state done requirement
+DeviceFunction mixer("Mixer", 26, 5);
 
 MQTTManager mqttManager(
-    mqtt_server, mqtt_port,
+    MQTT_SERVER, MQTT_PORT,
     WIFI_SSID, WIFI_PASSWORD,
     mixer
 );

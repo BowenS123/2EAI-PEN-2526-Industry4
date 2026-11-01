@@ -16,13 +16,6 @@ MQTTManager::MQTTManager(const char* server, int port,
       client(espClient) {
 }
 
-MQTTManager::~MQTTManager() {
-    // Cleanup
-    if (device != nullptr) {
-        delete device;
-    }
-}
-
 void MQTTManager::setup_wifi(){
     delay(10);
     Serial.println();

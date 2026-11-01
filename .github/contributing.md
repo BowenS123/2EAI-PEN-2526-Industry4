@@ -22,7 +22,7 @@ Eenmaal er enkele commits in de branch bestaan kan een pull request (PR) aangema
 
 ![pullrequest](https://github.com/PXLDigital/_Template-Vanrykel/assets/7955202/9481b438-ac8b-4729-b9c5-f26a332953e5)
 
-Binnen de PR kan je bespreken als de wijzigingen voldoende zijn om de issue te sluiten, alsook afgestemd is aan de inhoud waarmee het gaat mergen (meestal de master). Je wil immers niet dat er elementen of de structuur uit bv. de master verloren gaan.
+Binnen de PR kan je bespreken of de wijzigingen voldoende zijn om de issue te sluiten en of ze aansluiten op `main`. Controleer dat bestaande onderdelen en de structuur van `main` niet verloren gaan.
 
 Bijkomend zorgt het openen van een branch vanuit de issue er eveneens voor dat het sluiten van de PR eveneens de issue sluit. Dat is gemakkelijk. 
 

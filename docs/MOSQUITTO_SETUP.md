@@ -214,8 +214,8 @@ ipconfig;
 #define WIFI_CONFIG_H_
 #include "cy_wcm.h"
 
-#define WIFI_SSID                         "Automation" /* SSID of the Wi-Fi Access Point to which the MQTT client connects. */
-#define WIFI_PASSWORD                     "Automation" /* Passkey of the Wi-Fi. */
+#define WIFI_SSID                         "your-wifi-ssid" /* SSID of the Wi-Fi Access Point to which the MQTT client connects. */
+#define WIFI_PASSWORD                     "your-wifi-password" /* Passkey of the Wi-Fi. */
 #define WIFI_SECURITY                     CY_WCM_SECURITY_WPA2_AES_PSK /* Security type of the Wi-Fi access point. See 'cy_wcm_security_t' structure */
 
 #define MAX_WIFI_CONN_RETRIES             (120u) /* Maximum Wi-Fi re-connection limit. */
@@ -306,8 +306,8 @@ Je kunt dit stoppen/resetten via een robot command:
 ```c
 #ifndef CONFIG_H
 #define CONFIG_H
-const char* WIFI_SSID="Automation";
-const char* WIFI_PASSWORD="Automation";
+const char* WIFI_SSID="your-wifi-ssid";
+const char* WIFI_PASSWORD="your-wifi-password";
 #endif
 ```
 
