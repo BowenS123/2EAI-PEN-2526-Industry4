@@ -15,7 +15,6 @@ datasheets en afbeeldingen van de Industry 4.0-installatie.
 
 - `images/0_HardwareDiagram.png` — hardwarearchitectuur
 - `images/0_Final_Result.drawio.png` — systeemoverzicht
-- `images/Overview.jpg` — Beckhoff-bedieningspaneel
 - `images/Testcamera.png` — werkende QR-detectie
 
 Gebruik in Markdown altijd relatieve paden. Nieuwe afbeeldingen krijgen een
