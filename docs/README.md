@@ -1,101 +1,23 @@
-# Docs Folder
+# Projectdocumentatie
 
-Deze folder bevat alle documenten met bijhorende media en resource bestanden voor het project.
+Deze map bevat de technische documentatie, diagrammen, handleidingen,
+datasheets en afbeeldingen van de Industry 4.0-installatie.
 
-## Structuur
+## Belangrijkste documenten
 
-```
-docs/
-├── Bomlijst.md
-├── Hardware_Diagram.drawio.xml
-├──	Final Result.drawio.xml
-├── InstallatieTCVision.md
-├── MOSQUITTO_SETUP.md
-├── PLC_Documentatie.md
-├── Report turning cilinder.pdf
-├── TASKS.md
-├──	weegschaal.md
-├── images/              # Afbeeldingen
-		├── Ethernet2.png
-		├── 0_Final Result.drawio.png
-		├── 0_HardwareDiagram.png
-├── videos/              # Video bestanden
-└── datasheets/          # Datasheets
-	├── DMXSl20.pdf
-	├── DRE_DATA_MOT-AN-S-060-005-042-L-A-AAAA_EN.pdf
-	├── Linear_actuator adapters 3D.pdf
-	├── Operating Manual dryve D7-1 V1.0 EN.pdf
-	├── P5oK6.pdf
-	├── Stepmotor_lab.pdf
-    ├── Linear_actuator adapters 3D.docx
-    ├── Stepmotor_lab.docx
-    ├── git-cheat-sheet-education.pdf
-	├── Mako G-040_Datasheet.pdf
-	├── C6015_Industrial_PC.pdf
-	├── InductieveSensor.pdf
-	└──dmn37k50g72a datasheet.pdf
-```
+- [MQTT instellen en testen](MOSQUITTO_SETUP.md)
+- [TwinCAT Vision installeren](InstallatieTCVision.md)
+- [PLC-documentatie](PLC_Documentatie.md)
+- [Onderdelenlijst](Bomlijst.md)
+- [Bijdragen aan het project](CONTRIBUTING.md)
 
-## Referentie documenten
+## Media
 
-- `docs/datasheets`: [Datasheets map](./datasheets/)
-- `docs/datasheets/DMXSl20.pdf`: [DMXSl20.pdf](./datasheets/DMXSl20.pdf)
-- `docs/datasheets/DRE_DATA_MOT-AN-S-060-005-042-L-A-AAAA_EN.pdf`: [DRE_DATA_MOT-AN-S-060-005-042-L-A-AAAA_EN.pdf](./datasheets/DRE_DATA_MOT-AN-S-060-005-042-L-A-AAAA_EN.pdf)
-- `docs/datasheets/Linear_actuator adapters 3D.pdf`: [Linear_actuator adapters 3D.pdf](./datasheets/Linear_actuator%20adapters%203D.pdf)
-- `docs/datasheets/Operating Manual dryve D7-1 V1.0 EN.pdf`: [Operating Manual dryve D7-1 V1.0 EN.pdf](./datasheets/Operating%20Manual%20dryve%20D7-1%20V1.0%20EN.pdf)
-- `docs/datasheets/P5oK6.pdf`: [P5oK6.pdf](./datasheets/P5oK6.pdf)
-- `docs/datasheets/Stepmotor_lab.pdf`: [Stepmotor_lab.pdf](./datasheets/Stepmotor_lab.pdf)
+- `images/0_HardwareDiagram.png` — hardwarearchitectuur
+- `images/0_Final_Result.drawio.png` — systeemoverzicht
+- `images/BeckhoffDashboard.png` — Beckhoff-bedieningspaneel
+- `images/QrVisionScan.png` — werkende QR-detectie
 
-## Bronbestanden (DOCX)
-
-- docs/Linear_actuator adapters 3D.docx
-- docs/Stepmotor_lab.docx
-
-## Afbeeldingen
-
-**Afbeeldingen in Markdown**
-
-```markdown
-# In README.md (root)
-![Logo](./docs/images/screenshot-dashboard.png)
-
-# In docs/design.md
-![Diagram](../docs/images/diagrams/architecture-v1.png)
-```
-
-**Naming Convention:**
-
-```
-[type]-[description]-[optional-variant].ext
-
-Voorbeelden:
-- screenshot-dashboard-light.png
-- diagram-architecture-v2.png
-- logo-primary.svg
-- icon-user-active.svg
-```
-```
-diagram-[type]-[description]-v[version].png
-
-Voorbeelden:
-- diagram-architecture-system-v1.png
-- diagram-erd-database-v2.png
-- diagram-flow-user-registration-v1.png
-```
-
-**Optimalisatie:**
-
-- Comprimeer afbeeldingen voordat je ze commit
-- Gebruik tools zoals TinyPNG, ImageOptim
-- Houd bestandsgroottes onder 500KB waar mogelijk
-- Gebruik voor diagrammen Draw.io of Mermaid (in Markdown)
-
-## Diagrammen
-
-Een goed voorbereid en professioneel gedocumenteerd project bevat relevante diagrammen die de structuur, werking en interacties binnen het systeem verduidelijken. Afhankelijk van de aard van het project kunnen dit onder meer zijn:
-
-- Architecture diagrams
-- Database ERD
-- User flow diagrams
-- Sequence diagrams
-- Component diagrams
+Gebruik in Markdown altijd relatieve paden. Nieuwe afbeeldingen krijgen een
+beschrijvende naam en worden toegevoegd aan een relevante documentatiepagina.
+Build-output, tijdelijke exports en persoonlijke credentials horen niet in Git.

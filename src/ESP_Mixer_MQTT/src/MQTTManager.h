@@ -51,7 +51,7 @@ public:
     MQTTManager(const char* server, int port, 
                 const char* wifiSSID, const char* wifiPassword,
                 DeviceFunction& device);
-    ~MQTTManager();
+    ~MQTTManager() = default;
     
     void begin();
     void loop();

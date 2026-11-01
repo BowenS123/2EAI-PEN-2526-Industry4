@@ -1,4 +1,4 @@
-#include "deviceFunction.h"
+#include "DeviceFunction.h"
 
 DeviceFunction::DeviceFunction(String name, int motor,int stateDoneReq) {
     deviceName = name;
